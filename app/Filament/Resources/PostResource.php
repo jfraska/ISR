@@ -19,7 +19,7 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-pencil'; 
 
     public static function form(Form $form): Form
     {
@@ -30,8 +30,12 @@ class PostResource extends Resource
                 Forms\Components\RichEditor::make('content')->required(),
                 Forms\Components\TextInput::make('meta_description'),
                 Forms\Components\Checkbox::make('is_published'),
+                Forms\Components\Checkbox::make('is_featured'),
                 Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->image()->imageEditor()
+                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->image()->optimize('webp')->imageEditor(),
+                Forms\Components\Select::make('categories')
+                            ->multiple()
+                            ->relationship('categories','title')
             ]);
     }
 
@@ -41,6 +45,7 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\CheckboxColumn::make('is_featured'),
                 Tables\Columns\CheckboxColumn::make('is_published'),
             ])
             ->filters([
