@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Post $post)
+    public function index()
     {
-        return view('posts.index', [
-            'post' => $post
-        ]);
+        return view(
+            'posts.index',
+            [
+                'posts' => Post::get()
+            ]
+        );
+    }
+
+    public function show(Post $post)
+    {
+        return view(
+            'posts.show',
+            [
+                'post' => $post
+            ]
+        );
     }
 }

@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Category extends Model implements HasMedia
+class Category extends Model
 {
-    use InteractsWithMedia;
     use HasFactory;
 
     protected $fillable = [
@@ -21,4 +18,9 @@ class Category extends Model implements HasMedia
         'text_color',
         'meta_description'
     ];
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }

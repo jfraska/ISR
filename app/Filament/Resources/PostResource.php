@@ -6,7 +6,14 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Components\Tabs\Tab;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -15,38 +22,45 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-m-pencil'; 
+    protected static ?string $navigationIcon = 'heroicon-m-pencil';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Tabs::make('post')->tabs([
-                    Tab::make('Content')->schema([
-                        Forms\Components\TextInput::make('title')->required()->minLength(2),
-                        Forms\Components\TextInput::make('slug')->required()->minLength(2),
-                        Forms\Components\RichEditor::make('content')->required(),
-                        Forms\Components\Checkbox::make('is_published'),
-                        Forms\Components\Checkbox::make('is_featured'),
-                        Forms\Components\Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                        Forms\Components\Select::make('categories')
-                                    ->multiple()
-                                    ->relationship('categories','title')
-                            ]),
-                    Tab::make('Meta')->schema([
-                        Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                    Section::make('Content')->schema([
+                        TextInput::make('title')->live()->required()->minLength(1)->maxLength(150)
+                        ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
+                            if ($operation === 'edit') {
+                                return;
+                            }
+
+                            $set('slug', Str::slug($state));
+                        }),
+                        TextInput::make('slug')->required()->minLength(1)->unique(ignoreRecord: true)->maxLength(150),
+                        RichEditor::make('content')->required(),
+                        Checkbox::make('is_published'),
+                        Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                        ])->columns(2),
+                        Section::make('Meta')->schema([
+                            SpatieMediaLibraryFileUpload::make('image')
                             ->image()
                             ->optimize('webp')
                             ->imageEditor(),
-                        Forms\Components\TextInput::make('meta_description'),
-                    ])
-                ])
-        ])->columns(1);
+                            DateTimePicker::make('published_at')->nullable(),
+                            Checkbox::make('is_featured'),
+                            Select::make('categories')
+                                        ->multiple()
+                                        ->relationship('categories','title'),
+                        TextInput::make('meta_description'),
+                    ]),
+                ]);
     }
 
     public static function table(Table $table): Table

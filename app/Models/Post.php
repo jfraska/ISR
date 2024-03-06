@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,8 +23,13 @@ class Post extends Model implements HasMedia
         'slug',
         'content',
         'is_published',
+        'published_at',
         'meta_description',
         'user_id'
+    ];
+
+    protected $casts = [
+        'published_at' => 'datetime',
     ];
 
     public function user(): BelongsTo {
@@ -38,4 +44,15 @@ class Post extends Model implements HasMedia
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function scopePublished($query)
+    {
+        $query->where('published_at', '<=', Carbon::now());
+    }
+
+    public function scopeSearch($query, string $search = '')
+    {
+        $query->where('title', 'like', "%{$search}%");
+    }
+
 }
