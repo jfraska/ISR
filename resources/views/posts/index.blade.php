@@ -8,17 +8,17 @@
                 <div class="mb-5">
                     <img src="{{ $post->getFirstMediaUrl() }}" class="w-full"/>
                 </div>
-                {{-- <div class="mb-5">
+                <div class="mb-5">
                     @foreach($post->categories as $category)
-                        <a href="{{ route('category.show', $category->slug) }}" wire:navigate>
+                        {{-- <a href="{{ route('category.show', $category->slug) }}" wire:navigate> --}}
                             <span
-                                style="background-color:{{ $category->bg_color }};color: {{ $category->text_color }};"
+                                {{-- style="background-color:{{ $category->bg_color }};color: {{ $category->text_color }};" --}}
                                 class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
                                 {{ $category->title }}
                             </span>
-                        </a>
+                        {{-- </a> --}}
                     @endforeach
-                </div> --}}
+                </div>
                 <header class="mb-4 lg:mb-6 not-format">
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900">
