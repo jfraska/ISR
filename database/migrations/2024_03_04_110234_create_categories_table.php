@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('content')->nullable();
+            $table->string('text_color')->nullable();
+            $table->string('bg_color')->nullable();
+
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->softDeletes();
             $table->timestamps();
