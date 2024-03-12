@@ -1,7 +1,10 @@
-<x-app-layout>
-    @section('title', $post->title)
-    @section('meta_description', $post->meta_description)
+@extends('layouts.app')
 
+@section('title', $post->title)
+@section('meta_description', $post->meta_description)
+
+
+@section('content')
     <article class="w-full col-span-4 py-5 mx-auto mt-10 md:col-span-3" style="max-width:700px">
         <img class="w-full my-2 rounded-lg" src="{{ $post->getFirstMediaUrl() }}" alt="thumbnail">
         <h1 class="text-4xl font-bold text-left text-gray-800">
@@ -46,4 +49,4 @@
 
         <livewire:post-comments :model="$post" />
     </article>
-</x-app-layout>
+@endsection

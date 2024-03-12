@@ -1,4 +1,4 @@
-<nav class="bg-transparent border-gray-200 dark:bg-gray-900 fixed top-0 inset-x-0 z-10">
+<nav class="bg-transparent border-gray-200 dark:bg-gray-900 absolute top-0 inset-x-0 z-10">
     <div class="bg-transparent max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div class="flex flex-wrap items-center">
             <button data-collapse-toggle="navbar-hamburger" type="button"
