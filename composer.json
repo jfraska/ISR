@@ -14,6 +14,7 @@
         "filament/spatie-laravel-media-library-plugin": "3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
         "joshembling/image-optimizer": "v1.2",
+        "kilobyteno/laravel-user-guest-like": "^1.2",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.3",
         "laravel/sanctum": "^3.3",

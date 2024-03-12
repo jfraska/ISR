@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
-// Route::get('/categories/{category:slug}', CategoryController::class)->name('category.show');
 
 // Route::middleware([
 //     'auth:sanctum',

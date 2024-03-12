@@ -40,17 +40,6 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
-                return $builder->groups([
-                    NavigationGroup::make('Content')->items([
-                        ...PostResource::getNavigationItems(),
-                        ...CategoryResource::getNavigationItems(),
-                    ]),
-                    NavigationGroup::make('Settings')->items([
-                        ...UserResource::getNavigationItems()
-                    ])
-                ]);
-            })
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,

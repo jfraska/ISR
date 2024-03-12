@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('slug')->unique();
+            $table->enum('category', ['Article', 'News', 'Mini Blog']);
 
             $table->boolean('is_published');
             $table->boolean('is_featured')->default(0);

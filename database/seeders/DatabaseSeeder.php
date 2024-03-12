@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@isr.upnyk.ac.id',
             'password' => Hash::make('superadmin'),
+            'role' => 'SUPER ADMIN'
         ]);
     }
 }

@@ -1,18 +1,18 @@
 <div id="posts" class=" px-3 lg:px-7 py-6">
     <div class="flex justify-between items-center border-b border-gray-100">
         <div class="text-gray-600">
-            @if ($search)
+            @if ($this->activeTag || $search)
                 <button class="mr-3 text-xs gray-500" wire:click="clearFilters()">X</button>
             @endif
-            {{-- @if ($this->activeCategory)
-                <x-badge wire:navigate href="{{ route('posts.index', ['category' => $this->activeCategory->slug]) }}"
-                    :textColor="$this->activeCategory->text_color" :bgColor="$this->activeCategory->bg_color">
-                    {{ $this->activeCategory->title }}
+            @if ($this->activeTag)
+                <x-badge wire:navigate href="{{ route('posts.index', ['tag' => $this->activeTag->slug]) }}"
+                    :textColor="$this->activeTag->text_color" :bgColor="$this->activeTag->bg_color">
+                    {{ $this->activeTag->title }}
                 </x-badge>
-            @endif --}}
+            @endif
             @if ($search)
                 <span class="ml-2">
-                    {{ __('containing') }} : <strong>{{ $search }}</strong>
+                    containing : <strong>{{ $search }}</strong>
                 </span>
             @endif
         </div>

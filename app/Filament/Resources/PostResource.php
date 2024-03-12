@@ -35,19 +35,21 @@ class PostResource extends Resource
         return $form
             ->schema([
                     Section::make('Content')->schema([
-                        TextInput::make('title')->live()->required()->minLength(1)->maxLength(150)
-                        ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
-                            if ($operation === 'edit') {
-                                return;
-                            }
-
-                            $set('slug', Str::slug($state));
-                        }),
-                        TextInput::make('slug')->required()->minLength(1)->unique(ignoreRecord: true)->maxLength(150),
+                        TextInput::make('title')
+                            ->required()
+                            ->reactive()
+                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                        TextInput::make('slug')
+                            ->required()
+                            ->unique(Post::class, 'slug', fn ($record) => $record),
+                        Select::make('category')
+                            ->options(Post::CATEGORY)
+                            ->required(),
                         RichEditor::make('content')->required(),
                         Checkbox::make('is_published'),
                         Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
                         ])->columns(2),
+
                         Section::make('Meta')->schema([
                             SpatieMediaLibraryFileUpload::make('image')
                             ->image()
@@ -55,9 +57,9 @@ class PostResource extends Resource
                             ->imageEditor(),
                             DateTimePicker::make('published_at')->nullable(),
                             Checkbox::make('is_featured'),
-                            Select::make('categories')
+                            Select::make('tags')
                                         ->multiple()
-                                        ->relationship('categories','title'),
+                                        ->relationship('tags','title'),
                         TextInput::make('meta_description'),
                     ]),
                 ]);
@@ -72,7 +74,7 @@ class PostResource extends Resource
                 Tables\Columns\TextColumn::make('slug')->searchable(),
                 Tables\Columns\CheckboxColumn::make('is_featured'),
                 Tables\Columns\CheckboxColumn::make('is_published'),
-                Tables\Columns\TextColumn::make('categories.title')->searchable()->badge()
+                Tables\Columns\TextColumn::make('tags.title')->searchable()->badge()
             ])
             ->filters([
                 Tables\Filters\Filter::make('is_featured')
@@ -81,9 +83,9 @@ class PostResource extends Resource
                 Tables\Filters\Filter::make('is_published')
                     ->label('Published')
                     ->query(fn (Builder $query): Builder => $query->where('is_published', true)),
-                Tables\Filters\SelectFilter::make('categories')
+                Tables\Filters\SelectFilter::make('tags')
                     ->multiple()
-                    ->relationship('categories', 'title'),
+                    ->relationship('tags', 'title'),
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([

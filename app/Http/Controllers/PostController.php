@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
@@ -11,10 +11,16 @@ class PostController extends Controller
 {
     public function index()
     {
+        $tags = Cache::remember('tags', now()->addDays(3), function () {
+            return Tag::whereHas('posts', function ($query) {
+                $query->published();
+            })->take(10)->get();
+        });
+
         return view(
             'posts.index',
             [
-                'posts' => Post::get()
+                'tags' => $tags
             ]
         );
     }
