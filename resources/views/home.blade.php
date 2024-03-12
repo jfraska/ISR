@@ -5,7 +5,16 @@
 @endsection
 
 @section('content')
-    <div class="mt-10">
+    <div class="">
+        {{-- Start Hero Page --}}
+        <section>
+            <video autoplay muted loop class="w-full object-cover">
+                <source src="/images/upn-profile.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        {{-- End Hero Page --}}
+
         {{-- Start Profil ISR --}}
         <section>
             <div class="p-8" style="position: relative; display: flex; align-items: center; flex-direction: row-reverse">
@@ -36,73 +45,87 @@
 
         {{-- Start Pendaftaran --}}
         <section>
-            <div class="flex flex-wrap p-10 pl-20 pr-20">
-                <div class="w-full md:w-1/2 p-1 border border-blue-600" style="style=width: 500px; height: 200px;">
-                    <div class="p-3"
-                        style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
-                        <img src="/images/oprec.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
-                        <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
-                            <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Open Recruitmen ISR</h1>
-                            <p style="margin-bottom: 0; font-size: 15px;">Buat kalian yang tertarik belajar dan menambah
-                                softskill menulis karya ilmiah, penelitian, pengabdian kepada masyarakat, serta
-                                berwirausaha, yuk langsung aja gabung menjadi bagian dari UKM Interdisciplinary Scientific
-                                Research (ISR)</p>
-                            <div class="items-center border border-white p-3 mt-3"
-                                style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
-                                <a href="" style="color: white">SELENGKAPNYA</a>
-                                <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+            <div class="flex flex-col gap-2 py-10 px-20 w-4/5 mx-auto">
+                <div class="flex justify-between gap-2 w-full h-[250px]">
+                    <div class="w-full p-1 border border-blue-600">
+                        <div class="p-3"
+                            style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
+                            <img src="/images/oprec.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
+                            <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
+                                <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Open Recruitmen ISR</h1>
+                                <p style="margin-bottom: 0; font-size: 15px;">Buat kalian yang tertarik belajar dan menambah
+                                    softskill menulis karya ilmiah, penelitian, pengabdian kepada masyarakat, serta
+                                    berwirausaha, yuk langsung aja gabung menjadi bagian dari UKM Interdisciplinary
+                                    Scientific
+                                    Research (ISR)</p>
+                                <div class="items-center border border-white p-3 mt-3"
+                                    style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
+                                    <a href="" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full p-1 border border-blue-600">
+                        <div class="p-3"
+                            style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
+                            <img src="/images/volunteer.svg" alt="oprec" class="mr-4"
+                                style="width: 35px; height: 35px;">
+                            <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
+                                <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Pendaftaran Volunteer</h1>
+                                <p style="margin-bottom: 0; font-size: 15px;">Kalian ingin berkontribusi untuk memajukan
+                                    bangsa,
+                                    tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang bermanfaat?
+                                    Yap
+                                    disini tempatnya!</p>
+                                <div class="items-center border border-white p-3 mt-3"
+                                    style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
+                                    <a href="" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 p-1 border border-blue-600" style="style=width: 550px; height: 200px;">
-                    <div class="p-3"
-                        style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
-                        <img src="/images/volunteer.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
-                        <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
-                            <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Pendaftaran Volunteer</h1>
-                            <p style="margin-bottom: 0; font-size: 15px;">Kalian ingin berkontribusi untuk memajukan bangsa,
-                                tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang bermanfaat? Yap
-                                disini tempatnya!</p>
-                            <div class="items-center border border-white p-3 mt-3"
-                                style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
-                                <a href="" style="color: white">SELENGKAPNYA</a>
-                                <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+
+                <div class="flex justify-between gap-2 w-full h-[250px]">
+                    <div class="w-full p-1 border border-blue-600">
+                        <div class="p-3"
+                            style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
+                            <img src="/images/lomba.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
+                            <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
+                                <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Pendaftaran Lomba Umum</h1>
+                                <p style="margin-bottom: 0; font-size: 15px;">Kalian ingin berkontribusi untuk memajukan
+                                    bangsa,
+                                    tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang bermanfaat?
+                                    Yap
+                                    disini tempatnya!</p>
+                                <div class="items-center border border-white p-3 mt-3"
+                                    style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
+                                    <a href="" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="w-full md:w-1/2 p-1 border border-blue-600" style="style=width: 550px; height: 200px;">
-                    <div class="p-3"
-                        style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
-                        <img src="/images/lomba.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
-                        <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
-                            <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Pendaftaran Lomba Umum</h1>
-                            <p style="margin-bottom: 0; font-size: 15px;">Kalian ingin berkontribusi untuk memajukan bangsa,
-                                tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang bermanfaat? Yap
-                                disini tempatnya!</p>
-                            <div class="items-center border border-white p-3 mt-3"
-                                style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
-                                <a href="" style="color: white">SELENGKAPNYA</a>
-                                <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 p-1 border border-blue-600" style="style=width: 550px; height: 200px;">
-                    <div class="p-3"
-                        style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
-                        <img src="/images/talenta.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
-                        <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
-                            <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Pendaftaran Ajang Talenta Dikti
-                            </h1>
-                            <p style="margin-bottom: 0; font-size: 15px;">Kalian ingin berkontribusi untuk memajukan bangsa,
-                                tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang bermanfaat? Yap
-                                disini tempatnya!</p>
-                            <div class="items-center border border-white p-3 mt-3"
-                                style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
-                                <a href="" style="color: white">SELENGKAPNYA</a>
-                                <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+                    <div class="w-full p-1 border border-blue-600">
+                        <div class="p-3"
+                            style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
+                            <img src="/images/talenta.svg" alt="oprec" class="mr-4" style="width: 35px; height: 35px;">
+                            <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
+                                <h1 style="font-weight: bold; font-size: 24px; color:#028CAA">Pendaftaran Ajang Talenta
+                                    Dikti
+                                </h1>
+                                <p style="margin-bottom: 0; font-size: 15px;">Kalian ingin berkontribusi untuk memajukan
+                                    bangsa,
+                                    tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang bermanfaat?
+                                    Yap
+                                    disini tempatnya!</p>
+                                <div class="items-center border border-white p-3 mt-3"
+                                    style="width: 190px; height: 35px; background-color: #028CAA; position: relative; display: flex; align-items: center; justify-content: space-between; flex-direction: row">
+                                    <a href="" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" style="width: 15px; height: 15px;">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -340,52 +363,63 @@
         {{-- Start Pengumuman --}}
         <section>
             <div class="p-10 ml-40">
-                <p class="border-b-4 border-b-blue-600" style="font-size: 24px; font-weight: bold">PENGUMUMAN</p>
-                <div class="">
-                    <div class="flex flex-wrap pt-2">
-                        <div class="w-full md:w-1/2 p-1 border-b-2 border-gray-700" style="style=width: 550px; height: 120px;">
+                <p class="border-b-4 border-b-blue-600 mr-20" style="font-size: 24px; font-weight: bold">PENGUMUMAN</p>
+                <div class="flex flex-col gap-2 w-5/6">
+                    <div class="flex justify-between gap-[100px] w-full pt-3 h-[170px]">
+                        <div class="w-full p-1 border-b-2 border-blue-500">
                             <div class="p-3"
                                 style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
                                 <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
                                     <h1 style="font-weight: bold; font-size: 16px; color:gray">09 / 12 / 2021</h1>
-                                    <p style="margin-bottom: 0; font-size: 16px;">Rapat Anggota ISR Masa Jabatan 2024/2025
-                                        Pada Tanggal 07 Maret 2024</p>
+                                    <p style="margin-bottom: 0; font-size: 16px; font-weight: bold">Selamat kepada Tim Giriwiradaya <br>
+                                        Program
+                                        Wira Desa 2021 UKM ISR UPNVY telah berhasil mendapatkan Medali Silver 2nd dalam
+                                        "ABDIDAYA 2021".</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2 p-1 border-b-2 border-gray-700" style="style=width: 550px; height: 120px;">
+                        <div class="w-full p-1 border-b-2 border-blue-500">
                             <div class="p-3"
                                 style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
                                 <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
                                     <h1 style="font-weight: bold; font-size: 16px; color:gray">09 / 12 / 2021</h1>
-                                    <p style="margin-bottom: 0; font-size: 16px;">Rapat Anggota ISR Masa Jabatan 2024/2025
-                                        Pada Tanggal 07 Maret 2024</p>
+                                    <p style="margin-bottom: 0; font-size: 16px; font-weight: bold">Selamat kepada Tim Giriwiradaya <br>
+                                        Program
+                                        Wira Desa 2021 UKM ISR UPNVY telah berhasil mendapatkan Medali Silver 2nd dalam
+                                        "ABDIDAYA 2021".</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2 p-1 border-b-2 border-gray-700" style="style=width: 550px; height: 120px;">
+                    </div>
+
+                    <div class="flex justify-between gap-[100px] w-full h-[170px]">
+                        <div class="w-full p-1 border-b-2 border-blue-500">
                             <div class="p-3"
                                 style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
                                 <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
                                     <h1 style="font-weight: bold; font-size: 16px; color:gray">09 / 12 / 2021</h1>
-                                    <p style="margin-bottom: 0; font-size: 16px;">Rapat Anggota ISR Masa Jabatan 2024/2025
-                                        Pada Tanggal 07 Maret 2024</p>
+                                    <p style="margin-bottom: 0; font-size: 16px; font-weight: bold">Selamat kepada Tim Giriwiradaya <br>
+                                        Program
+                                        Wira Desa 2021 UKM ISR UPNVY telah berhasil mendapatkan Medali Silver 2nd dalam
+                                        "ABDIDAYA 2021".</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2 p-1 border-b-2 border-gray-700" style="style=width: 550px; height: 120px;">
+                        <div class="w-full p-1 border-b-2 border-blue-500">
                             <div class="p-3"
                                 style="position: relative; display: flex; align-items: flex-start; flex-direction: row">
                                 <div class="mr-8" style="flex-grow: 1; margin-right: 50px">
                                     <h1 style="font-weight: bold; font-size: 16px; color:gray">09 / 12 / 2021</h1>
-                                    <p style="margin-bottom: 0; font-size: 16px;">Rapat Anggota ISR Masa Jabatan 2024/2025
-                                        Pada Tanggal 07 Maret 2024</p>
+                                    <p style="margin-bottom: 0; font-size: 16px; font-weight: bold">Selamat kepada Tim Giriwiradaya <br>
+                                        Program
+                                        Wira Desa 2021 UKM ISR UPNVY telah berhasil mendapatkan Medali Silver 2nd dalam
+                                        "ABDIDAYA 2021".</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="items-center border border-white p-3 mt-7"
+                <div class="items-center border border-white p-3 mt-10"
                     style="width: 300px; height: 20px; position: relative; display: flex; justify-content: space-between; flex-direction: row">
                     <a href="" style="color: #028CAA; font-weight: bold">LIHAT PENGUMUMAN LAINNYA</a>
                     <img src="/images/panah.svg" alt="arrow" style="width: 15px; height: 15px;">
