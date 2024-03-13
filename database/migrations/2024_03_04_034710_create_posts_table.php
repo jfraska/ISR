@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->enum('category', ['Article', 'News', 'Mini Blog']);
 
-            $table->boolean('is_published');
+            $table->boolean('is_published')->default(0);
             $table->boolean('is_featured')->default(0);
             $table->timestamp('published_at')->nullable();
 

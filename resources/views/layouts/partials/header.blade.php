@@ -1,3 +1,3 @@
 <header class="">
-    @livewire('navigation')
+    @livewire("navigation")
 </header>

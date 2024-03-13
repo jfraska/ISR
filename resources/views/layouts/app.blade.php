@@ -1,50 +1,54 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>
-        @yield('title')
-        @unless (empty(trim($__env->yieldContent('title'))))
+        <title>
+            @yield("title")
+            @unless (empty(trim($__env->yieldContent("title"))))
             -
-        @endunless
-        {{ config('app.name', 'Laravel') }}</title>
-    <meta name="description" content="@yield('meta_description', 'Site description')" />
+            @endunless
+            {{ config("app.name", "Laravel") }}
+        </title>
+        <meta
+            name="description"
+            content="@yield("meta_description", "Site description")"
+        />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net" />
+        <link
+            href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- Scripts -->
+        @vite(["resources/css/app.css", "resources/js/app.js"])
 
-    <!-- Styles -->
-    @livewireStyles
-</head>
+        <!-- Styles -->
+        @livewireStyles
+    </head>
 
-<body class="font-sans antialiased">
-    <x-banner />
+    <body class="font-sans antialiased">
+        <x-banner />
 
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        <!-- Navbar & Header -->
-        @include('layouts.partials.header')
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+            <!-- Navbar & Header -->
+            @include("layouts.partials.header")
 
-        <!-- Page Content -->
-        <main>
-            @yield('content')
-        </main>
+            <!-- Page Content -->
+            <main>
+                @yield("content")
+            </main>
 
-        <!-- Footer -->
-        @include('layouts.partials.footer')
-    </div>
+            <!-- Footer -->
+            @include("layouts.partials.footer")
+        </div>
 
+        @stack("modals")
 
-    @stack('modals')
-
-    @livewireScripts
-</body>
-
+        @livewireScripts
+    </body>
 </html>
