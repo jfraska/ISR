@@ -22,15 +22,18 @@ class TagResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-tag';
 
+    // protected static ?string $navigationGroup = 'Pojok Ilmiah';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('title')
+                    ->live(onBlur: true)
                     ->required()
-                    ->reactive()
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                 TextInput::make('slug')
+                    ->readOnly()
                     ->required()
                     ->unique(Tag::class, 'slug', fn ($record) => $record),
                 ColorPicker::make('bg_color')->label('Background Color'),

@@ -25,9 +25,10 @@ class UserResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        $model = new static::$model;
-
-        return !$model->isSuperAdmin();
+        if (auth()->user()->can('users'))
+            return true;
+        else
+            return false;
     }
 
     public static function form(Form $form): Form
@@ -41,8 +42,9 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('role')
-                    ->options(User::ROLES)
+                Forms\Components\Select::make('roles')
+                    ->multiple()
+                    ->relationship('roles', 'name')
                     ->required(),
             ]);
     }
@@ -52,8 +54,8 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('email') ->searchable(),
-                Tables\Columns\TextColumn::make('role')
+                Tables\Columns\TextColumn::make('email')->searchable(),
+                Tables\Columns\TextColumn::make('roles.name')
             ])
             ->filters([
                 //

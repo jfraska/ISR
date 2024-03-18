@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,33 +21,11 @@ class User extends Authenticatable implements FilamentUser
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
-    const ROLE_SUPER_ADMIN = 'SUPER ADMIN';
-    const ROLE_ADMIN = 'ADMIN';
-    const ROLE_EDITOR = 'EDITOR';
-
-    const ROLES = [
-        self::ROLE_SUPER_ADMIN => 'Super Admin',
-        self::ROLE_ADMIN => 'Admin',
-        self::ROLE_EDITOR => 'Editor',
-    ];
+    use HasSuperAdmin;
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->can('view-admin', User::class);
-    }
-
-    public function isSuperAdmin()
-    {
-        return $this->role === self::ROLE_SUPER_ADMIN;
-    }
-
-    public function isAdmin(){
-        return $this->role === self::ROLE_ADMIN;
-    }
-
-    public function isEditor(){
-        return $this->role === self::ROLE_EDITOR;
+        return str_ends_with($this->email, '@upnyk.ac.id') && $this->hasVerifiedEmail();
     }
 
     /**
@@ -57,7 +37,6 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role',
     ];
 
     /**

@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStatus\HasStatuses;
 
 class Post extends Model implements HasMedia
 {
@@ -21,6 +22,7 @@ class Post extends Model implements HasMedia
     use InteractsWithMedia;
     use HasUserGuestLike;
     use Commentable;
+    use HasStatuses;
 
     const ARTICLE = 'Article';
     const NEWS = 'News';
@@ -44,15 +46,25 @@ class Post extends Model implements HasMedia
     ];
 
     protected $casts = [
+        'content' => 'array',
         'published_at' => 'datetime',
     ];
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function excerpt(): string {
-        return Str::words(strip_tags($this->content), 200, '...');
+    public function excerpt(): string
+    {
+        $content = "";
+        foreach ($this->content as $item) {
+            if (isset($item['type']) && $item['type'] === 'paragraph') {
+                $content .= strip_tags($item['data']['content']);
+            }
+        }
+
+        return Str::words(strip_tags($content), 200, '...');
     }
 
     public function tags(): BelongsToMany
@@ -62,7 +74,7 @@ class Post extends Model implements HasMedia
 
     public function scopePublished($query)
     {
-        $query->where('published_at', '<=', Carbon::now());
+        $query->currentStatus('published')->where('is_published', true);
     }
 
     public function scopeSearch($query, string $search = '')
@@ -79,7 +91,14 @@ class Post extends Model implements HasMedia
 
     public function getReadingTime()
     {
-        $mins = round(str_word_count($this->body) / 250);
+        $content = "";
+        foreach ($this->content as $item) {
+            if (isset($item['type']) && $item['type'] === 'paragraph') {
+                $content .= strip_tags($item['data']['content']);
+            }
+        }
+
+        $mins = round(str_word_count($content) / 250);
 
         return ($mins < 1) ? 1 : $mins;
     }

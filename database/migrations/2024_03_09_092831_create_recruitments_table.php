@@ -16,12 +16,11 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
 
-            $table->string('name');
+            $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');
 
             $table->boolean('is_published');
-            $table->boolean('is_featured')->default(0);
             $table->timestamp('published_at')->nullable();
 
             $table->string('meta_description')->nullable();
