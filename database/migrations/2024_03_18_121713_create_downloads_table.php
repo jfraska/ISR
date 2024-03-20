@@ -19,11 +19,9 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('slug')->unique();
-            $table->foreignIdFor(Category::class);
             $table->text('content');
 
             $table->boolean('is_published');
-            $table->boolean('is_featured')->default(0);
             $table->timestamp('published_at')->nullable();
 
             $table->string('meta_description')->nullable();

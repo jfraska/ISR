@@ -62,6 +62,7 @@ class RecruitmentResource extends Resource
                                     ->unique(Recruitment::class, 'slug', fn ($record) => $record),
                             ]),
                             Select::make('category')
+                                ->label('Category')
                                 ->required()
                                 ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Recruitment $recruitment) => $query->where("model", $recruitment->getMorphClass()),)
                                 ->suffixAction(

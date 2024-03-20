@@ -7,17 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStatus\HasStatuses;
 
 class Download extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, Commentable;
+    use HasFactory, InteractsWithMedia, HasUserGuestLike, Commentable, HasStatuses;
 
     protected $fillable = [
         'title',
         'slug',
-        'category_id',
         'content',
         'is_published',
         'published_at',
@@ -35,14 +36,8 @@ class Download extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-
-    public function subCategories(): MorphToMany
+    public function categories(): MorphToMany
     {
         return $this->morphToMany(Category::class, 'categoriable');
-    }
-
-    public function categories(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
     }
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('content');
 
             $table->boolean('is_published');
-            $table->boolean('is_featured')->default(0);
             $table->timestamp('published_at')->nullable();
 
             $table->string('meta_description')->nullable();
