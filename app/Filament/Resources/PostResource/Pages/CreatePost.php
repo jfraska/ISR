@@ -37,7 +37,7 @@ class CreatePost extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $this->record->setStatus('reviewing');
+        $this->record->is_published ?  $this->record->setStatus('reviewing') : $this->record->setStatus('draft');
     }
 
     // public function getSteps(): array

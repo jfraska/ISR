@@ -18,12 +18,7 @@ use Spatie\ModelStatus\HasStatuses;
 
 class Post extends Model implements HasMedia
 {
-    use HasFactory;
-    use SoftDeletes;
-    use InteractsWithMedia;
-    use HasUserGuestLike;
-    use Commentable;
-    use HasStatuses;
+    use HasFactory, SoftDeletes, InteractsWithMedia, HasUserGuestLike, Commentable, HasStatuses;
 
     protected $fillable = [
         'title',

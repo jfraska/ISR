@@ -16,4 +16,9 @@ class EditAnnouncement extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        $this->record->is_published ?  $this->record->statuses()->update(['name' => 'reviewing']) : null;
+    }
 }

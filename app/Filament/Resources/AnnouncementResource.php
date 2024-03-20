@@ -27,6 +27,7 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
@@ -49,6 +50,7 @@ class AnnouncementResource extends Resource
                         Section::make('Content')->schema([
                             Split::make([
                                 TextInput::make('title')
+                                    ->autocapitalize('words')
                                     ->live(onBlur: true)
                                     ->required()
                                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
@@ -60,7 +62,7 @@ class AnnouncementResource extends Resource
                             RichEditor::make('content')
                                 ->disableToolbarButtons([
                                     'attachFiles'
-                                ])
+                                ])->required()
                         ])->columnSpan(4),
 
                         Section::make('Meta')->schema([
@@ -69,8 +71,12 @@ class AnnouncementResource extends Resource
                             SpatieMediaLibraryFileUpload::make('image')
                                 ->label('Thumbnail')
                                 ->image()
+                                ->imageResizeMode('cover')
+                                ->imageCropAspectRatio('16:9')
                                 ->optimize('webp')
                                 ->imageEditor(),
+                            DateTimePicker::make('published_at')
+                                ->disabled(),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),
                     ])
@@ -80,10 +86,15 @@ class AnnouncementResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->groups([
+                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Announcement $record): string => ucfirst($record->status))->collapsible(),
+            ])
+            ->groupingSettingsHidden()
+            ->defaultGroup('statuses.name')
             ->columns([
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center),
+                TextColumn::make('published_at'),
                 TextColumn::make('status')
                     ->state(
                         fn (Announcement $record) => $record->status
@@ -94,7 +105,7 @@ class AnnouncementResource extends Resource
                         'reviewing' => 'warning',
                         'published' => 'success',
                         'rejected' => 'danger',
-                    })->alignment(Alignment::Center),
+                    }),
             ])
             ->filters([
                 //
@@ -105,7 +116,7 @@ class AnnouncementResource extends Resource
                     ->action(function (Announcement $record) {
                         if ($record->status === "published") {
                             $record->statuses()->update(['name' => 'rejected']);
-                        } else {
+                        } elseif ($record->status === "reviewing") {
                             $record->statuses()->update(['name' => 'published']);
                             $record->update(['published_at' => Carbon::now()]);
                         }
@@ -115,7 +126,7 @@ class AnnouncementResource extends Resource
                     ->size(ActionSize::Small)
                     ->icon(fn (Announcement $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
                     ->color(fn (Announcement $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(auth()->user()->can('publish')),
+                    ->visible(fn (Announcement $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('announcement:delete'))

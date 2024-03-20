@@ -30,6 +30,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -91,6 +92,8 @@ class RecruitmentResource extends Resource
                                 ->label('Thumbnail')
                                 ->required()
                                 ->image()
+                                ->imageResizeMode('cover')
+                                ->imageCropAspectRatio('16:9')
                                 ->optimize('webp')
                                 ->imageEditor(),
                             TextInput::make('meta_description'),
@@ -102,12 +105,16 @@ class RecruitmentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->groups([
+                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Recruitment $record): string => ucfirst($record->status))->collapsible(),
+            ])
+            ->groupingSettingsHidden()
+            ->defaultGroup('statuses.name')
             ->columns([
-                SpatieMediaLibraryImageColumn::make('thumbnail')->square()->alignment(Alignment::Center),
+                SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('categories.name'),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center),
                 TextColumn::make('status')
                     ->state(
                         fn (Recruitment $record) => $record->status
@@ -129,7 +136,7 @@ class RecruitmentResource extends Resource
                     ->action(function (Recruitment $record) {
                         if ($record->status === "published") {
                             $record->statuses()->update(['name' => 'rejected']);
-                        } else {
+                        } elseif ($record->status === "reviewing") {
                             $record->statuses()->update(['name' => 'published']);
                             $record->update(['published_at' => Carbon::now()]);
                         }
@@ -139,7 +146,7 @@ class RecruitmentResource extends Resource
                     ->size(ActionSize::Small)
                     ->icon(fn (Recruitment $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
                     ->color(fn (Recruitment $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(auth()->user()->can('publish')),
+                    ->visible(fn (Recruitment $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('recruitment:delete'))

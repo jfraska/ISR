@@ -130,7 +130,7 @@ class PostResource extends Resource
                                                 ComponentsBuilder\Block::make('heading')
                                                     ->schema([
                                                         TextInput::make('content')
-
+                                                            ->autocapitalize('words')
                                                             ->required(),
                                                         Select::make('level')
                                                             ->options([
@@ -199,9 +199,7 @@ class PostResource extends Resource
                                     ->minFiles(1)
                                     ->maxFiles(3)
                                     ->optimize('webp')
-                                    ->imageEditor()
-                                    ->panelAspectRatio('3:1')
-                                    ->panelLayout('integrated'),
+                                    ->imageEditor(),
                                 Select::make('tags')
                                     ->multiple()
                                     ->searchable()
@@ -227,7 +225,6 @@ class PostResource extends Resource
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center),
                 TextColumn::make('status')
                     ->state(
                         fn (Post $record) => $record->status
@@ -259,7 +256,7 @@ class PostResource extends Resource
                     ->action(function (Post $record) {
                         if ($record->status === "published") {
                             $record->statuses()->update(['name' => 'rejected']);
-                        } else {
+                        } elseif ($record->status === "reviewing") {
                             $record->statuses()->update(['name' => 'published']);
                             $record->update(['published_at' => Carbon::now()]);
                         }
@@ -269,7 +266,7 @@ class PostResource extends Resource
                     ->size(ActionSize::Small)
                     ->icon(fn (Post $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
                     ->color(fn (Post $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(auth()->user()->can('publish')),
+                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('post:delete'))

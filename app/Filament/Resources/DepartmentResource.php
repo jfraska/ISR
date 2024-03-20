@@ -137,13 +137,12 @@ class DepartmentResource extends Resource
                                 Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
                                 SpatieMediaLibraryFileUpload::make('image')
                                     ->label('Thumbnail')
+                                    ->required()
                                     ->image()
                                     ->imageResizeMode('cover')
                                     ->imageCropAspectRatio('16:9')
                                     ->optimize('webp')
-                                    ->imageEditor()
-                                    ->panelAspectRatio('3:1')
-                                    ->panelLayout('integrated'),
+                                    ->imageEditor(),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),
                     ])
