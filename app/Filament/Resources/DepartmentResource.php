@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -57,11 +58,12 @@ class DepartmentResource extends Resource
                                     ->schema([
                                         ComponentsBuilder::make('content')
                                             ->hiddenLabel()
+                                            ->required()
                                             ->blocks([
                                                 ComponentsBuilder\Block::make('heading')
                                                     ->schema([
                                                         TextInput::make('content')
-
+                                                            ->autocapitalize('words')
                                                             ->required(),
                                                         Select::make('level')
                                                             ->options([
@@ -111,11 +113,37 @@ class DepartmentResource extends Resource
                                             ->maxItems(6)
                                             ->collapsed(),
                                     ]),
+                                Tabs\Tab::make('Structure')
+                                    ->schema([
+                                        Repeater::make('member')
+                                            ->hiddenLabel()
+                                            ->required()
+                                            ->schema([
+                                                Select::make('role')
+                                                    ->options([
+                                                        'kepala' => 'Kepala Departemen',
+                                                        'wakil' => 'Wakil Departemen',
+                                                        'staf' => 'Staf',
+                                                    ])
+                                                    ->required(),
+                                                TextInput::make('name')->required(),
+                                            ])
+                                            ->columns(2)
+                                    ]),
                             ])->columnSpan(4),
 
                         Section::make('Meta')
                             ->schema([
                                 Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                SpatieMediaLibraryFileUpload::make('image')
+                                    ->label('Thumbnail')
+                                    ->image()
+                                    ->imageResizeMode('cover')
+                                    ->imageCropAspectRatio('16:9')
+                                    ->optimize('webp')
+                                    ->imageEditor()
+                                    ->panelAspectRatio('3:1')
+                                    ->panelLayout('integrated'),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),
                     ])
@@ -127,7 +155,7 @@ class DepartmentResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('user.name')->label('Author')->searchable(),
+                TextColumn::make('user.name')->label('Author'),
                 TextColumn::make('created_at'),
                 TextColumn::make('updated_at'),
             ])
@@ -135,12 +163,10 @@ class DepartmentResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

@@ -4,9 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\SubCategory;
 use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DateTimePicker;
@@ -20,6 +23,7 @@ use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\ActionSize;
 use Filament\Support\Enums\Alignment;
@@ -32,6 +36,7 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -45,6 +50,11 @@ class PostResource extends Resource
 
     // protected static ?string $navigationLabel = 'Pojok Ilmiah';
     // protected static ?string $navigationGroup = 'Pojok Ilmiah';
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+    }
 
     public static function form(Form $form): Form
     {
@@ -66,9 +76,51 @@ class PostResource extends Resource
                                                 ->required()
                                                 ->unique(Post::class, 'slug', fn ($record) => $record),
                                         ]),
-                                        Select::make('category')
-                                            ->options(Post::CATEGORY)
-                                            ->required(),
+                                        Select::make('category_id')
+                                            ->label('Category')
+                                            ->required()
+                                            ->live()
+                                            ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Post $post) => $query->where("model", $post->getMorphClass()),)
+                                            ->suffixAction(
+                                                Action::make('create')
+                                                    ->label('Create Category')
+                                                    ->icon('heroicon-m-plus')
+                                                    ->color('gray')
+                                                    ->form([
+                                                        TextInput::make('name')
+                                                            ->required(),
+                                                        Hidden::make('model')
+                                                            ->dehydrateStateUsing(fn (Post $query) => $query->getMorphClass())
+                                                    ])
+                                                    ->action(function (array $data, Category $query) {
+                                                        $query->create($data);
+                                                    })->visible(auth()->user()->can('category:create'))
+                                            ),
+
+                                        Select::make('sub_category')
+                                            ->label('Sub Category')
+                                            ->required()
+                                            ->relationship(name: 'subCategories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Get $get) => $query->where('parent_id', $get('category_id'))
+                                                ->whereNotNull('parent_id'),)
+                                            ->suffixAction(
+                                                Action::make('create')
+                                                    ->label('Create Sub Category')
+                                                    ->icon('heroicon-m-plus')
+                                                    ->color('gray')
+                                                    ->form([
+                                                        TextInput::make('name')
+                                                            ->required(),
+                                                        Select::make('parent_id')
+                                                            ->label('Category')
+                                                            ->required()
+                                                            ->options(fn (Post $query): Collection => Category::query()
+                                                                ->where("model", $query->getMorphClass())
+                                                                ->pluck('name', 'id')),
+                                                    ])
+                                                    ->action(function (array $data, Category $query) {
+                                                        $query->create($data);
+                                                    })->visible(auth()->user()->can('category:create'))
+                                            ),
                                     ]),
                                 Tabs\Tab::make('Content')
                                     ->schema([
@@ -139,14 +191,20 @@ class PostResource extends Resource
                                 ]),
                                 SpatieMediaLibraryFileUpload::make('image')
                                     ->label('Thumbnail')
+                                    ->required()
                                     ->image()
+                                    ->imageResizeMode('cover')
+                                    ->imageCropAspectRatio('16:9')
                                     ->multiple()
                                     ->minFiles(1)
                                     ->maxFiles(3)
                                     ->optimize('webp')
-                                    ->imageEditor(),
+                                    ->imageEditor()
+                                    ->panelAspectRatio('3:1')
+                                    ->panelLayout('integrated'),
                                 Select::make('tags')
                                     ->multiple()
+                                    ->searchable()
                                     ->relationship('tags', 'title'),
                                 DateTimePicker::make('published_at')
                                     ->disabled(),
@@ -165,10 +223,11 @@ class PostResource extends Resource
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
             ->columns([
-                SpatieMediaLibraryImageColumn::make('thumbnail')->square()->alignment(Alignment::Center),
+                SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('user.name')->label('Author')->searchable(),
-                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center)->disabled(fn (Post $record) => $record->status === "published" ? false : true),
+                TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
+                TextColumn::make('user.name')->label('Author'),
+                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center),
                 TextColumn::make('status')
                     ->state(
                         fn (Post $record) => $record->status

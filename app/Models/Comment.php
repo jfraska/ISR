@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use HasFactory, Commentable, SoftDeletes;
+    use HasFactory, SoftDeletes, Commentable;
 
     protected $guarded = [];
 
@@ -42,9 +42,6 @@ class Comment extends Model
         return is_null($this->parent_id);
     }
 
-    /**
-     * @return HasMany
-     */
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id')->oldest();

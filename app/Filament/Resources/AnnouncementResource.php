@@ -20,14 +20,18 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\ActionSize;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AnnouncementResource extends Resource
@@ -53,7 +57,10 @@ class AnnouncementResource extends Resource
                                     ->required()
                                     ->unique(Announcement::class, 'slug', fn ($record) => $record),
                             ]),
-                            RichEditor::make('content')->required(),
+                            RichEditor::make('content')
+                                ->disableToolbarButtons([
+                                    'attachFiles'
+                                ])
                         ])->columnSpan(4),
 
                         Section::make('Meta')->schema([
@@ -75,16 +82,43 @@ class AnnouncementResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('slug')->searchable(),
+                TextColumn::make('user.name')->label('Author'),
+                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center),
+                TextColumn::make('status')
+                    ->state(
+                        fn (Announcement $record) => $record->status
+                    )
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'draft' => 'gray',
+                        'reviewing' => 'warning',
+                        'published' => 'success',
+                        'rejected' => 'danger',
+                    })->alignment(Alignment::Center),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('publish')
+                    ->label(fn (Announcement $record) => $record->status === "published" ? "Reject" : "Publish")
+                    ->action(function (Announcement $record) {
+                        if ($record->status === "published") {
+                            $record->statuses()->update(['name' => 'rejected']);
+                        } else {
+                            $record->statuses()->update(['name' => 'published']);
+                            $record->update(['published_at' => Carbon::now()]);
+                        }
+                    })
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->icon(fn (Announcement $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
+                    ->color(fn (Announcement $record) => $record->status === "published" ? "danger" : "success")
+                    ->visible(auth()->user()->can('publish')),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('announcement:delete'))
             ]);
     }
 

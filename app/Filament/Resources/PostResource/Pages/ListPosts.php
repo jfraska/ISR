@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\PostResource\Pages;
 
 use App\Filament\Resources\PostResource;
+use App\Models\Category;
+use App\Models\Post;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,13 +25,17 @@ class ListPosts extends ListRecords
 
     public function getTabs(): array
     {
-        return [
-            'Article' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('category', 'Article')),
-            'News' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('category', 'News')),
-            'Mini Blog' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('category', 'Mini Blog')),
-        ];
+        $tabs = [];
+        $post = new Post;
+        $categories = Category::query()->where('model', $post->getMorphClass())->pluck('name', 'id');
+
+        foreach ($categories as $id => $category) {
+            $tabs[$category] = Tab::make($category)
+                ->modifyQueryUsing(function (Builder $query) use ($id) {
+                    return $query->where('category_id', $id);
+                });
+        }
+
+        return $tabs;
     }
 }

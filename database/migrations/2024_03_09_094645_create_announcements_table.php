@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
 
             $table->string('meta_description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

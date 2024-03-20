@@ -5,15 +5,17 @@ namespace App\Models;
 use App\Traits\Commentable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\ModelStatus\HasStatuses;
 
-class Recruitment extends Model
+class Recruitment extends Model implements HasMedia
 {
-    use HasFactory;
-    use HasUserGuestLike;
-    use Commentable;
-    use HasStatuses;
+    use HasFactory, SoftDeletes, InteractsWithMedia, HasUserGuestLike, Commentable, HasStatuses;
 
     protected $fillable = [
         'title',
@@ -27,5 +29,16 @@ class Recruitment extends Model
 
     protected $casts = [
         'content' => 'array',
+        'published_at' => 'datetime',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function categories(): MorphToMany
+    {
+        return $this->morphToMany(Category::class, 'categoriable');
+    }
 }

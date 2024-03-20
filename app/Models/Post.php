@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
@@ -24,21 +25,11 @@ class Post extends Model implements HasMedia
     use Commentable;
     use HasStatuses;
 
-    const ARTICLE = 'Article';
-    const NEWS = 'News';
-    const MINI_BLOG = 'Mini Blog';
-
-    const CATEGORY = [
-        self::ARTICLE => 'Article',
-        self::NEWS => 'News',
-        self::MINI_BLOG => 'Mini Blog',
-    ];
-
     protected $fillable = [
         'title',
         'slug',
+        'category_id',
         'content',
-        'category',
         'is_published',
         'published_at',
         'meta_description',
@@ -55,6 +46,21 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function subCategories(): MorphToMany
+    {
+        return $this->morphToMany(Category::class, 'categoriable');
+    }
+
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function excerpt(): string
     {
         $content = "";
@@ -65,11 +71,6 @@ class Post extends Model implements HasMedia
         }
 
         return Str::words(strip_tags($content), 200, '...');
-    }
-
-    public function tags(): BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class);
     }
 
     public function scopePublished($query)

@@ -4,24 +4,36 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecruitmentResource\Pages;
 use App\Filament\Resources\RecruitmentResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Recruitment;
+use App\Models\SubCategory;
+use Carbon\Carbon;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\MorphToSelect;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\ActionSize;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -48,7 +60,28 @@ class RecruitmentResource extends Resource
                                     ->required()
                                     ->unique(Recruitment::class, 'slug', fn ($record) => $record),
                             ]),
-                            RichEditor::make('content')->required(),
+                            Select::make('category')
+                                ->required()
+                                ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Recruitment $recruitment) => $query->where("model", $recruitment->getMorphClass()),)
+                                ->suffixAction(
+                                    Action::make('create')
+                                        ->label('Create Category')
+                                        ->icon('heroicon-m-plus')
+                                        ->color('gray')
+                                        ->form([
+                                            TextInput::make('name')
+                                                ->required(),
+                                            Hidden::make('model')
+                                                ->dehydrateStateUsing(fn (Recruitment $query) => $query->getMorphClass())
+                                        ])
+                                        ->action(function (array $data, Category $query) {
+                                            $query->create($data);
+                                        })->visible(auth()->user()->can('category:create'))
+                                ),
+                            RichEditor::make('content')
+                                ->disableToolbarButtons([
+                                    'attachFiles'
+                                ])->required(),
                         ])->columnSpan(4),
 
                         Section::make('Meta')->schema([
@@ -56,6 +89,7 @@ class RecruitmentResource extends Resource
                             Toggle::make('is_published')->label('Published')->onColor('success'),
                             SpatieMediaLibraryFileUpload::make('image')
                                 ->label('Thumbnail')
+                                ->required()
                                 ->image()
                                 ->optimize('webp')
                                 ->imageEditor(),
@@ -69,18 +103,46 @@ class RecruitmentResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('thumbnail'),
+                SpatieMediaLibraryImageColumn::make('thumbnail')->square()->alignment(Alignment::Center),
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('slug')->searchable(),
+                TextColumn::make('categories.name'),
+                TextColumn::make('user.name')->label('Author'),
+                ToggleColumn::make('is_published')->label('Published')->onColor('success')->alignment(Alignment::Center),
+                TextColumn::make('status')
+                    ->state(
+                        fn (Recruitment $record) => $record->status
+                    )
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'draft' => 'gray',
+                        'reviewing' => 'warning',
+                        'published' => 'success',
+                        'rejected' => 'danger',
+                    })->alignment(Alignment::Center),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('publish')
+                    ->label(fn (Recruitment $record) => $record->status === "published" ? "Reject" : "Publish")
+                    ->action(function (Recruitment $record) {
+                        if ($record->status === "published") {
+                            $record->statuses()->update(['name' => 'rejected']);
+                        } else {
+                            $record->statuses()->update(['name' => 'published']);
+                            $record->update(['published_at' => Carbon::now()]);
+                        }
+                    })
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->icon(fn (Recruitment $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
+                    ->color(fn (Recruitment $record) => $record->status === "published" ? "danger" : "success")
+                    ->visible(auth()->user()->can('publish')),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('recruitment:delete'))
             ]);
     }
 
