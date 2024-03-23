@@ -45,6 +45,6 @@ class Competition extends Model implements HasMedia
 
     public function categories(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class);
     }
 }
