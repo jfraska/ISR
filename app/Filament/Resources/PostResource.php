@@ -99,7 +99,6 @@ class PostResource extends Resource
 
                                         Select::make('sub_category')
                                             ->label('Sub Category')
-                                            ->required()
                                             ->relationship(name: 'subCategories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Get $get) => $query->where('parent_id', $get('category_id'))
                                                 ->whereNotNull('parent_id'),)
                                             ->suffixAction(
