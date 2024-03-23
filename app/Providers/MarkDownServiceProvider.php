@@ -2,18 +2,15 @@
 
 namespace App\Providers;
 
-
 use Illuminate\Support\ServiceProvider;
-use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\MarkdownConverter;
 
-class MarkdownServiceProvider extends ServiceProvider
+class MarkDownServiceProvider extends ServiceProvider
 {
     /**
-     * @return void
+     * Register services.
      */
     public function register(): void
     {
@@ -29,11 +26,11 @@ class MarkdownServiceProvider extends ServiceProvider
         });
     }
 
-
     /**
-     * @return void
+     * Bootstrap services.
      */
     public function boot(): void
     {
+        //
     }
 }
