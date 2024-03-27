@@ -10,6 +10,7 @@ use App\Models\SubCategory;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\MorphToSelect;
@@ -62,7 +63,7 @@ class RecruitmentResource extends Resource
                                     ->unique(Recruitment::class, 'slug', fn ($record) => $record),
                             ]),
                             Select::make('category')
-                                ->label('Category')
+                                ->disabledOn('edit')
                                 ->required()
                                 ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Recruitment $recruitment) => $query->where("model", $recruitment->getMorphClass()),)
                                 ->suffixAction(
@@ -72,6 +73,7 @@ class RecruitmentResource extends Resource
                                         ->color('gray')
                                         ->form([
                                             TextInput::make('name')
+                                                ->filled()
                                                 ->required(),
                                             Hidden::make('model')
                                                 ->dehydrateStateUsing(fn (Recruitment $query) => $query->getMorphClass())
@@ -97,6 +99,7 @@ class RecruitmentResource extends Resource
                                 ->imageCropAspectRatio('16:9')
                                 ->optimize('webp')
                                 ->imageEditor(),
+                            DateTimePicker::make('published_at'),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),
                     ])
@@ -107,20 +110,27 @@ class RecruitmentResource extends Resource
     {
         return $table
             ->groups([
-                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Recruitment $record): string => ucfirst($record->status))->collapsible(),
+                Group::make('statuses.name')
+                    ->label('Status')
+                    ->collapsible(),
             ])
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('categories.name'),
+                TextColumn::make('categories.name')->label('Category'),
                 TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('status')
-                    ->state(
-                        fn (Recruitment $record) => $record->status
-                    )
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
+                TextColumn::make('statuses.name')
+                    ->label('Status')
                     ->badge()
+                    ->icon(fn (string $state): string => match ($state) {
+                        'draft' => 'heroicon-m-pencil',
+                        'reviewing' => 'heroicon-m-clock',
+                        'published' => 'heroicon-m-check-circle',
+                        'rejected' => 'heroicon-m-exclamation-circle',
+                    })
                     ->color(fn (string $state): string => match ($state) {
                         'draft' => 'gray',
                         'reviewing' => 'warning',
@@ -132,22 +142,29 @@ class RecruitmentResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('publish')
-                    ->label(fn (Recruitment $record) => $record->status === "published" ? "Reject" : "Publish")
-                    ->action(function (Recruitment $record) {
-                        if ($record->status === "published") {
-                            $record->statuses()->update(['name' => 'rejected']);
-                        } elseif ($record->status === "reviewing") {
-                            $record->statuses()->update(['name' => 'published']);
-                            $record->update(['published_at' => Carbon::now()]);
-                        }
-                    })
+                Tables\Actions\Action::make('published')
+                    ->label('Publish')
+                    ->action(fn (Recruitment $record) => $record->updateStatus('published'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
-                    ->icon(fn (Recruitment $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
-                    ->color(fn (Recruitment $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(fn (Recruitment $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
+                    ->color("success")
+                    ->visible(fn (Recruitment $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\Action::make('publish')
+                    ->action(fn (Recruitment $record) => $record->updateStatus('reviewing'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->icon("heroicon-m-cloud-arrow-up")
+                    ->size(ActionSize::Small)
+                    ->color("success")
+                    ->visible(fn (Recruitment $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                Tables\Actions\Action::make('reject')
+                    ->action(fn (Recruitment $record) => $record->updateStatus('rejected'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->color("danger")
+                    ->visible(fn (Recruitment $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('recruitment:delete'))

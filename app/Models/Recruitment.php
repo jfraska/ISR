@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\ModelStatus\HasStatuses;
+use App\Traits\HasStatuses;
 
 class Recruitment extends Model implements HasMedia
 {

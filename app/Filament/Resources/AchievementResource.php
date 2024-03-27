@@ -83,7 +83,9 @@ class AchievementResource extends Resource
     {
         return $table
             ->groups([
-                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Achievement $record): string => ucfirst($record->status))->collapsible(),
+                Group::make('statuses.name')
+                    ->label('Status')
+                    ->collapsible(),
             ])
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
@@ -91,11 +93,16 @@ class AchievementResource extends Resource
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('published_at'),
-                TextColumn::make('status')
-                    ->state(
-                        fn (Achievement $record) => $record->status
-                    )
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
+                TextColumn::make('statuses.name')
+                    ->label('Status')
+                    ->badge()
+                    ->icon(fn (string $state): string => match ($state) {
+                        'draft' => 'heroicon-m-pencil',
+                        'reviewing' => 'heroicon-m-clock',
+                        'published' => 'heroicon-m-check-circle',
+                        'rejected' => 'heroicon-m-exclamation-circle',
+                    })
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'draft' => 'gray',
@@ -108,22 +115,29 @@ class AchievementResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('publish')
-                    ->label(fn (Achievement $record) => $record->status === "published" ? "Reject" : "Publish")
-                    ->action(function (Achievement $record) {
-                        if ($record->status === "published") {
-                            $record->statuses()->update(['name' => 'rejected']);
-                        } elseif ($record->status === "reviewing") {
-                            $record->statuses()->update(['name' => 'published']);
-                            $record->update(['published_at' => Carbon::now()]);
-                        }
-                    })
+                Tables\Actions\Action::make('published')
+                    ->label('Publish')
+                    ->action(fn (Achievement $record) => $record->updateStatus('published'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
-                    ->icon(fn (Achievement $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
-                    ->color(fn (Achievement $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
+                    ->color("success")
+                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\Action::make('publish')
+                    ->action(fn (Achievement $record) => $record->updateStatus('reviewing'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->icon("heroicon-m-cloud-arrow-up")
+                    ->size(ActionSize::Small)
+                    ->color("success")
+                    ->visible(fn (Achievement $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                Tables\Actions\Action::make('reject')
+                    ->action(fn (Achievement $record) => $record->updateStatus('rejected'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->color("danger")
+                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('achievement:delete'))

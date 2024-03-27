@@ -18,7 +18,9 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('content');
+            $table->text('description');
+            $table->integer('price');
+            $table->string('link_buy');
 
             $table->boolean('is_published');
             $table->timestamp('published_at')->nullable();
