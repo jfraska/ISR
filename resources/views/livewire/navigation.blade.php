@@ -48,6 +48,11 @@
     </div>
 
     <div id="navbar-hamburger" class="hidden">
+        @auth
+            @include("layouts.partials.header-right-auth")
+        @else
+            @include("layouts.partials.header-right-guest")
+        @endauth
         <!-- Daftar menu -->
         <a href="#" class="block px-4 py-2 relative">Menu 1
             <div class="hidden absolute top-full left-0 bg-white shadow-lg rounded-lg">
