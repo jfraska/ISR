@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/berita-terkini', [HomeController::class, 'berita'])->name('berita-terkini');
+Route::get('/artikel-terkini', [HomeController::class, 'artikel'])->name('artikel-terkini');
+Route::get('/mini-blog', [HomeController::class, 'blog'])->name('mini-blog');
 
 // Route::middleware([
 //     'auth:sanctum',
