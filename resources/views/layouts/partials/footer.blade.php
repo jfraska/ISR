@@ -1,4 +1,4 @@
-<footer class="w-full h-[760px] bottom-0 flex justify-center bg-[#0D5568]">
+<footer class="relative w-full h-[900px] bottom-0 flex justify-center bg-[#0D5568]">
     <div class="w-3/4 pt-10">
         <div class="flex w-full h-[250px]">
             <div class="w-full pl-7 pr-3 border-r border-white">
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="mt-10 absolute pt-[300px]">
+    <div class="absolute bottom-0 inset-x-0 -z-0">
         <img src="/images/footer.png" alt="" class="w-full object-cover">
     </div>
 </footer>

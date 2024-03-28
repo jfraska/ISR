@@ -7,31 +7,26 @@
 @section('content')
     <div class="">
         {{-- Start Hero Page --}}
-        <section class="relative">
-            <div class="aspect-video shadow-xl">
-                <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover">
+        <section class="relative aspect-video w-full">
+                <video autoplay muted loop class="w-full h-full object-cover">
                     <source src="/images/upn-profile.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-            </div>
         </section>
         {{-- End Hero Page --}}
 
         {{-- Start Profil ISR --}}
         <section class="bg-white">
-            <div class="px-7 py-8 relative flex items-center flex-row-reverse">
-                <div class="absolute justify-center items-center top-0 left-0 ml-5">
+            <div class="px-8 py-8 relative flex items-center justify-end md:flex-row flex-col-reverse w-full md:gap-20 gap-10">
+                <div class="absolute md:block hidden justify-center items-center top-4 left-4">
                     <div class="w-40 h-14 z-10 bg-[#0D5568]"></div>
-                    <div class="w-40 h-14 z-20 bg-[#F5D05E]"></div>
+                    <div class="w-40 h-14 z-20 bg-[#7e7e7d]"></div>
                 </div>
-                <img src="/images/upn.png" alt="isr-profile" class="flex-shrink-0 w-[658px] h-[578px]">
-                <div class="mx-[50px] w-[397px] h-[165px] flex-grow-0">
-                    <div class="relative">
-                        <h1 class="relative font-bold text-3xl">Profil ISR
-                            <span
-                                class="after:absolute ml-5 after:w-2/3 after:h-[3px] after:bg-[#0D5568] after:bottom-2"></span>
-                        </h1>
-                    </div>
+                <div class="md:w-[397px] w-full">
+                    <h1 class="relative font-bold text-3xl w-full">Profil ISR
+                        <span
+                            class="after:absolute ml-5 after:w-1/3 after:h-[3px] after:bg-[#0D5568] after:bottom-2"></span>
+                    </h1>
                     <p class="mt-[10px] text-[12px]">Interdisciplinary Scientific Research(ISR) merupakan suatu
                         kelompok
                         studi di bidang penalaran dan penelitian di lingkup kampus Universitas Pembangunan Nasional “
@@ -39,104 +34,101 @@
                         Tri Dharma Perguruan Tinggi yaitu pendidikan dan pengajaran, penelitian, dan pengabdian kepada
                         masyarakat serta mendukung visi dan misi UPN “ Veteran” Yogyakarta dalam menyelenggarakan penelitian
                         dan pengabdian kepada masyarakat.</p>
-                    <div class="relative flex items-center justify-between flex-row w-[140px] h-[35px] border border-white p-3 mt-3"
-                        style="background-color: #0D5568;">
+                    <div class="relative flex items-center gap-5 border border-white p-3 mt-3 bg-[#0D5568] w-fit">
                         <a href="" class="text-white text-[12px]">SELENGKAPNYA</a>
-                        <img src="/images/arrow.svg" alt="arrow" class="w-[15px] h-[15px]">
+                        <img src="/images/arrow.svg" alt="arrow" class="w-4 aspect-square">
                     </div>
                 </div>
-                <div class="absolute bottom-0 left-0">
-                    <img src="/images/side-decor-bottom-left.png" alt="">
+                <img src="/images/upn.png" alt="isr-profile" class="md:w-[658px] aspect-square w-full">
+                <div class="md:block hidden absolute bottom-0 left-0">
+                    <img src="/images/side-decor-bottom-left.png" alt="" class="w-[20vw] aspect-square">
                 </div>
             </div>
         </section>
         {{-- End Profil ISR --}}
 
         {{-- Start Pendaftaran --}}
-        <section class="bg-white">
-            <div class="relative">
-                <div class="absolute w-full h-[170px] bg-[#0D5568] z-0"></div>
-                <div class="flex flex-col gap-2 py-10 px-20 w-4/5 mx-auto">
-                    <div class="flex justify-between gap-5 w-full h-[180px] z-10">
-                        <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
-                            <div class="p-3 relative flex items-start flex-row">
-                                <img src="/images/oprec.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
-                                <div class="mr-[50px] flex-grow">
-                                    <h1 class="font-bold text-[14px]" style="color:#0D5568">Open Recruitmen ISR</h1>
-                                    <p class="mb-0 text-[11px]">Buat kalian yang tertarik belajar dan
-                                        menambah
-                                        softskill menulis karya ilmiah, penelitian, pengabdian kepada masyarakat, serta
-                                        berwirausaha, yuk langsung aja gabung menjadi bagian dari UKM Interdisciplinary
-                                        Scientific
-                                        Research (ISR)</p>
-                                    <div
-                                        class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
-                                        <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
-                                        <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
-                                    </div>
-                                </div>
+        <section class="relative bg-white py-10">
+            <div class="absolute md:block hidden w-full top-0 inset-x-0 h-[170px] bg-[#0D5568] z-0"></div>
+            <div class="flex md:flex-col flex-row gap-5 md:w-4/5 w-full mx-auto overflow-x-auto">
+                <div class="flex gap-5 md:h-[180px] h-[300px] z-10">
+                    <div class="w-full flex items-start gap-2 p-4 border-2 border-[#0D5568] bg-white">
+                        <img src="/images/oprec.svg" alt="oprec" class="w-9 aspect-square">
+                        <div class="mr-[50px]">
+                            <h1 class="font-bold text-sm text-[#0D5568]">Open Recruitmen ISR</h1>
+                            <p class="text-xs">Buat kalian yang tertarik belajar dan
+                                menambah
+                                softskill menulis karya ilmiah, penelitian, pengabdian kepada masyarakat, serta
+                                berwirausaha, yuk langsung aja gabung menjadi bagian dari UKM Interdisciplinary
+                                Scientific
+                                Research (ISR)
+                            </p>
+                            <div
+                                class="flex justify-between items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
+                                <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
+                                <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
                             </div>
                         </div>
-                        <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
-                            <div class="p-3 relative flex items-start flex-row">
-                                <img src="/images/volunteer.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
-                                <div class="mr-[50px] flex-grow">
-                                    <h1 class="font-bold text-[14px]" style="color:#0D5568">Pendaftaran Volunteer</h1>
-                                    <p class="mb-0 text-[11px]">Kalian ingin berkontribusi untuk memajukan
-                                        bangsa,
-                                        tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang
-                                        bermanfaat?
-                                        Yap
-                                        disini tempatnya!</p>
-                                    <div
-                                        class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
-                                        <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
-                                        <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
-                                    </div>
+                    </div>
+                    <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
+                        <div class="p-3 relative flex items-start flex-row">
+                            <img src="/images/volunteer.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
+                            <div class="mr-[50px]">
+                                <h1 class="font-bold text-[14px]" style="color:#0D5568">Pendaftaran Volunteer</h1>
+                                <p class="mb-0 text-[11px]">Kalian ingin berkontribusi untuk memajukan
+                                    bangsa,
+                                    tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang
+                                    bermanfaat?
+                                    Yap
+                                    disini tempatnya!</p>
+                                <div
+                                    class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
+                                    <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="flex justify-between gap-5 mt-3 w-full h-[180px]">
-                        <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
-                            <div class="p-3 relative flex items-start flex-row">
-                                <img src="/images/lomba.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
-                                <div class="mr-[50px] flex-grow">
-                                    <h1 class="font-bold text-[14px]" style="color:#0D5568">Pendaftaran Lomba Umum
-                                    </h1>
-                                    <p class="mb-0 text-[11px]">Kalian ingin berkontribusi untuk memajukan
-                                        bangsa,
-                                        tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang
-                                        bermanfaat?
-                                        Yap
-                                        disini tempatnya!</p>
-                                    <div
-                                        class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
-                                        <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
-                                        <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
-                                    </div>
+                <div class="flex gap-5 md:h-[180px] h-[300px]">
+                    <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
+                        <div class="p-3 relative flex items-start flex-row">
+                            <img src="/images/lomba.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
+                            <div class="mr-[50px] flex-grow">
+                                <h1 class="font-bold text-[14px]" style="color:#0D5568">Pendaftaran Lomba Umum
+                                </h1>
+                                <p class="mb-0 text-[11px]">Kalian ingin berkontribusi untuk memajukan
+                                    bangsa,
+                                    tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang
+                                    bermanfaat?
+                                    Yap
+                                    disini tempatnya!</p>
+                                <div
+                                    class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
+                                    <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
-                            <div class="p-3 relative flex items-start flex-row">
-                                <img src="/images/talenta.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
-                                <div class="mr-[50px] flex-grow">
-                                    <h1 class="font-bold text-[14px]" style="color:#0D5568">Pendaftaran Ajang Talenta
-                                        Dikti
-                                    </h1>
-                                    <p class="mb-0 text-[11px]">Kalian ingin berkontribusi untuk memajukan
-                                        bangsa,
-                                        tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang
-                                        bermanfaat?
-                                        Yap
-                                        disini tempatnya!</p>
-                                    <div
-                                        class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
-                                        <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
-                                        <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
-                                    </div>
+                    </div>
+                    <div class="w-full p-1 border-2 border-[#0D5568] bg-white">
+                        <div class="p-3 relative flex items-start flex-row">
+                            <img src="/images/talenta.svg" alt="oprec" class="mr-4 w-[35px] h-[35px]">
+                            <div class="mr-[50px] flex-grow">
+                                <h1 class="font-bold text-[14px]" style="color:#0D5568">Pendaftaran Ajang Talenta
+                                    Dikti
+                                </h1>
+                                <p class="mb-0 text-[11px]">Kalian ingin berkontribusi untuk memajukan
+                                    bangsa,
+                                    tapi bingung mulai dari mana? Atau ingin mengisi waktumu dengan hal-hal yang
+                                    bermanfaat?
+                                    Yap
+                                    disini tempatnya!</p>
+                                <div
+                                    class="relative flex justify-between flex-row items-center bg-[#0D5568] border border-white w-[135px] h-[35px] p-3 mt-3">
+                                    <a href="" class="text-[12px]" style="color: white">SELENGKAPNYA</a>
+                                    <img src="/images/arrow.svg" alt="arrow" class="w-[10px] h-[10px]">
                                 </div>
                             </div>
                         </div>
