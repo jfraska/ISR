@@ -16,4 +16,19 @@ class HomeController extends Controller
             'posts' => Post::where('is_featured', true)->latest()->take(3)->get(), 
         ]);
     }
+
+    public function berita()
+    {
+        return view('berita-terkini');
+    }
+
+    public function artikel()
+    {
+        return view('artikel-terkini');
+    }
+
+    public function blog()
+    {
+        return view('mini-blog');
+    }
 }
