@@ -26,6 +26,7 @@ use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -61,8 +62,8 @@ class DownloadResource extends Resource
                                                 ->unique(Download::class, 'slug', fn ($record) => $record),
                                         ]),
                                         Select::make('category')
-                                            ->label('Category')
                                             ->required()
+                                            ->disabledOn('edit')
                                             ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Download $download) => $query->where("model", $download->getMorphClass()),)
                                             ->suffixAction(
                                                 Action::make('create')
@@ -71,6 +72,7 @@ class DownloadResource extends Resource
                                                     ->color('gray')
                                                     ->form([
                                                         TextInput::make('name')
+                                                            ->filled()
                                                             ->required(),
                                                         Hidden::make('model')
                                                             ->dehydrateStateUsing(fn (Download $query) => $query->getMorphClass())
@@ -142,13 +144,12 @@ class DownloadResource extends Resource
                                                             ->openable()
                                                             ->maxFiles(3)
                                                             ->required(),
-                                                        TextInput::make('alt')
-                                                            ->label('Alt text')
+                                                        TextInput::make('desc')
+                                                            ->label('description')
                                                     ])
                                                     ->icon('heroicon-o-document-text'),
                                             ])
                                             ->blockNumbers(false)
-                                            ->minItems(2)
                                             ->maxItems(6)
                                             ->collapsed(),
                                     ]),
@@ -169,7 +170,9 @@ class DownloadResource extends Resource
     {
         return $table
             ->groups([
-                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Download $record): string => ucfirst($record->status))->collapsible(),
+                Group::make('statuses.name')
+                    ->label('Status')
+                    ->collapsible(),
             ])
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
@@ -177,11 +180,16 @@ class DownloadResource extends Resource
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('categories.name')->searchable()->label('Category'),
                 TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('published_at'),
-                TextColumn::make('status')
-                    ->state(
-                        fn (Download $record) => $record->status
-                    )
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
+                TextColumn::make('statuses.name')
+                    ->label('Status')
+                    ->badge()
+                    ->icon(fn (string $state): string => match ($state) {
+                        'draft' => 'heroicon-m-pencil',
+                        'reviewing' => 'heroicon-m-clock',
+                        'published' => 'heroicon-m-check-circle',
+                        'rejected' => 'heroicon-m-exclamation-circle',
+                    })
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'draft' => 'gray',
@@ -194,22 +202,29 @@ class DownloadResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('publish')
-                    ->label(fn (Download $record) => $record->status === "published" ? "Reject" : "Publish")
-                    ->action(function (Download $record) {
-                        if ($record->status === "published") {
-                            $record->statuses()->update(['name' => 'rejected']);
-                        } elseif ($record->status === "reviewing") {
-                            $record->statuses()->update(['name' => 'published']);
-                            $record->update(['published_at' => Carbon::now()]);
-                        }
-                    })
+                Tables\Actions\Action::make('published')
+                    ->label('Publish')
+                    ->action(fn (Download $record) => $record->updateStatus('published'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
-                    ->icon(fn (Download $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
-                    ->color(fn (Download $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
+                    ->color("success")
+                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\Action::make('publish')
+                    ->action(fn (Download $record) => $record->updateStatus('reviewing'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->icon("heroicon-m-cloud-arrow-up")
+                    ->size(ActionSize::Small)
+                    ->color("success")
+                    ->visible(fn (Download $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                Tables\Actions\Action::make('reject')
+                    ->action(fn (Download $record) => $record->updateStatus('rejected'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->color("danger")
+                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('Download:delete'))

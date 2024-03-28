@@ -59,9 +59,8 @@ class OrganizationalProfile extends Page
                 $this->getStructureSection(),
             ])
             ->model($this->record)
-            // ->statePath('data')
-            // ->operation('edit')
-        ;
+            ->statePath('data')
+            ->operation('edit');
     }
 
     protected function getIdentificationSection(): Component
@@ -74,7 +73,7 @@ class OrganizationalProfile extends Page
                         ComponentsBuilder\Block::make('heading')
                             ->schema([
                                 TextInput::make('content')
-
+                                    ->autocapitalize('words')
                                     ->required(),
                                 Select::make('level')
                                     ->options([
@@ -121,8 +120,6 @@ class OrganizationalProfile extends Page
                     ])
                     ->columnSpanFull()
                     ->blockNumbers(false)
-                    ->minItems(2)
-                    ->maxItems(6)
                     ->collapsed(),
             ])->columns();
     }
@@ -137,7 +134,7 @@ class OrganizationalProfile extends Page
                         ComponentsBuilder\Block::make('heading')
                             ->schema([
                                 TextInput::make('content')
-
+                                    ->autocapitalize('words')
                                     ->required(),
                                 Select::make('level')
                                     ->options([
@@ -184,8 +181,6 @@ class OrganizationalProfile extends Page
                     ])
                     ->columnSpanFull()
                     ->blockNumbers(false)
-                    ->minItems(2)
-                    ->maxItems(6)
                     ->collapsed(),
             ])->columns();
     }
@@ -200,7 +195,7 @@ class OrganizationalProfile extends Page
                         ComponentsBuilder\Block::make('heading')
                             ->schema([
                                 TextInput::make('content')
-
+                                    ->autocapitalize('words')
                                     ->required(),
                                 Select::make('level')
                                     ->options([
@@ -247,8 +242,6 @@ class OrganizationalProfile extends Page
                     ])
                     ->columnSpanFull()
                     ->blockNumbers(false)
-                    ->minItems(2)
-                    ->maxItems(6)
                     ->collapsed(),
             ])->columns();
     }

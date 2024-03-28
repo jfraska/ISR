@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\ModelStatus\HasStatuses;
+use App\Traits\HasStatuses;
 
 class Merchandise extends Model implements HasMedia
 {
@@ -17,7 +17,9 @@ class Merchandise extends Model implements HasMedia
     protected $fillable = [
         'title',
         'slug',
-        'content',
+        'description',
+        'link_buy',
+        'price',
         'is_published',
         'published_at',
         'meta_description',
@@ -25,7 +27,6 @@ class Merchandise extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'content' => 'array',
         'published_at' => 'datetime',
     ];
 

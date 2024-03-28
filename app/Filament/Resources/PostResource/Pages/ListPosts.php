@@ -27,7 +27,7 @@ class ListPosts extends ListRecords
     {
         $tabs = [];
         $post = new Post;
-        $categories = Category::query()->where('model', $post->getMorphClass())->pluck('name', 'id');
+        $categories = Category::query()->where('model', $post->getMorphClass())->orderBy('name', 'asc')->pluck('name', 'id');
 
         foreach ($categories as $id => $category) {
             $tabs[$category] = Tab::make($category)

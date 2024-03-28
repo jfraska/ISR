@@ -7,6 +7,7 @@ use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
@@ -24,6 +25,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -143,6 +145,9 @@ class DepartmentResource extends Resource
                                     ->imageCropAspectRatio('16:9')
                                     ->optimize('webp')
                                     ->imageEditor(),
+                                DateTimePicker::make('published_at')
+                                    ->readOnly()
+                                    ->default(Carbon::now()),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),
                     ])
@@ -154,8 +159,11 @@ class DepartmentResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('created_at'),
+                TextColumn::make('Kepala')
+                    ->state(
+                        fn (Department $record) => $record->member[0]['name']
+                    ),
+                TextColumn::make('published_at'),
                 TextColumn::make('updated_at'),
             ])
             ->filters([

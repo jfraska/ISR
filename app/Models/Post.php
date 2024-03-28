@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Traits\Commentable;
+use App\Traits\HasPageViewCounter;
+use App\Traits\HasStatuses;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,11 +16,18 @@ use Illuminate\Support\Str;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\ModelStatus\HasStatuses;
+use Spatie\Tags\HasTags;
 
 class Post extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, HasUserGuestLike, Commentable, HasStatuses;
+    use HasFactory,
+        SoftDeletes,
+        InteractsWithMedia,
+        HasTags,
+        HasUserGuestLike,
+        Commentable,
+        HasStatuses,
+        HasPageViewCounter;
 
     protected $fillable = [
         'title',
@@ -39,11 +48,6 @@ class Post extends Model implements HasMedia
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function tags(): BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class);
     }
 
     public function subCategories(): MorphToMany
@@ -78,12 +82,12 @@ class Post extends Model implements HasMedia
         $query->where('title', 'like', "%{$search}%");
     }
 
-    public function scopeWithTag($query, string $tag)
-    {
-        $query->whereHas('tags', function ($query) use ($tag) {
-            $query->where('slug', $tag);
-        });
-    }
+    // public function scopeWithTag($query, string $tag)
+    // {
+    //     $query->whereHas('tags', function ($query) use ($tag) {
+    //         $query->where('slug', $tag);
+    //     });
+    // }
 
     public function getReadingTime()
     {

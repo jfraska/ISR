@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
+use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\SubCategory;
@@ -11,6 +12,7 @@ use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
@@ -30,6 +32,7 @@ use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
@@ -78,6 +81,7 @@ class PostResource extends Resource
                                         ]),
                                         Select::make('category_id')
                                             ->label('Category')
+                                            ->disabledOn('edit')
                                             ->required()
                                             ->live()
                                             ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Post $post) => $query->where("model", $post->getMorphClass()),)
@@ -88,6 +92,7 @@ class PostResource extends Resource
                                                     ->color('gray')
                                                     ->form([
                                                         TextInput::make('name')
+                                                            ->filled()
                                                             ->required(),
                                                         Hidden::make('model')
                                                             ->dehydrateStateUsing(fn (Post $query) => $query->getMorphClass())
@@ -96,10 +101,10 @@ class PostResource extends Resource
                                                         $query->create($data);
                                                     })->visible(auth()->user()->can('category:create'))
                                             ),
-
                                         Select::make('sub_category')
-                                            ->label('Sub Category')
                                             ->required()
+                                            ->disabledOn('edit')
+                                            ->visible(fn (Category $query, Get $get) => $query->where('parent_id', $get('category_id'))->exists())
                                             ->relationship(name: 'subCategories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Get $get) => $query->where('parent_id', $get('category_id'))
                                                 ->whereNotNull('parent_id'),)
                                             ->suffixAction(
@@ -109,6 +114,7 @@ class PostResource extends Resource
                                                     ->color('gray')
                                                     ->form([
                                                         TextInput::make('name')
+                                                            ->filled()
                                                             ->required(),
                                                         Select::make('parent_id')
                                                             ->label('Category')
@@ -200,10 +206,7 @@ class PostResource extends Resource
                                     ->maxFiles(3)
                                     ->optimize('webp')
                                     ->imageEditor(),
-                                Select::make('tags')
-                                    ->multiple()
-                                    ->searchable()
-                                    ->relationship('tags', 'title'),
+                                SpatieTagsInput::make('tags'),
                                 DateTimePicker::make('published_at')
                                     ->disabled(),
                                 TextInput::make('meta_description'),
@@ -216,27 +219,35 @@ class PostResource extends Resource
     {
         return $table
             ->groups([
-                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Post $record): string => ucfirst($record->status))->collapsible(),
+                Group::make('statuses.name')
+                    ->label('Status')
+                    ->collapsible(),
             ])
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->searchable(),
-                TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
+                TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn ($state): bool => $state !== null),
                 TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('status')
-                    ->state(
-                        fn (Post $record) => $record->status
-                    )
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
+                TextColumn::make('id')->counts('views')->label('Views'),
+                SpatieTagsColumn::make('tags'),
+                TextColumn::make('statuses.name')
+                    ->label('Status')
                     ->badge()
+                    ->icon(fn (string $state): string => match ($state) {
+                        'draft' => 'heroicon-m-pencil',
+                        'reviewing' => 'heroicon-m-clock',
+                        'published' => 'heroicon-m-check-circle',
+                        'rejected' => 'heroicon-m-exclamation-circle',
+                    })
                     ->color(fn (string $state): string => match ($state) {
                         'draft' => 'gray',
                         'reviewing' => 'warning',
                         'published' => 'success',
                         'rejected' => 'danger',
                     })->alignment(Alignment::Center),
-                TextColumn::make('tags.title')->searchable()->badge()
             ])
             ->filters([
                 Tables\Filters\Filter::make('is_featured')
@@ -245,28 +256,32 @@ class PostResource extends Resource
                 Tables\Filters\Filter::make('is_published')
                     ->label('Published')
                     ->query(fn (Builder $query): Builder => $query->where('is_published', true)),
-                Tables\Filters\SelectFilter::make('tags')
-                    ->multiple()
-                    ->relationship('tags', 'title'),
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
-                Tables\Actions\Action::make('publish')
-                    ->label(fn (Post $record) => $record->status === "published" ? "Reject" : "Publish")
-                    ->action(function (Post $record) {
-                        if ($record->status === "published") {
-                            $record->statuses()->update(['name' => 'rejected']);
-                        } elseif ($record->status === "reviewing") {
-                            $record->statuses()->update(['name' => 'published']);
-                            $record->update(['published_at' => Carbon::now()]);
-                        }
-                    })
+                Tables\Actions\Action::make('published')
+                    ->label('Publish')
+                    ->action(fn (Post $record) => $record->updateStatus('published'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
-                    ->icon(fn (Post $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
-                    ->color(fn (Post $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
+                    ->color("success")
+                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\Action::make('publish')
+                    ->action(fn (Post $record) => $record->updateStatus('reviewing'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->icon("heroicon-m-cloud-arrow-up")
+                    ->size(ActionSize::Small)
+                    ->color("success")
+                    ->visible(fn (Post $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                Tables\Actions\Action::make('reject')
+                    ->action(fn (Post $record) => $record->updateStatus('rejected'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->color("danger")
+                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('post:delete'))
@@ -276,7 +291,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CommentsRelationManager::class
         ];
     }
 
