@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AnnouncementResource\Pages;
-use App\Filament\Resources\AnnouncementResource\RelationManagers;
-use App\Models\Announcement;
+use App\Filament\Resources\AgendaResource\Pages;
+use App\Filament\Resources\AgendaResource\RelationManagers;
+use App\Models\Agenda;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
@@ -35,9 +35,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class AnnouncementResource extends Resource
+class AgendaResource extends Resource
 {
-    protected static ?string $model = Announcement::class;
+    protected static ?string $model = Agenda::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-megaphone';
 
@@ -57,7 +57,7 @@ class AnnouncementResource extends Resource
                                 TextInput::make('slug')
                                     ->readOnly()
                                     ->required()
-                                    ->unique(Announcement::class, 'slug', fn ($record) => $record),
+                                    ->unique(Agenda::class, 'slug', fn ($record) => $record),
                             ]),
                             RichEditor::make('content')
                                 ->disableToolbarButtons([
@@ -71,6 +71,7 @@ class AnnouncementResource extends Resource
                             SpatieMediaLibraryFileUpload::make('image')
                                 ->label('Thumbnail')
                                 ->image()
+                                ->maxSize(1024)
                                 ->imageResizeMode('cover')
                                 ->imageCropAspectRatio('16:9')
                                 ->optimize('webp')
@@ -87,7 +88,7 @@ class AnnouncementResource extends Resource
     {
         return $table
             ->groups([
-                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Announcement $record): string => ucfirst($record->status))->collapsible(),
+                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Agenda $record): string => ucfirst($record->status))->collapsible(),
             ])
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
@@ -97,7 +98,7 @@ class AnnouncementResource extends Resource
                 TextColumn::make('published_at'),
                 TextColumn::make('status')
                     ->state(
-                        fn (Announcement $record) => $record->status
+                        fn (Agenda $record) => $record->status
                     )
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -112,8 +113,8 @@ class AnnouncementResource extends Resource
             ])
             ->actions([
                 Tables\Actions\Action::make('publish')
-                    ->label(fn (Announcement $record) => $record->status === "published" ? "Reject" : "Publish")
-                    ->action(function (Announcement $record) {
+                    ->label(fn (Agenda $record) => $record->status === "published" ? "Reject" : "Publish")
+                    ->action(function (Agenda $record) {
                         if ($record->status === "published") {
                             $record->statuses()->update(['name' => 'rejected']);
                         } elseif ($record->status === "reviewing") {
@@ -124,12 +125,12 @@ class AnnouncementResource extends Resource
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
-                    ->icon(fn (Announcement $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
-                    ->color(fn (Announcement $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(fn (Announcement $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
+                    ->icon(fn (Agenda $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
+                    ->color(fn (Agenda $record) => $record->status === "published" ? "danger" : "success")
+                    ->visible(fn (Agenda $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('announcement:delete'))
+                Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('Agenda:delete'))
             ]);
     }
 
@@ -143,9 +144,9 @@ class AnnouncementResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAnnouncement::route('/'),
-            'create' => Pages\CreateAnnouncement::route('/create'),
-            'edit' => Pages\EditAnnouncement::route('/{record}/edit'),
+            'index' => Pages\ListAgenda::route('/'),
+            'create' => Pages\CreateAgenda::route('/create'),
+            'edit' => Pages\EditAgenda::route('/{record}/edit'),
         ];
     }
 }

@@ -28,7 +28,9 @@
             <div class="article-actions-bar mt-6 flex items-center justify-between">
                 <div class="flex gap-x-2">
                     @foreach ($post->tags as $tag)
-                        <x-posts.tag-badge :tag="$tag" />
+                        <x-badge wire:navigate href="{{ route('posts.index', ['tag' => $tag->slug]) }}">
+                            {{ $tag->name }}
+                        </x-badge>
                     @endforeach
 
                     <div class="flex items-center space-x-4">
@@ -38,7 +40,8 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="flex gap-2">
+                    <span>{{ $post->getPageViews() }}</span>
                     <livewire:like-button :key="'like-' . $post->id" :model="$post" />
                 </div>
             </div>

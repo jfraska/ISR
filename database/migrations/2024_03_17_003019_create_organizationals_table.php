@@ -12,14 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organizational_profiles', function (Blueprint $table) {
+        Schema::create('organizationals', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
 
+            $table->string('title')->nullable();
             $table->string('slug')->unique();
-            $table->text('profile');
-            $table->text('visi_misi');
-            $table->text('structure');
+            $table->text('content');
 
             $table->string('meta_description')->nullable();
             $table->timestamps();
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organizational_profiles');
+        Schema::dropIfExists('organizationals');
     }
 };

@@ -129,6 +129,7 @@ class DownloadResource extends Resource
                                                             ->image()
                                                             ->optimize('webp')
                                                             ->imageEditor()
+                                                            ->maxSize(5120)
                                                             ->downloadable()
                                                             ->required(),
                                                         TextInput::make('alt')
@@ -141,8 +142,8 @@ class DownloadResource extends Resource
                                                         SpatieMediaLibraryFileUpload::make('attachments')
                                                             ->multiple()
                                                             ->downloadable()
-                                                            ->openable()
                                                             ->maxFiles(3)
+                                                            ->maxSize(2048)
                                                             ->required(),
                                                         TextInput::make('desc')
                                                             ->label('description')

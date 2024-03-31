@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\AnnouncementResource\Pages;
+namespace App\Filament\Resources\AgendaResource\Pages;
 
-use App\Filament\Resources\AnnouncementResource;
+use App\Filament\Resources\AgendaResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditAnnouncement extends EditRecord
+class EditAgenda extends EditRecord
 {
-    protected static string $resource = AnnouncementResource::class;
+    protected static string $resource = AgendaResource::class;
 
     protected function getHeaderActions(): array
     {

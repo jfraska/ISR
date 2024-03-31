@@ -45,12 +45,11 @@ use Illuminate\Support\Str;
 
 class PostResource extends Resource
 {
-    // protected static ?string $label = 'Pojok Ilmiah';
-
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-pencil';
 
+    // protected static ?string $label = 'Pojok Ilmiah';
     // protected static ?string $navigationLabel = 'Pojok Ilmiah';
     // protected static ?string $navigationGroup = 'Pojok Ilmiah';
 
@@ -172,6 +171,7 @@ class PostResource extends Resource
                                                         SpatieMediaLibraryFileUpload::make('image')
                                                             ->label('Image')
                                                             ->image()
+                                                            ->maxSize(1024)
                                                             ->optimize('webp')
                                                             ->imageEditor()
                                                             ->required(),
@@ -204,6 +204,7 @@ class PostResource extends Resource
                                     ->multiple()
                                     ->minFiles(1)
                                     ->maxFiles(3)
+                                    ->maxSize(1024)
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 SpatieTagsInput::make('tags'),
@@ -231,7 +232,10 @@ class PostResource extends Resource
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn ($state): bool => $state !== null),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
-                TextColumn::make('id')->counts('views')->label('Views'),
+                TextColumn::make('views')
+                    ->state(
+                        fn (Post $record) => $record->getPageViews()
+                    ),
                 SpatieTagsColumn::make('tags'),
                 TextColumn::make('statuses.name')
                     ->label('Status')

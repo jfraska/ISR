@@ -78,6 +78,7 @@ class MerchandiseResource extends Resource
                                 ->image()
                                 ->imageResizeMode('cover')
                                 ->imageCropAspectRatio('16:9')
+                                ->maxSize(1024)
                                 ->multiple()
                                 ->minFiles(1)
                                 ->maxFiles(5)

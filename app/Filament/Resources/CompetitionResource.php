@@ -122,6 +122,7 @@ class CompetitionResource extends Resource
                                 ->label('Thumbnail')
                                 ->required()
                                 ->image()
+                                ->maxSize(1024)
                                 ->imageResizeMode('cover')
                                 ->imageCropAspectRatio('16:9')
                                 ->optimize('webp')

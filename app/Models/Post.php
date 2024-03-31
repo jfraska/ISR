@@ -82,13 +82,6 @@ class Post extends Model implements HasMedia
         $query->where('title', 'like', "%{$search}%");
     }
 
-    // public function scopeWithTag($query, string $tag)
-    // {
-    //     $query->whereHas('tags', function ($query) use ($tag) {
-    //         $query->where('slug', $tag);
-    //     });
-    // }
-
     public function getReadingTime()
     {
         $content = "";

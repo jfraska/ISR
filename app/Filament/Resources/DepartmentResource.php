@@ -96,19 +96,6 @@ class DepartmentResource extends Resource
                                                             ->required(),
                                                     ])
                                                     ->icon('heroicon-m-bars-3-bottom-left'),
-                                                ComponentsBuilder\Block::make('image')
-                                                    ->schema([
-                                                        SpatieMediaLibraryFileUpload::make('image')
-                                                            ->label('Image')
-                                                            ->image()
-                                                            ->optimize('webp')
-                                                            ->imageEditor()
-                                                            ->required(),
-                                                        TextInput::make('alt')
-                                                            ->label('Alt text')
-                                                            ->required(),
-                                                    ])
-                                                    ->icon('heroicon-o-photo'),
                                             ])
                                             ->blockNumbers(false)
                                             ->minItems(2)
@@ -143,6 +130,7 @@ class DepartmentResource extends Resource
                                     ->image()
                                     ->imageResizeMode('cover')
                                     ->imageCropAspectRatio('16:9')
+                                    ->maxSize(1024)
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 DateTimePicker::make('published_at')

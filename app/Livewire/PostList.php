@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\Tag;
 use App\Models\Post;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Tags\Tag;
 
 class PostList extends Component
 {
@@ -46,7 +46,7 @@ class PostList extends Component
     public function posts()
     {
         return Post::published()->with('tags')->when($this->activeTag, function ($query) {
-            $query->withTag($this->tag);
+            $query->WithAllTags($this->tag);
         })->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
     }
 
@@ -57,7 +57,7 @@ class PostList extends Component
             return null;
         }
 
-        return Tag::where('slug', $this->tag)->first();
+        return Tag::findFromString($this->tag);
     }
 
     public function render()

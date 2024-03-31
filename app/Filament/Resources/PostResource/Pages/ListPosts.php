@@ -14,8 +14,6 @@ class ListPosts extends ListRecords
 {
     protected static string $resource = PostResource::class;
 
-    protected static string $view = 'filament.resources.posts.pages.list-posts';
-
     protected function getHeaderActions(): array
     {
         return [

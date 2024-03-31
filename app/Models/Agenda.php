@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Traits\HasStatuses;
 
-class Announcement extends Model implements HasMedia
+class Agenda extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia, HasUserGuestLike, Commentable,  HasStatuses;
 
