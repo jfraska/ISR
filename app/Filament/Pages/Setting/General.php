@@ -10,6 +10,7 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -108,6 +109,27 @@ class General extends Page
         return $form
             ->schema([
                 Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                Builder::make('content')
+                    ->hiddenLabel()
+                    ->required()
+                    ->blocks([
+                        Builder\Block::make('activity')
+                            ->schema([
+                                SpatieMediaLibraryFileUpload::make('thumbnail')
+                                    ->image()
+                                    ->maxSize(1024)
+                                    ->optimize('webp')
+                                    ->imageEditor()
+                                    ->required(),
+                                TextInput::make('description')
+                                    ->required(),
+                            ])
+                            ->icon('heroicon-o-flag'),
+                    ])
+                    ->addActionLabel('Add a new content')
+                    ->columnSpanFull()
+                    ->blockNumbers(false)
+                    ->reorderable(false)
             ])
             ->model($this->record)
             ->statePath('data')
