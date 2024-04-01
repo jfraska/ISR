@@ -34,4 +34,9 @@ class Merchandise extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopePublished($query)
+    {
+        $query->currentStatus('published')->where('is_published', true);
+    }
 }

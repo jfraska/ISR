@@ -47,4 +47,9 @@ class Competition extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+    public function scopePublished($query)
+    {
+        $query->currentStatus('published')->where('is_published', true);
+    }
 }

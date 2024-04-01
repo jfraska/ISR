@@ -41,4 +41,9 @@ class Recruitment extends Model implements HasMedia
     {
         return $this->morphToMany(Category::class, 'categoriable');
     }
+
+    public function scopePublished($query)
+    {
+        $query->currentStatus('published')->where('is_published', true);
+    }
 }
