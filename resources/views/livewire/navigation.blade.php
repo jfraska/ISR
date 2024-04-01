@@ -1,4 +1,5 @@
-<nav class="bg-transparent bg-gradient-to-b from-gray-700 to-transparent top-0 left-0 right-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out" id="navbar">
+<nav class="bg-transparent bg-gradient-to-b from-gray-700 to-transparent top-0 left-0 right-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out"
+    id="navbar">
     <div class="bg-transparent max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
         id="navbar-content">
         <div class="flex flex-wrap items-center">
@@ -49,32 +50,31 @@
 
     <div id="navbar-hamburger" class="hidden">
         @auth
-            @include("layouts.partials.header-right-auth")
+            @include('layouts.partials.header-right-auth')
         @else
-            @include("layouts.partials.header-right-guest")
+            @include('layouts.partials.header-right-guest')
         @endauth
         <!-- Daftar menu -->
         <a href="#" class="block px-4 py-2 relative">Menu 1
-            <div class="hidden absolute top-full left-0 bg-white shadow-lg rounded-lg">
+            <div class="hidden top-full left-0 bg-white shadow-lg rounded-lg">
                 <!-- Submenu -->
                 <a href="#" class="block px-4 py-2">Submenu 1</a>
                 <a href="#" class="block px-4 py-2">Submenu 2</a>
             </div>
         </a>
         <a href="#" class="block px-4 py-2 relative">Menu 2
-            <div class="hidden absolute top-full left-0 bg-white shadow-lg rounded-lg">
+            <div class="hidden top-full left-0 bg-white shadow-lg rounded-lg">
                 <!-- Submenu -->
                 <a href="#" class="block px-4 py-2">Submenu 3</a>
                 <a href="#" class="block px-4 py-2">Submenu 4</a>
             </div>
         </a>
-        <div class="relative">
-            <a href="#" class="block px-4 py-2">Menu 3</a>
-            <div class="hidden absolute top-full left-0 bg-white shadow-lg rounded-lg">
-                <!-- Submenu -->
-                <a href="#" class="block px-4 py-2">Submenu 5</a>
-                <a href="#" class="block px-4 py-2">Submenu 6</a>
-            </div>
+        <a href="#" class="block px-4 py-2 relative font-bold">Departemen</a>
+        <div class="hidden top-full left-0 bg-white shadow-lg rounded-lg">
+            <!-- Submenu -->
+            @foreach ($this->departments as $department)
+                <a wire:navigate wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}" class="block px-4 py-2">{{ $department->title }}</a>
+            @endforeach
         </div>
     </div>
 </nav>
@@ -96,7 +96,8 @@
                 'border-b-[#F5D05E]'
             ]);
             navbar.classList.add.apply(navbar.classList, ['bg-transparent', 'bg-gradient-to-b',
-                'from-gray-700']);
+                'from-gray-700'
+            ]);
         }
     });
 
@@ -104,11 +105,27 @@
     document.addEventListener('DOMContentLoaded', function() {
         var hamburgerButton = document.querySelector('[data-collapse-toggle="navbar-hamburger"]');
         var navbarHamburger = document.getElementById('navbar-hamburger');
+        var menuItems = document.querySelectorAll('#navbar-hamburger > a');
 
         hamburgerButton.addEventListener('click', function() {
             var expanded = hamburgerButton.getAttribute('aria-expanded') === 'true' || false;
             hamburgerButton.setAttribute('aria-expanded', !expanded);
             navbarHamburger.classList.toggle('hidden');
+        });
+
+        // Tambahkan event listener untuk setiap elemen menu
+        menuItems.forEach(function(menuItem) {
+            menuItem.addEventListener('click', function(event) {
+                event.preventDefault(); // Menghentikan perilaku bawaan dari anchor tag
+
+                // Mengambil referensi ke div yang berisi submenu 5 dan 6
+                var submenuDiv = menuItem.nextElementSibling;
+
+                // Menghapus kelas 'hidden' dari div submenu jika ada
+                if (submenuDiv) {
+                    submenuDiv.classList.toggle('hidden');
+                }
+            });
         });
     });
 </script>
