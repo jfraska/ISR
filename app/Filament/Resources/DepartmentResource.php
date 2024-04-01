@@ -60,7 +60,7 @@ class DepartmentResource extends Resource
                                                 'attachFiles'
                                             ])->required()
                                     ]),
-                                Tabs\Tab::make('Structure')
+                                Tabs\Tab::make('Member')
                                     ->schema([
                                         Repeater::make('member')
                                             ->hiddenLabel()
