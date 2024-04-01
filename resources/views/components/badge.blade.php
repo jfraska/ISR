@@ -1,3 +1,6 @@
-<button {{ $attributes }} class="rounded-xl px-3 py-1 text-base bg-black text-white">
+<button
+    {{ $attributes }}
+    class="rounded-xl bg-black px-3 py-1 text-base text-white"
+>
     {{ $slot }}
 </button>

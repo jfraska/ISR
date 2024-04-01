@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.sh
 Route::get('/berita-terkini', [HomeController::class, 'berita'])->name('berita-terkini');
 Route::get('/artikel-terkini', [HomeController::class, 'artikel'])->name('artikel-terkini');
 Route::get('/mini-blog', [HomeController::class, 'blog'])->name('mini-blog');
+Route::get('/department/{department:slug}', [DepartmentController::class, 'show'])->name('departments.show');
 
 // Route::middleware([
 //     'auth:sanctum',
