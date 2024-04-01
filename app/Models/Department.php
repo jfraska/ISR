@@ -17,11 +17,13 @@ class Department extends Model implements HasMedia
         'slug',
         'content',
         'member',
+        'published_at',
         'meta_description',
         'user_id'
     ];
 
     protected $casts = [
+        'published_at' => 'datetime',
         'member' => 'array',
     ];
 
