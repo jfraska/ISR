@@ -93,8 +93,7 @@ class DepartmentResource extends Resource
                                     ->imageEditor(),
                                 DateTimePicker::make('published_at')
                                     ->readOnly()
-                                    ->dehydrateStateUsing(fn () => Carbon::now())
-                                    ->default(Carbon::now()),
+                                    ->dehydrateStateUsing(fn () => Carbon::now()),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),
                     ])
