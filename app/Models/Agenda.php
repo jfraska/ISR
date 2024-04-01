@@ -27,7 +27,6 @@ class Agenda extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'content' => 'array',
         'published_at' => 'datetime',
     ];
 

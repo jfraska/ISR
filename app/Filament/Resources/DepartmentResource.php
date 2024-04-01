@@ -43,7 +43,7 @@ class DepartmentResource extends Resource
                     ->schema([
                         Tabs::make('Tabs')
                             ->tabs([
-                                Tabs\Tab::make('Title')
+                                Tabs\Tab::make('Content')
                                     ->schema([
                                         Split::make([
                                             TextInput::make('title')
@@ -55,52 +55,10 @@ class DepartmentResource extends Resource
                                                 ->required()
                                                 ->unique(Department::class, 'slug', fn ($record) => $record),
                                         ]),
-                                    ]),
-                                Tabs\Tab::make('Content')
-                                    ->schema([
-                                        ComponentsBuilder::make('content')
-                                            ->hiddenLabel()
-                                            ->required()
-                                            ->blocks([
-                                                ComponentsBuilder\Block::make('heading')
-                                                    ->schema([
-                                                        TextInput::make('content')
-                                                            ->autocapitalize('words')
-                                                            ->required(),
-                                                        Select::make('level')
-                                                            ->options([
-                                                                'h1' => 'Heading 1',
-                                                                'h2' => 'Heading 2',
-                                                                'h3' => 'Heading 3',
-                                                            ])
-                                                            ->required(),
-                                                    ])
-                                                    ->label(function (?array $state): string {
-                                                        if ($state === null) {
-                                                            return 'Heading';
-                                                        }
-
-                                                        return $state['content'] ?? 'Untitled heading';
-                                                    })
-                                                    ->icon('heroicon-o-bookmark')
-                                                    ->columns(2),
-                                                ComponentsBuilder\Block::make('paragraph')
-                                                    ->schema([
-                                                        RichEditor::make('content')
-                                                            ->label('Paragraph')
-                                                            ->disableToolbarButtons([
-                                                                'attachFiles',
-                                                                'h2',
-                                                                'h3'
-                                                            ])
-                                                            ->required(),
-                                                    ])
-                                                    ->icon('heroicon-m-bars-3-bottom-left'),
-                                            ])
-                                            ->blockNumbers(false)
-                                            ->minItems(2)
-                                            ->maxItems(6)
-                                            ->collapsed(),
+                                        RichEditor::make('content')
+                                            ->disableToolbarButtons([
+                                                'attachFiles'
+                                            ])->required()
                                     ]),
                                 Tabs\Tab::make('Structure')
                                     ->schema([

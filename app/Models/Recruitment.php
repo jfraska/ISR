@@ -28,7 +28,6 @@ class Recruitment extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'content' => 'array',
         'published_at' => 'datetime',
     ];
 

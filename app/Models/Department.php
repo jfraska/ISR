@@ -22,7 +22,6 @@ class Department extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'content' => 'array',
         'member' => 'array',
     ];
 
