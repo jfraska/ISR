@@ -17,6 +17,7 @@ class Department extends Model implements HasMedia
         'slug',
         'content',
         'member',
+        'periode',
         'published_at',
         'meta_description',
         'user_id'
