@@ -92,6 +92,7 @@ class DepartmentResource extends Resource
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 TextInput::make('periode')
+                                    ->readOnly()
                                     ->dehydrateStateUsing(function (): string {
                                         $currentYear = Carbon::now()->year;
                                         return ($currentYear - 1) . '/' . $currentYear;
