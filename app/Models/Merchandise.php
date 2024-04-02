@@ -10,10 +10,11 @@ use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Traits\HasStatuses;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Merchandise extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasUserGuestLike, Commentable, HasStatuses;
+    use HasFactory, SoftDeletes, InteractsWithMedia, HasUserGuestLike, Commentable, HasStatuses;
     protected $fillable = [
         'title',
         'slug',
