@@ -6,14 +6,8 @@
     <div class="px-20 py-28">
         <div class="flex flex-row gap-10">
             <div class="w-[500px] h-fit flex flex-col">
-                {{-- @foreach ($department->content as $item)
-                    @if ($item['type'] === 'paragraph')
-                    <div class="">
-                        {!! $item['data']['content'] !!}
-                    </div>
-                    @endif
-                @endforeach --}}
-                <h1 class="text-2xl font-bold">{{ $department->title }}</h1>
+                {!! $department->content !!}
+                {{-- <h1 class="text-2xl font-bold">{{ $department->title }}</h1>
                 <div class="border-b-2 border-[#F5D05E] pt-2"></div>
                 <p class="w-[500px] h-fit text-base py-5">Departemen Pengembangan Sumber Daya Manusia (PSDM) merupakan salah
                     satu departemen
@@ -35,7 +29,7 @@
                     <li>2. ISR Development Project</li>
                     <li>3. Open Recuitment</li>
                 </ol>
-            </div>
+            </div> --}}
             <div class="flex flex-col">
                 <img class="w-[]700px h-[480px]" src="{{ $department->getFirstMediaUrl() }}" alt="department" />
                 <div class="bg-white mt-5 px-4 py-1">
