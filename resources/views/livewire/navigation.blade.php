@@ -55,18 +55,23 @@
             @include('layouts.partials.header-right-guest')
         @endauth
         <!-- Daftar menu -->
-        <a href="#" class="block px-4 py-2 relative">Menu 1
+        <a href="#" class="block px-4 py-2 relative font-bold">Tentang ISR
             <div class="hidden top-full left-0 bg-white shadow-lg rounded-lg">
                 <!-- Submenu -->
-                <a href="#" class="block px-4 py-2">Submenu 1</a>
-                <a href="#" class="block px-4 py-2">Submenu 2</a>
+                <a href="#" class="block px-4 py-2">Visi Misi dan Tujuan UKM</a>
+                <a href="#" class="block px-4 py-2">Profil UKM</a>
+                <a href="#" class="block px-4 py-2">Struktur Organisasi</a>
+                <a href="#" class="block px-4 py-2">Profil Kabinet Widyantara Abisatya</a>
+                <a href="#" class="block px-4 py-2">Sambutan Ketua ISR</a>
+                <a href="#" class="block px-4 py-2">Sambutan Pembina ISR</a>
             </div>
         </a>
-        <a href="#" class="block px-4 py-2 relative">Menu 2
+        <a href="#" class="block px-4 py-2 relative font-bold">Pojok Ilmiah
             <div class="hidden top-full left-0 bg-white shadow-lg rounded-lg">
                 <!-- Submenu -->
-                <a href="#" class="block px-4 py-2">Submenu 3</a>
-                <a href="#" class="block px-4 py-2">Submenu 4</a>
+                <a href="#" class="block px-4 py-2">Artikel</a>
+                <a href="#" class="block px-4 py-2">Berita</a>
+                <a href="#" class="block px-4 py-2">Mini Blog</a>
             </div>
         </a>
         <a href="#" class="block px-4 py-2 relative font-bold">Departemen</a>
