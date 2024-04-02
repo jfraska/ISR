@@ -118,7 +118,7 @@ class MerchandiseResource extends Resource
                     })->alignment(Alignment::Center),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
                 Tables\Actions\Action::make('published')

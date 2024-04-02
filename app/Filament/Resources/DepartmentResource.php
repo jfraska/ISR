@@ -91,9 +91,14 @@ class DepartmentResource extends Resource
                                     ->maxSize(1024)
                                     ->optimize('webp')
                                     ->imageEditor(),
+                                TextInput::make('periode')
+                                    ->state(function (): string {
+                                        $currentYear = Carbon::now()->year;
+                                        return ($currentYear - 1) . '/' . $currentYear;
+                                    }),
                                 DateTimePicker::make('published_at')
                                     ->readOnly()
-                                    ->default(Carbon::now()),
+                                    ->dehydrateStateUsing(fn () => Carbon::now()),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),
                     ])
@@ -109,8 +114,8 @@ class DepartmentResource extends Resource
                     ->state(
                         fn (Department $record) => $record->member[0]['name']
                     ),
+                TextColumn::make('periode'),
                 TextColumn::make('published_at'),
-                TextColumn::make('updated_at'),
             ])
             ->filters([
                 //

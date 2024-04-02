@@ -257,9 +257,6 @@ class PostResource extends Resource
                 Tables\Filters\Filter::make('is_featured')
                     ->label('Featured')
                     ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
-                Tables\Filters\Filter::make('is_published')
-                    ->label('Published')
-                    ->query(fn (Builder $query): Builder => $query->where('is_published', true)),
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([

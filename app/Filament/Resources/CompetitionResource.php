@@ -168,7 +168,7 @@ class CompetitionResource extends Resource
                     }),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
                 Tables\Actions\Action::make('published')

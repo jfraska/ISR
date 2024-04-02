@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('content');
             $table->text('member');
 
+            $table->string('periode');
             $table->timestamp('published_at')->nullable();
 
             $table->string('meta_description')->nullable();
