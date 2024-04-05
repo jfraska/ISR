@@ -88,7 +88,9 @@ class AgendaResource extends Resource
     {
         return $table
             ->groups([
-                Group::make('statuses.name')->label('Status')->getTitleFromRecordUsing(fn (Agenda $record): string => ucfirst($record->status))->collapsible(),
+                Group::make('statuses.name')
+                    ->label('Status')
+                    ->collapsible(),
             ])
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
@@ -112,22 +114,29 @@ class AgendaResource extends Resource
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
-                Tables\Actions\Action::make('publish')
-                    ->label(fn (Agenda $record) => $record->status === "published" ? "Reject" : "Publish")
-                    ->action(function (Agenda $record) {
-                        if ($record->status === "published") {
-                            $record->statuses()->update(['name' => 'rejected']);
-                        } elseif ($record->status === "reviewing") {
-                            $record->statuses()->update(['name' => 'published']);
-                            $record->update(['published_at' => Carbon::now()]);
-                        }
-                    })
+                Tables\Actions\Action::make('published')
+                    ->label('Publish')
+                    ->action(fn (Agenda $record) => $record->updateStatus('published'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
-                    ->icon(fn (Agenda $record) => $record->status === "published" ? "heroicon-m-cloud-arrow-down" : "heroicon-m-cloud-arrow-up")
-                    ->color(fn (Agenda $record) => $record->status === "published" ? "danger" : "success")
-                    ->visible(fn (Agenda $record): bool => auth()->user()->can('publish') && $record->status !== "draft"),
+                    ->color("success")
+                    ->visible(fn (Agenda $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\Action::make('publish')
+                    ->action(fn (Agenda $record) => $record->updateStatus('reviewing'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->icon("heroicon-m-cloud-arrow-up")
+                    ->size(ActionSize::Small)
+                    ->color("success")
+                    ->visible(fn (Agenda $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                Tables\Actions\Action::make('reject')
+                    ->action(fn (Agenda $record) => $record->updateStatus('rejected'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
+                    ->color("danger")
+                    ->visible(fn (Agenda $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('Agenda:delete'))
