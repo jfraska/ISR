@@ -10,12 +10,7 @@
             </div>
             <div class="flex flex-col min-w-[750px] max-w-[750px]">
                 <h1 class="font-bold text-[32px]">{{ $organizational->title }}</h1>
-                <img src="{{ $organizational->getFirstMediaUrl() }}" alt="isr-logo" class="w-[350px] h-[350px] mx-auto py-5">
-                @foreach ($organizational->content as $item)
-                    @if ($item['type'] === 'paragraph')
-                        <p class="text-sm font-bold">{!! $item['data']['content'] !!}</p>
-                    @endif
-                @endforeach
+                <img src="{{ $organizational->getFirstMediaUrl() }}" alt="struktur-organisasi" class="w-[675px] h-[475px] mx-auto py-5">
             </div>
         </div>
         <div class="absolute bottom-0 left-0">

@@ -1,40 +1,21 @@
 @extends('layouts.app')
 
-@section('title', $department->title)
+@section('title', "Departemen $department->title")
 
 @section('content')
     <div class="px-20 py-28">
         <div class="flex flex-row gap-10">
             <div class="w-[500px] h-fit flex flex-col">
-                {!! $department->content !!}
-                {{-- <h1 class="text-2xl font-bold">{{ $department->title }}</h1>
-                <div class="border-b-2 border-[#F5D05E] pt-2"></div>
-                <p class="w-[500px] h-fit text-base py-5">Departemen Pengembangan Sumber Daya Manusia (PSDM) merupakan salah
-                    satu departemen
-                    dalam Interdisciplinary Scientific Research (ISR) UPN “ Veteran” Yogyakarta, yang bertanggung jawab atas
-                    penyerapan, pemeliharaan, dan pengembangan sumber daya manusia yang ada di dalamnya, serta hal-hal yang
-                    bersifat internal. Departemen ini juga bertugas mempererat hubungan internal organisasi meialui
-                    kegiatan-kegiatan yang bersifat informal dan kekeluargaan.</p>
-                <h4 class="w-[500px] h-fit text-base font-bold">Program Kerja Pengembangan Sumber Daya Manusia ISR UPN
-                    "Veteran" Yogyakarta Periode 2021/2022 :</h4>
-                <h5 class="w-[500px] h-fit text-base font-bold pt-3">Eksternal</h5>
-                <ol>
-                    <li>1. Expo UKM</li>
-                    <li>2. ISR Development Project</li>
-                    <li>3. Open Recuitment</li>
-                </ol>
-                <h5 class="w-[500px] h-fit text-base font-bold pt-3">Internal</h5>
-                <ol>
-                    <li>1. Expo UKM</li>
-                    <li>2. ISR Development Project</li>
-                    <li>3. Open Recuitment</li>
-                </ol>
-            </div> --}}
+                <h1 class="text-2xl font-bold">Departemen {{ $department->title }}</h1>
+                <div class="border-b-2 border-[#F5D05E] pt-2 mb-4"></div>
+                <div class="">
+                    {!! $department->content !!}
+                </div>
+            </div>
             <div class="flex flex-col">
-                <img class="w-[]700px h-[480px]" src="{{ $department->getFirstMediaUrl() }}" alt="department" />
+                <img class="min-w-[700px] h-[480px]" src="{{ $department->getFirstMediaUrl() }}" alt="department" />
                 <div class="bg-white mt-5 px-4 py-1">
-                    <h4 class="text-base font-bold py-3">Struktur Organisasi Departemen Pengembangan Sumber Daya Manusia
-                        (PSDM) ISR UPN "Veteran" Yogyakarta Periode 2021/2022</h4>
+                    <h4 class="text-base font-bold py-3">Struktur Organisasi {{ $department->title }} ISR UPN "Veteran" Yogyakarta Periode {{ $department->periode }}</h4>
                     <div class="flex flex-col pb-2">
                         <div class="flex flex-row">
                             <h5 class="w-[180px] text-sm font-bold">Kepala Departemen</h5>
@@ -57,7 +38,7 @@
                 <div class="bg-white">
                     <div class="border-t-2 border-[#F5D05E] pt-2"></div>
                     <div class="flex flex-row justify-between px-4">
-                        <p class="text-base">Staff Pengembangan Sumber Daya Manusia ( PSDM ) </p>
+                        <p class="text-base">Staff {{ $department->title }}</p>
                         <button id="toggle-button" data-collapse-toggle="dropdown-staff" type="button">
                             <img src="/images/arrow-dropdown.svg" alt="dropdown" class="w-[15px] h-[15px] mt-1">
                         </button>

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Department;
+use App\Models\Organizational;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
