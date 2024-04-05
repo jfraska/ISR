@@ -12,6 +12,7 @@ class CreateAgenda extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $this->record->is_published ?  $this->record->setStatus('reviewing') : $this->record->setStatus('draft');
+        $this->record->createStatus('draft');
+        // $this->record->addPageView();
     }
 }

@@ -14,7 +14,7 @@ use App\Traits\HasStatuses;
 
 class Agenda extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, HasUserGuestLike, Commentable,  HasStatuses;
+    use HasFactory, SoftDeletes, InteractsWithMedia,  HasStatuses;
 
     protected $fillable = [
         'title',
