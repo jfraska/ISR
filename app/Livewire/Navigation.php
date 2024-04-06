@@ -3,11 +3,18 @@
 namespace App\Livewire;
 
 use App\Models\Department;
+use App\Models\Organizational;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Navigation extends Component
 {
+    #[Computed()]
+    public function organizationals()
+    {
+        return Organizational::all();
+    }
+
     #[Computed()]
     public function departments()
     {

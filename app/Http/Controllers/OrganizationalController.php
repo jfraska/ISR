@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 class OrganizationalController extends Controller
 {
-    public function visimisi()
+    public function show(Organizational $organizational)
     {
-        $organizational = Organizational::all();
-
-        return view('abouts.visi-misi', [
-            'organizational' => $organizational,
-        ]);
+        return view(
+            'abouts.show',
+            [
+                'organizational' => $organizational
+            ]
+        );
     }
 }
