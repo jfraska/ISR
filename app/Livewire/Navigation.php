@@ -10,6 +10,12 @@ use Livewire\Component;
 class Navigation extends Component
 {
     #[Computed()]
+    public function organizationals()
+    {
+        return Organizational::all();
+    }
+
+    #[Computed()]
     public function departments()
     {
         return Department::all();

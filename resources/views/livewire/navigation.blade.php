@@ -50,21 +50,20 @@
                         </a>
                     </div>
                 </div>
+                @auth
+                    @include('layouts.partials.header-right-auth')
+                @else
+                    @include('layouts.partials.header-right-guest')
+                @endauth
             </div>
         </div>
     </nav>
 
     <div id="navbar-hamburger" class="hidden mx-16 my-[80px] z-20 fixed bg-[#0D5568] w-11/12 h-3/4">
-        {{-- @auth
-            @include('layouts.partials.header-right-auth')
-        @else
-            @include('layouts.partials.header-right-guest')
-        @endauth --}}
-
         <div class="flex flex-row h-full">
-            <div class="flex flex-col overflow-y-scroll gap-5 h-full">
+            <div class="flex flex-col overflow-y-scroll gap-7 h-full">
                 <a id="menu-isr" href="#"
-                    class="flex flex-row w-[285px] h-[80px] items-center justify-between px-2">
+                    class="flex flex-row w-[285px] h-[80px] items-center justify-between px-2 pt-3">
                     <div class="flex flex-row">
                         <img src="/images/navbar/isr.svg" alt="isr" class="w-[50px] h-[50px]">
                         <div class="flex flex-col justify-center">
@@ -129,7 +128,7 @@
                     </div>
                     <img src="/images/navbar/arrow.svg" alt="arrow" class="w-[25px] h-[25px]">
                 </a>
-                <a id="menu-market" href="#"
+                <a id="menu-market" href="{{ route('merchandise.index') }}"
                     class="flex flex-row w-[285px] h-[80px] items-center justify-start px-2">
                     <div class="flex flex-row">
                         <img src="/images/navbar/market.svg" alt="market" class="w-[50px] h-[50px]">
@@ -151,49 +150,55 @@
                     <img src="/images/navbar/arrow.svg" alt="arrow" class="w-[25px] h-[25px]">
                 </a>
             </div>
-            <div class="h-full">
-                <div id="submenu-isr" class="hidden top-0 z-50 bg-white shadow-lg">
-                    <a href="{{ route('abouts.visimisi') }}" class="block px-4 py-2">Visi Misi dan Tujuan UKM</a>
-                    <a href="#" class="block px-4 py-2">Profil UKM</a>
-                    <a href="{{ route('abouts.struktur') }}" class="block px-4 py-2">Struktur Organisasi</a>
-                    <a href="#" class="block px-4 py-2">Profil Kabinet Widyantara Abisatya</a>
-                    <a href="#" class="block px-4 py-2">Sambutan Ketua ISR</a>
-                    <a href="#" class="block px-4 py-2">Sambutan Pembina ISR</a>
-                </div>
-                <div id="submenu-ilmiah" class="hidden top-full left-0 bg-white shadow-lg">
-                    <a href="#" class="block px-4 py-2">Artikel</a>
-                    <a href="#" class="block px-4 py-2">Berita</a>
-                    <a href="#" class="block px-4 py-2">Mini Blog</a>
-                </div>
-                <div id="submenu-departemen" class="hidden top-full left-0 bg-white shadow-lg">
-                    @foreach ($this->departments as $department)
-                        <a wire:navigate wire:key="{{ $department->id }}"
-                            href="{{ route('departments.show', $department->slug) }}"
-                            class="block px-4 py-2">{{ $department->title }}</a>
+            <div class="w-1/4 h-full bg-[#0D5568] gap-3">
+                <div id="submenu-isr" class="hidden top-0 z-50 h-full pt-3">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Tentang ISR</p>
+                    @foreach ($this->organizationals as $organizational)
+                        <a wire:key="{{ $organizational->id }}"
+                            href="{{ route('abouts.show', $organizational->slug) }}"
+                            class="text-white text-xs block px-4 py-3">{{ $organizational->title }}</a>
                     @endforeach
                 </div>
-                <div id="submenu-rekrutmen" class="hidden top-full left-0 bg-white shadow-lg">
-                    <a href="#" class="block px-4 py-2">Volunteer</a>
-                    <a href="#" class="block px-4 py-2">Open Recruitmen UKM ISR</a>
-                    <a href="#" class="block px-4 py-2">Pendaftaran Kepanitiaan</a>
+                <div id="submenu-ilmiah" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Pojok Ilmiah</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Artikel</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Berita</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Mini Blog</a>
                 </div>
-                <div id="submenu-prestasi" class="hidden top-full left-0 bg-white shadow-lg">
-                    <a href="#" class="block px-4 py-2">Tahun 2023</a>
-                    <a href="#" class="block px-4 py-2">Tahun 2024</a>
-                    <a href="#" class="block px-4 py-2">Tahun 2025</a>
+                <div id="submenu-departemen" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
+                    @foreach ($this->departments as $department)
+                        <a wire:key="{{ $department->id }}"
+                            href="{{ route('departments.show', $department->slug) }}"
+                            class="text-white text-xs block px-4 py-3">{{ $department->title }}</a>
+                    @endforeach
                 </div>
-                <div id="submenu-kompetisi" class="hidden top-full left-0 bg-white shadow-lg">
-                    <a href="#" class="block px-4 py-2">Lomba Umum</a>
-                    <a href="#" class="block px-4 py-2">Ajang Talenta DIKTI</a>
+                <div id="submenu-rekrutmen" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Rekrutmen</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Volunteer</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Open Recruitmen UKM ISR</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Pendaftaran Kepanitiaan</a>
                 </div>
-                <div id="submenu-market" class="hidden top-full left-0 bg-white shadow-lg">
+                <div id="submenu-prestasi" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Prestasi</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Tahun 2023</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Tahun 2024</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Tahun 2025</a>
+                </div>
+                <div id="submenu-kompetisi" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Kompetisi</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Lomba Umum</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Ajang Talenta DIKTI</a>
+                </div>
+                <div id="submenu-market" class="hidden top-full left-0 h-full">
                     <a href=""></a>
                 </div>
-                <div id="submenu-download" class="hidden top-full left-0 bg-white shadow-lg">
-                    <a href="#" class="block px-4 py-2">SOP Media Partner</a>
-                    <a href="#" class="block px-4 py-2">SOP Publikasi</a>
-                    <a href="#" class="block px-4 py-2">SOP Kesekretariatan</a>
-                    <a href="#" class="block px-4 py-2">Asset ISR</a>
+                <div id="submenu-download" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Download</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">SOP Media Partner</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">SOP Publikasi</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">SOP Kesekretariatan</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">Asset ISR</a>
                 </div>
             </div>
         </div>
@@ -262,26 +267,68 @@
 
             // Tampilkan submenu yang sesuai dengan menuId
             const subMenu = document.getElementById('submenu-' + menuId.slice(
-            5)); // Menghilangkan "menu-" dari id untuk mendapatkan id submenu yang sesuai
+                5)); // Menghilangkan "menu-" dari id untuk mendapatkan id submenu yang sesuai
             if (subMenu) {
-                subMenu.classList.remove('hidden');
-                subMenu.classList.add('block');
+                subMenu.classList.remove.apply(subMenu.classList, ['hidden']);
+                subMenu.classList.add.apply(subMenu.classList, ['block', 'border-r',
+                    'border-white'
+                ]);
             }
         }
 
         // Menambahkan event listener untuk setiap menu utama
         parentMenus.forEach(parentMenu => {
+            const title = parentMenu.querySelector('h1, p'); // Mengambil elemen h1 atau p di dalam menu
+
             parentMenu.addEventListener('mouseenter', () => {
+                parentMenu.classList.add.apply(parentMenu.classList, ['text-[#F5D05E]']);
                 // Panggil fungsi showSubMenu ketika menu utama dihover
                 showSubMenu(parentMenu.id);
+                if (title) {
+                    title.style.color = '#F5D05E'; // Mengubah warna teks pada elemen h1 atau p
+                }
             });
 
-            // Sembunyikan submenu ketika mouse keluar dari menu utama
+            // Menampilkan submenu ketika submenu dihover atau jika menu dan submenu memiliki id yang cocok
             parentMenu.addEventListener('mouseleave', () => {
-                subMenus.forEach(subMenu => {
-                    subMenu.classList.remove('block');
-                    subMenu.classList.add('hidden');
+                setTimeout(() => {
+                    const subMenuId = 'submenu-' + parentMenu.id.slice(5);
+                    if (!parentMenu.matches(':hover') && !(subMenuId && document
+                            .getElementById(subMenuId).matches(':hover'))) {
+                        subMenus.forEach(subMenu => {
+                            subMenu.classList.remove('block');
+                            subMenu.classList.add('hidden');
+                        });
+                        if (title) {
+                            title.style.color =
+                                ''; // Mengembalikan warna teks ke default saat tidak dihover
+                        }
+                    }
+                }, 200);
+            });
+        });
+
+        // Menambahkan event listener untuk setiap submenu
+        subMenus.forEach(subMenu => {
+            const subMenuLinks = subMenu.querySelectorAll(
+                'a'); // Mengambil semua elemen a di dalam submenu
+
+            subMenuLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.color =
+                        '#F5D05E'; // Mengubah warna teks pada elemen a di submenu saat dihover
                 });
+
+                link.addEventListener('mouseleave', () => {
+                    link.style.color =
+                        ''; // Mengembalikan warna teks ke default saat tidak dihover
+                });
+            });
+
+            subMenu.addEventListener('mouseleave', () => {
+                // Sembunyikan submenu saat mouse meninggalkan submenu
+                subMenu.classList.remove('block');
+                subMenu.classList.add('hidden');
             });
         });
     });
