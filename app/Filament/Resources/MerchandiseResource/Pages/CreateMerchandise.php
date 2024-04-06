@@ -9,4 +9,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateMerchandise extends CreateRecord
 {
     protected static string $resource = MerchandiseResource::class;
+
+    protected function afterCreate(): void
+    {
+        $this->record->createStatus('draft');
+        // $this->record->addPageView();
+    }
 }
