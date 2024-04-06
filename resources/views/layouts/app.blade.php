@@ -9,9 +9,9 @@
     <title>
         @yield('title')
         @unless (empty(trim($__env->yieldContent('title'))))
-            {{-- - --}}
+            -
         @endunless
-        {{-- {{ config("app.name", "Laravel") }} --}}
+        {{ config('app.name', 'Laravel') }}
     </title>
     <meta name="description" content="@yield('meta_description', 'Site description')" />
 
