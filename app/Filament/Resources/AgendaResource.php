@@ -72,7 +72,7 @@ class AgendaResource extends Resource
                                 ])
                                 ->required(),
                             DatePicker::make('date')
-                                ->disabledDates(fn (Agenda $query): array => $query->pluck('date', 'id')->get)
+                                ->disabledDates(fn (Agenda $query): array => $query->pluck('date', 'id')->get())
                                 ->required(),
                             RichEditor::make('content')
                                 ->disableToolbarButtons([
