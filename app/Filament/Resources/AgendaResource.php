@@ -7,6 +7,7 @@ use App\Filament\Resources\AgendaResource\RelationManagers;
 use App\Models\Agenda;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -24,6 +25,7 @@ use Filament\Support\Enums\ActionSize;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -59,6 +61,19 @@ class AgendaResource extends Resource
                                     ->required()
                                     ->unique(Agenda::class, 'slug', fn ($record) => $record),
                             ]),
+                            Select::make('bg_color')
+                                ->label('Label Color')
+                                ->options([
+                                    'blue' => 'Blue',
+                                    'red' => 'Red',
+                                    'yellow' => 'Yellow',
+                                    'green' => 'Green',
+                                    'purple' => 'Purple',
+                                ])
+                                ->required(),
+                            DatePicker::make('date')
+                                ->disabledDates(fn (Agenda $query): array => $query->pluck('date', 'id')->get)
+                                ->required(),
                             RichEditor::make('content')
                                 ->disableToolbarButtons([
                                     'attachFiles'
@@ -97,7 +112,9 @@ class AgendaResource extends Resource
             ->columns([
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('published_at'),
+                ColorColumn::make('bg_color')->label('Theme'),
+                TextColumn::make('date'),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
                 TextColumn::make('status')
                     ->state(
                         fn (Agenda $record) => $record->status

@@ -689,8 +689,8 @@
                                                 $agenda->map(function ($agenda) {
                                                     return [
                                                         'event_title' => $agenda->title,
-                                                        'event_date' => $agenda->published_at,
-                                                        'event_theme' => 'blue', // Set the default theme to blue
+                                                        'event_date' => $agenda->date,
+                                                        'event_theme' => $agenda->bg_color, // Set the default theme to blue
                                                     ];
                                                 }),
                                             ) !!};

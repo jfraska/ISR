@@ -20,6 +20,8 @@ class Agenda extends Model implements HasMedia
         'title',
         'slug',
         'content',
+        'date',
+        'bg_color',
         'is_published',
         'published_at',
         'meta_description',
