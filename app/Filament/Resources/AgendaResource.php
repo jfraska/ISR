@@ -62,7 +62,7 @@ class AgendaResource extends Resource
                                     ->unique(Agenda::class, 'slug', fn ($record) => $record),
                             ]),
                             Select::make('bg_color')
-                                ->label('Label Color')
+                                ->label('Theme')
                                 ->options([
                                     'blue' => 'Blue',
                                     'red' => 'Red',
