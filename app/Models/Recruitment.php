@@ -21,6 +21,7 @@ class Recruitment extends Model implements HasMedia
         'title',
         'slug',
         'content',
+        'link',
         'is_published',
         'published_at',
         'meta_description',

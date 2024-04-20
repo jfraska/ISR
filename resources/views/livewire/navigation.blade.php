@@ -15,7 +15,7 @@
                     </svg>
                 </button>
                 <div class="flex flex-row items-center p-1 md:p-0">
-                    <a href="#" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
+                    <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
                         <img src="/images/upn-blu-navbar-logo.png" class="h-12" alt="UPN BLU Logo" />
                     </a>
                     <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
@@ -151,7 +151,7 @@
                 </a>
             </div>
             <div class="w-1/4 h-full bg-[#0D5568] gap-3">
-                <div id="submenu-isr" class="hidden top-0 z-50 h-full pt-3">
+                <div id="submenu-isr" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Tentang ISR</p>
                     @foreach ($this->organizationals as $organizational)
                         <a wire:key="{{ $organizational->id }}"
@@ -168,8 +168,7 @@
                 <div id="submenu-departemen" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
                     @foreach ($this->departments as $department)
-                        <a wire:key="{{ $department->id }}"
-                            href="{{ route('departments.show', $department->slug) }}"
+                        <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
                             class="text-white text-xs block px-4 py-3">{{ $department->title }}</a>
                     @endforeach
                 </div>

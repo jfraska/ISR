@@ -109,6 +109,10 @@ class CompetitionResource extends Resource
                                             $query->create($data);
                                         })->visible(auth()->user()->can('category:create'))
                                 ),
+                            TextInput::make('link')
+                                ->required()
+                                ->url()
+                                ->suffixIcon('heroicon-m-globe-alt'),
                             RichEditor::make('content')
                                 ->disableToolbarButtons([
                                     'attachFiles'
@@ -150,6 +154,7 @@ class CompetitionResource extends Resource
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
                 TextColumn::make('user.name')->label('Author'),
+                TextColumn::make('link'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
                 TextColumn::make('statuses.name')
                     ->label('Status')

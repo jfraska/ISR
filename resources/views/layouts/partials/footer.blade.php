@@ -1,18 +1,16 @@
-<footer
-    class="relative bottom-0 flex h-[900px] w-full justify-center bg-[#0D5568]"
->
-    <div class="w-3/4 pt-10">
-        <div class="flex h-[250px] w-full">
-            <div class="w-full border-r border-white pl-7 pr-3">
-                <div class="p-0">
-                    <img src="/images/isr-footer.png" alt="isr footer" />
+<footer class="relative bottom-0 flex w-full h-[1100px] justify-center bg-[#0D5568]">
+    <div class="flex flex-col w-4/5">
+        <div class="flex flex-row w-full h-[350px] items-center justify-between gap-10 border-b border-white">
+            <div class="flex w-full">
+                <div class="">
+                    <img src="/images/isr-footer.png" alt="isr footer" class="" />
                 </div>
             </div>
-            <div class="w-full border-r border-white pl-7 pr-3">
-                <div class="relative flex w-[400px] flex-col items-start p-0">
-                    <div class="flex-grow">
-                        <h1 class="text-[17px] font-bold text-white">Alamat</h1>
-                        <p class="mb-0 text-[14px] text-white">
+            <div class="flex flex-col w-full">
+                <div class="flex flex-col items-start">
+                    <div class="flex flex-col flex-grow gap-2">
+                        <h1 class="text-base font-bold text-white">Alamat</h1>
+                        <p class="text-xs text-white">
                             Universitas Pembangunan Nasional "VETERAN"
                             Yogyakarta
                             <br />
@@ -20,66 +18,192 @@
                         </p>
                     </div>
                     <div class="mt-10">
-                        <div class="flex flex-col">
-                            <div class="flex flex-row pb-3">
-                                <img
-                                    class="mr-3 h-5 w-5"
-                                    src="/images/telp.svg"
-                                    alt=""
-                                />
-                                <p
-                                    style="
-                                        font-weight: bold;
-                                        font-size: 17px;
-                                        color: white;
-                                    "
-                                >
+                        <div class="flex flex-col gap-2">
+                            <div class="">
+                                <p class="text-sm text-white">
                                     Telp. +62 274 486733
                                 </p>
                             </div>
-                            <div class="flex flex-row pb-3">
-                                <img
-                                    class="mr-3 h-5 w-5 underline"
-                                    src="/images/mail.svg"
-                                    alt=""
-                                />
-                                <a
-                                    href="#"
-                                    class="text-[17px] font-bold text-white"
-                                >
-                                    info@upnyk.ac.id
+                            <div class="">
+                                <a href="#" class="text-sm text-white">
+                                    WhatsApp. +62 274 486733
                                 </a>
                             </div>
-                            <div class="flex flex-row pb-3">
-                                <img
-                                    class="mr-3 h-5 w-5"
-                                    src="/images/map.svg"
-                                    alt=""
-                                />
-                                <a
-                                    href="#"
-                                    class="text-[17px] font-bold text-white"
-                                >
-                                    Lihat Peta
+                            <div class="">
+                                <a href="#" class="text-sm text-white">
+                                    Email : info@upnyk.ac.id
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="w-full pl-7 pr-3">
-                <div class="relative flex flex-col items-start p-0">
-                    <div class="flex-grow">
-                        <h1 class="text-[14px] text-white">Mitra</h1>
-                        <h1 class="text-[14px] text-white">
-                            Kebijakan Pengguna
-                        </h1>
+            <div class="w-full">
+                <div class="flex flex-col flex-grow gap-4">
+                    <div class="flex flex-col">
+                        <div class="pb-2">
+                            <p class="text-base font-bold text-white">
+                                Kontak Media Partner
+                            </p>
+                        </div>
+                        <div class="pb-1">
+                            <a href="#" class="text-sm text-white">
+                                Telp. +62 274 486733
+                            </a>
+                        </div>
+                        <div class="pb-1">
+                            <a href="#" class="text-sm text-white">
+                                WhatsApp. +62 274 486733
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="pb-2">
+                            <p class="text-base font-bold text-white">
+                                Kontak Keuangan
+                            </p>
+                        </div>
+                        <div class="pb-1">
+                            <a href="#" class="text-sm text-white">
+                                Telp. +62 274 486733
+                            </a>
+                        </div>
+                        <div class="pb-1">
+                            <a href="#" class="text-sm text-white">
+                                WhatsApp. +62 274 486733
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row w-full h-[350px] items-start justify-between gap-10 pt-5">
+            <div class="flex w-full">
+                <div class="flex flex-col">
+                    <div class="pb-2">
+                        <p class="text-base font-bold text-white">
+                            Tentang ISR
+                        </p>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Visi Misi dan Tujuan UKM
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Profil UKM
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Struktur Organisasi
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Profil Kabinet Widyantara Abisatya
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col w-full">
+                <div class="flex flex-col">
+                    <div class="pb-2">
+                        <p class="text-base font-bold text-white">
+                            Departemen
+                        </p>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Departemen PSDM
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Departemen PM
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Departemen Humas dan Medkom
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Departemen Kewirausahaan
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Departemen PP
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Departemen PKM Center
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full">
+                <div class="flex flex-col">
+                    <div class="pb-2">
+                        <p class="text-base font-bold text-white">
+                            Download
+                        </p>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            SOP Media Partner
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            SOP Publikasi
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            SOP Kesekretariatan
+                        </a>
+                    </div>
+                    <div class="pb-1">
+                        <a href="#" class="text-sm text-white">
+                            Asset ISR
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="absolute inset-x-0 bottom-0 -z-0">
+    <div class="absolute inset-x-0 bottom-0 z-10">
         <img src="/images/footer.png" alt="" class="w-full object-cover" />
+    </div>
+    <div class="absolute left-0 top-0 z-0">
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+    </div>
+    <div class="absolute right-0 top-0 z-0">
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
+        <img src="/images/side-footer.png" alt="" class="" />
     </div>
 </footer>

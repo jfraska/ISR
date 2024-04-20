@@ -15,6 +15,7 @@ use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
@@ -168,7 +169,7 @@ class PostResource extends Resource
                                                     ->icon('heroicon-m-bars-3-bottom-left'),
                                                 ComponentsBuilder\Block::make('image')
                                                     ->schema([
-                                                        SpatieMediaLibraryFileUpload::make('image')
+                                                        FileUpload::make('url')
                                                             ->label('Image')
                                                             ->image()
                                                             ->maxSize(1024)
