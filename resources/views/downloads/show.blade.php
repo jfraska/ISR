@@ -44,49 +44,44 @@
             </div>
             <div class="flex flex-col md:w-2/3">
                 <div class="bg-white px-4">
-                    @foreach ($download->content as $download)
-                        @if ($download['type'] === 'heading')
+                    @foreach ($download->content as $downloads)
+                        @if ($downloads['type'] === 'heading')
                             <div class="py-3">
-                                <p class="text-[25px] font-black">{!! $download['data']['content'] !!}</p>
+                                <p class="text-[25px] font-black">{!! $downloads['data']['content'] !!}</p>
                             </div>
-                        @elseif ($download['type'] === 'image')
-                            {{-- <img src="{{ $download->getFirstMediaUrl('images') }}" alt="{{ $download['data']['alt'] }}"
-                                class="mb-4"> --}}
-                            <div class="flex justify-center py-3 px-24">
-                                <img src="{{ asset('/images/kegiatan.png') }}" alt="{{ 'asade' }}" class="mb-4">
-                            </div>
-                        @elseif ($download['type'] === 'paragraph')
+                        @elseif ($downloads['type'] === 'image')
+                        <div class="flex justify-center">
+                            <img src="{{ asset('storage/' . $downloads['data']['url']) }}" alt="{{ $downloads['data']['alt'] }}"
+                                class="mb-4">
+                        </div>
+                        @elseif ($downloads['type'] === 'paragraph')
                             <div class="py-3">
-                                <p>{!! $download['data']['content'] !!}</p>
+                                <p>{!! $downloads['data']['content'] !!}</p>
                             </div>
-                        @elseif ($download['type'] === 'attachments')
-                            {{-- <div class="flex justify-between">
-                                <a href="{{ $download->getFirstMediaUrl('files') }}"
-                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                                    Download
-                                </a> --}}
-                            {{-- <p class="text-gray-500 text-sm">{{ $download['data']['desc'] }}</p> --}}
+                        @elseif ($downloads['type'] === 'attachments')
                             <div class="py-5">
-                                <div class="container mx-auto md:w-2/4 bg-gray-200 max-h-[250px] border border-gray-400">
-                                    <div class="md:h-4/5 flex justify-center">
-                                        <img src="https://icons.veryicon.com/png/o/file-type/file-type-8/word-92.png"
-                                            alt="fileIcon" width="175" height="200">
-                                    </div>
-                                    <div class="container md:h-1/5 bg-white px-2 py-2 mx-auto my-auto min-h-[50px]">
-                                        <div class="flex flex-row justify-between">
-                                            <div class="px-1 flex flex-row max-h-[25px]">
-                                                <img src="https://icons.veryicon.com/png/o/internet--web/flatten-icon/file-76.png"
-                                                    alt="fileIcon" width="25" height="25">
-                                                <p class="text-[20px] font-bold">{{ $download['data']['desc'] }}</p>
+                                <div class="py-5">
+                                    <div
+                                        class="container mx-auto w-2/4 bg-gray-200 max-h-[250px] min-w-64 border border-gray-400">
+                                        <div class="md:h-4/5 flex justify-center">
+                                            <img src="https://icons.veryicon.com/png/o/file-type/file-type-8/word-92.png"
+                                                alt="fileIcon" width="175" height="200">
+                                        </div>
+                                        <div class="container md:h-1/5 bg-white px-2 py-2 mx-auto my-auto min-h-[50px]">
+                                            <div class="flex flex-row justify-between">
+                                                <div class="px-1 flex flex-row max-h-[25px]">
+                                                    <img src="https://icons.veryicon.com/png/o/internet--web/flatten-icon/file-76.png"
+                                                        alt="fileIcon" width="25" height="25">
+                                                    <p class="text-lg font-bold">{{ $downloads['data']['desc'] }}</p>
+                                                </div>
+                                                <a href="{{ asset('storage/' . $downloads['data']['url'][0]) }}">
+                                                    <img src="https://icons.veryicon.com/png/o/miscellaneous/general-icon-12/download-download-3.png"
+                                                        alt="fileIcon" width="25" height="25">
+                                                </a>
                                             </div>
-                                            <a href="#">
-                                                <img src="https://icons.veryicon.com/png/o/miscellaneous/general-icon-12/download-download-3.png"
-                                                    alt="fileIcon" width="25" height="25">
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         @endif
                     @endforeach
                     <div class="flex flex-row pt-20 w-full justify-between">
