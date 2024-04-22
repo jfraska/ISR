@@ -14,10 +14,12 @@ class PostController extends Controller
             return Post::with('tags')->published()->get()->pluck('tags')->flatten()->unique('id')->take(10);
         });
 
+        $posts = Post::published()->latest()->take(3)->get();
+
         return view(
             'posts.index',
             [
-                'tags' => $tags
+                'tags' => $tags, 'posts' => $posts
             ]
         );
     }

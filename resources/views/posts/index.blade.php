@@ -34,9 +34,9 @@
         </div> --}}
 
         {{-- Carousel Start --}}
-        <section class="bg-white">
-            <div class="p-10 flex items-center justify-center">
-                <img src="/images/carousel/football.jpg" alt="carousel" class="w-[1250px] h-[750px] rounded-lg">
+        <section class="bg-white p-10">
+            <div class="relative w-full h-[70vh] bg-[#0D5568] overflow-hidden rounded-lg">
+                <x-carousel :posts="$posts" />
             </div>
         </section>
         {{-- Carousel End --}}
@@ -97,7 +97,7 @@
                 </div>
                 <div
                     class="py-4 w-auto h-full bg-white rounded-lg flex flex-row items-center justify-start gap-8 flex-wrap">
-                    @livewire("post-list")
+                    @livewire('post-list')
                 </div>
                 <div class="flex justify-center">
                     <div

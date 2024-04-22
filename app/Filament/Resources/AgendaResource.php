@@ -71,7 +71,7 @@ class AgendaResource extends Resource
                                     'purple' => 'Purple',
                                 ])
                                 ->required(),
-                            DatePicker::make('date')
+                            DateTimePicker::make('date')
                                 ->native(false)
                                 ->closeOnDateSelection()
                                 ->disabledDates(fn (Agenda $query): array => $query->pluck('date')->toArray())
