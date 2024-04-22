@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->foreignIdFor(Category::class);
             $table->text('content');
+            $table->string('link');
 
             $table->boolean('is_published');
             $table->timestamp('published_at')->nullable();

@@ -190,8 +190,8 @@
                         integritas dan semangat kecendekiaan dalam pengabdian
                         kepada masyarakat.
                     </p>
-                    <div class="relative mt-3 flex h-[35px] w-[140px] flex-row items-center justify-between border border-white p-3"
-                        style="background-color: #0d5568">
+                    <div
+                        class="relative mt-3 flex h-[35px] w-[140px] flex-row items-center justify-between border border-white p-3 bg-[#0d5568]">
                         <a href="" class="text-[12px] text-white">
                             SELENGKAPNYA
                         </a>

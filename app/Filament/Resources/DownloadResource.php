@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
@@ -124,7 +125,7 @@ class DownloadResource extends Resource
                                                     ->icon('heroicon-m-bars-3-bottom-left'),
                                                 ComponentsBuilder\Block::make('image')
                                                     ->schema([
-                                                        SpatieMediaLibraryFileUpload::make('image')
+                                                        FileUpload::make('url')
                                                             ->label('Image')
                                                             ->image()
                                                             ->optimize('webp')
@@ -139,7 +140,7 @@ class DownloadResource extends Resource
                                                     ->icon('heroicon-o-photo'),
                                                 ComponentsBuilder\Block::make('attachments')
                                                     ->schema([
-                                                        SpatieMediaLibraryFileUpload::make('attachments')
+                                                        FileUpload::make('url')
                                                             ->multiple()
                                                             ->downloadable()
                                                             ->maxFiles(3)

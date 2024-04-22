@@ -22,6 +22,7 @@ class Competition extends Model implements HasMedia
         'slug',
         'category_id',
         'content',
+        'link',
         'is_published',
         'published_at',
         'meta_description',

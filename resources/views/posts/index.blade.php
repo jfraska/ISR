@@ -102,7 +102,7 @@
                 <div class="flex justify-center">
                     <div
                         class="flex flex-row items-center justify-center rounded-xl bg-[#FFDF4E] w-1/4 h-1/6 gap-2 transition-transform duration-300 hover:scale-110">
-                        <a href="#" class="p-3 text-xl font-bold">
+                        <a href="#" class="p-3 text-lg font-bold">
                             LIHAT SELENGKAPNYA
                         </a>
                         <img src="/images/black-arrow.svg" alt="arrow" class="w-7 h-7" />

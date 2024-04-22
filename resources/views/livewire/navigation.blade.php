@@ -16,6 +16,7 @@
                 </button>
                 <div class="flex flex-row items-center p-1 md:p-0">
                     <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
+                    <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
                         <img src="/images/upn-blu-navbar-logo.png" class="h-12" alt="UPN BLU Logo" />
                     </a>
                     <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
@@ -168,6 +169,7 @@
                 <div id="submenu-departemen" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
                     @foreach ($this->departments as $department)
+                        <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
                         <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
                             class="text-white text-xs block px-4 py-3">{{ $department->title }}</a>
                     @endforeach

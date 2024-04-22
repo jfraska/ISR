@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchandiseController;
 use App\Http\Controllers\NavbarController;
@@ -32,6 +33,8 @@ Route::get('/recruitment/{recruitment:slug}', [RecruitmentController::class, 'sh
 
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');
 Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'show'])->name('merchandise.show');
+
+Route::get('/download/{download:slug}', [DownloadController::class, 'show'])->name('downloads.show');
 
 // Route::middleware([
 //     'auth:sanctum',
