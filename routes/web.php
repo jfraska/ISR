@@ -7,6 +7,7 @@ use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\OrganizationalController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RecruitmentController;
 use App\Livewire\Navigation;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/berita-terkini', [HomeController::class, 'berita'])->name('berita-terkini');
-Route::get('/artikel-terkini', [HomeController::class, 'artikel'])->name('artikel-terkini');
-Route::get('/mini-blog', [HomeController::class, 'blog'])->name('mini-blog');
 Route::get('/department/{department:slug}', [DepartmentController::class, 'show'])->name('departments.show');
 Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 'show'])->name('abouts.show');
+
+Route::get('/recruitment/{recruitment:slug}', [RecruitmentController::class, 'show'])->name('recruitments.show');
 
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');
 Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'show'])->name('merchandise.show');

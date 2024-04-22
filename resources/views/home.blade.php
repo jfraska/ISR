@@ -324,7 +324,7 @@
                     </div>
                 </div>
                 <div class="hover: mt-3 flex justify-center">
-                    <a href="{{ route('berita-terkini') }}"
+                    <a href="{{ route('posts.index') }}"
                         class="rounded-2xl bg-[#0D5568] p-3 text-[15px] text-white transition-transform duration-300 hover:scale-110">
                         SELENGKAPNYA
                     </a>
@@ -411,7 +411,7 @@
                     </div>
                 </div>
                 <div class="hover: mt-3 flex justify-center">
-                    <a href="{{ route('artikel-terkini') }}"
+                    <a href="{{ route('posts.index') }}"
                         class="rounded-2xl bg-[#F5D05E] p-3 text-[15px] text-white transition-transform duration-300 hover:scale-110">
                         SELENGKAPNYA
                     </a>
@@ -498,7 +498,7 @@
                     </div>
                 </div>
                 <div class="hover: mt-3 flex justify-center">
-                    <a href="{{ route('mini-blog') }}"
+                    <a href="{{ route('posts.index') }}"
                         class="rounded-2xl bg-[#0D5568] p-3 text-[15px] text-white transition-transform duration-300 hover:scale-110">
                         SELENGKAPNYA
                     </a>

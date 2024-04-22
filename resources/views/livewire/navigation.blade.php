@@ -15,7 +15,7 @@
                     </svg>
                 </button>
                 <div class="flex flex-row items-center p-1 md:p-0">
-                    <a href="#" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
+                    <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
                         <img src="/images/upn-blu-navbar-logo.png" class="h-12" alt="UPN BLU Logo" />
                     </a>
                     <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
@@ -59,7 +59,7 @@
         </div>
     </nav>
 
-    <div id="navbar-hamburger" class="hidden mx-16 my-[80px] z-20 fixed bg-[#0D5568] w-11/12 h-3/4">
+    <div id="navbar-hamburger" class="hidden mx-16 my-[80px] z-40 fixed bg-[#0D5568] w-11/12 h-3/4">
         <div class="flex flex-row h-full">
             <div class="flex flex-col overflow-y-scroll gap-7 h-full">
                 <a id="menu-isr" href="#"
@@ -150,8 +150,8 @@
                     <img src="/images/navbar/arrow.svg" alt="arrow" class="w-[25px] h-[25px]">
                 </a>
             </div>
-            <div class="w-1/4 h-full bg-[#0D5568] gap-3">
-                <div id="submenu-isr" class="hidden top-0 z-50 h-full pt-3">
+            <div class="w-1/4 h-full gap-3">
+                <div id="submenu-isr" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Tentang ISR</p>
                     @foreach ($this->organizationals as $organizational)
                         <a wire:key="{{ $organizational->id }}"
@@ -168,16 +168,17 @@
                 <div id="submenu-departemen" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
                     @foreach ($this->departments as $department)
-                        <a wire:key="{{ $department->id }}"
-                            href="{{ route('departments.show', $department->slug) }}"
+                        <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
                             class="text-white text-xs block px-4 py-3">{{ $department->title }}</a>
                     @endforeach
                 </div>
                 <div id="submenu-rekrutmen" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Rekrutmen</p>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Volunteer</a>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Open Recruitmen UKM ISR</a>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Pendaftaran Kepanitiaan</a>
+                    @foreach ($this->recruitments as $recruitment)
+                        <a wire:key="{{ $recruitment->id }}"
+                            href="{{ route('recruitments.show', $recruitment->name) }}"
+                            class="text-white text-xs block px-4 py-3">{{ $recruitment->name }}</a>
+                    @endforeach
                 </div>
                 <div id="submenu-prestasi" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Prestasi</p>
@@ -187,8 +188,16 @@
                 </div>
                 <div id="submenu-kompetisi" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Kompetisi</p>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Lomba Umum</a>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Ajang Talenta DIKTI</a>
+                    <div class="flex flex-col">
+                        <div class="flex felx-row justify-between pr-2">
+                            <a href="#" class="text-white text-xs block px-4 py-3">Lomba Umum</a>
+                            <img src="/images/navbar/arrow.svg" alt="arrow">
+                        </div>
+                        <div class="flex flex-row justify-between pr-2">
+                            <a href="#" class="text-white text-xs block px-4 py-3">Ajang Talenta DIKTI</a>
+                            <img src="/images/navbar/arrow.svg" alt="arrow">
+                        </div>
+                    </div>
                 </div>
                 <div id="submenu-market" class="hidden top-full left-0 h-full">
                     <a href=""></a>
@@ -199,6 +208,19 @@
                     <a href="#" class="text-white text-xs block px-4 py-3">SOP Publikasi</a>
                     <a href="#" class="text-white text-xs block px-4 py-3">SOP Kesekretariatan</a>
                     <a href="#" class="text-white text-xs block px-4 py-3">Asset ISR</a>
+                </div>
+            </div>
+            <div class="flex flex-col w-1/4 h-full">
+                <div id="sub-submenu-lomba-umum" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Lomba Umum</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">National Competition</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">International Competition</a>
+                </div>
+                <div id="sub-submenu-ajang-talenta-dikti" class="hidden top-full left-0 h-full">
+                    <p class="text-sm text-white font-bold block px-4 py-2">Ajang Talenta DIKTI</p>
+                    <a href="#" class="text-white text-xs block px-4 py-3">P2MW</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">PKKO</a>
+                    <a href="#" class="text-white text-xs block px-4 py-3">PKM</a>
                 </div>
             </div>
         </div>
@@ -220,14 +242,14 @@
             navbar.classList.add.apply(navbar.classList, [
                 'bg-[#0D5568]',
                 'shadow-md',
-                'border-b-2',
+                'border-b',
                 'border-b-[#F5D05E]',
             ]);
         } else {
             navbar.classList.remove.apply(navbar.classList, [
                 'bg-[#0D5568]',
                 'shadow-md',
-                'border-b-2',
+                'border-b',
                 'border-b-[#F5D05E]',
             ]);
             navbar.classList.add.apply(navbar.classList, ['bg-transparent', 'bg-gradient-to-b',
@@ -256,6 +278,8 @@
         const parentMenus = document.querySelectorAll('[id^="menu-"]');
         // Mendapatkan semua submenu
         const subMenus = document.querySelectorAll('[id^="submenu-"]');
+        // Mendapatkan semua subsubmenu
+        const subSubMenus = document.querySelectorAll('[id^="sub-submenu-"]');
 
         // Fungsi untuk menampilkan submenu
         function showSubMenu(menuId) {
