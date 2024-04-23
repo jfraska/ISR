@@ -138,7 +138,7 @@
                         </div>
                     </div>
                 </a>
-                <a id="menu-download" href="#"
+                <a id="menu-download" href="{{ route('downloads.index') }}"
                     class="flex flex-row w-[285px] h-[80px] items-center justify-between px-2">
                     <div class="flex flex-row">
                         <img src="/images/navbar/download.svg" alt="download" class="w-[50px] h-[50px]">

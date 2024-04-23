@@ -687,15 +687,12 @@
                                         },
 
                                         async fetchEvents() {
-                                            // You can directly embed PHP code to fetch agenda data from your database here
-                                            // Make sure to format the data as per your JavaScript needs
-                                            // For example:
                                             this.events = {!! json_encode(
                                                 $agenda->map(function ($agenda) {
                                                     return [
                                                         'event_title' => $agenda->title,
                                                         'event_date' => $agenda->date,
-                                                        'event_theme' => $agenda->bg_color, // Set the default theme to blue
+                                                        'event_theme' => $agenda->bg_color,
                                                     ];
                                                 }),
                                             ) !!};

@@ -5,7 +5,7 @@
 @section('content')
     <div class="px-20 py-28 bg-white">
         <div class="flex flex-row gap-10">
-            <div class="md:w-1/3 flex py-3 flex-col">
+            <div class="md:w-3/7 flex py-3 flex-col">
                 <div class="container bg-[#0D5568] px-5 pt-4 pb-10">
                     <div class="flex justify-center pb-2">
                         <p class="text-[25px] font-bold" style="color: white;">
@@ -42,7 +42,7 @@
                     </a>
                 </div>
             </div>
-            <div class="flex flex-col md:w-2/3">
+            <div class="flex flex-col md:w-4/7">
                 <div class="bg-white px-4">
                     @foreach ($download->content as $downloads)
                         @if ($downloads['type'] === 'heading')
@@ -50,10 +50,10 @@
                                 <p class="text-[25px] font-black">{!! $downloads['data']['content'] !!}</p>
                             </div>
                         @elseif ($downloads['type'] === 'image')
-                        <div class="flex justify-center">
-                            <img src="{{ asset('storage/' . $downloads['data']['url']) }}" alt="{{ $downloads['data']['alt'] }}"
-                                class="mb-4">
-                        </div>
+                            <div class="flex justify-center">
+                                <img src="{{ asset('storage/' . $downloads['data']['url']) }}"
+                                    alt="{{ $downloads['data']['alt'] }}" class="mb-4">
+                            </div>
                         @elseif ($downloads['type'] === 'paragraph')
                             <div class="py-3">
                                 <p>{!! $downloads['data']['content'] !!}</p>
@@ -64,8 +64,9 @@
                                     <div
                                         class="container mx-auto w-2/4 bg-gray-200 max-h-[250px] min-w-64 border border-gray-400">
                                         <div class="md:h-4/5 flex justify-center">
-                                            <img src="https://icons.veryicon.com/png/o/file-type/file-type-8/word-92.png"
-                                                alt="fileIcon" width="175" height="200">
+                                            <iframe
+                                                src="{{ asset('storage/' . $downloads['data']['url'][0]) }}#page=1&view=fitH"
+                                                alt="fileIcon" style="width: 75%; height: auto;"></iframe>
                                         </div>
                                         <div class="container md:h-1/5 bg-white px-2 py-2 mx-auto my-auto min-h-[50px]">
                                             <div class="flex flex-row justify-between">

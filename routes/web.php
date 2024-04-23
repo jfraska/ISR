@@ -31,6 +31,7 @@ Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 's
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');
 Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'show'])->name('merchandise.show');
 
+Route::get('/download', [DownloadController::class, 'index'])->name('downloads.index');
 Route::get('/download/{download:slug}', [DownloadController::class, 'show'])->name('downloads.show');
 
 // Route::middleware([
