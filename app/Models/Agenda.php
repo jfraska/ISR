@@ -20,7 +20,7 @@ class Agenda extends Model implements HasMedia
         'title',
         'slug',
         'content',
-        'date',
+        'datetime',
         'bg_color',
         'is_published',
         'published_at',
@@ -29,6 +29,7 @@ class Agenda extends Model implements HasMedia
     ];
 
     protected $casts = [
+        'datetime' => 'datetime',
         'published_at' => 'datetime',
     ];
 

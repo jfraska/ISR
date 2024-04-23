@@ -72,9 +72,16 @@ class DownloadResource extends Resource
                                                     ->icon('heroicon-m-plus')
                                                     ->color('gray')
                                                     ->form([
-                                                        TextInput::make('name')
-                                                            ->filled()
-                                                            ->required(),
+                                                        Split::make([
+                                                            TextInput::make('name')
+                                                                ->required()
+                                                                ->live()
+                                                                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                            TextInput::make('slug')
+                                                                ->readOnly()
+                                                                ->required()
+                                                                ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                        ]),
                                                         Hidden::make('model')
                                                             ->dehydrateStateUsing(fn (Download $query) => $query->getMorphClass())
                                                     ])
@@ -161,6 +168,7 @@ class DownloadResource extends Resource
                             Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
                             Toggle::make('is_published')->label('Published')->onColor('success'),
                             DateTimePicker::make('published_at')
+                                ->seconds(false)
                                 ->disabled(),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),

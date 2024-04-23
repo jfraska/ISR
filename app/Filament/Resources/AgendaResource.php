@@ -71,10 +71,11 @@ class AgendaResource extends Resource
                                     'purple' => 'Purple',
                                 ])
                                 ->required(),
-                            DateTimePicker::make('date')
+                            DateTimePicker::make('datetime')
                                 ->native(false)
                                 ->closeOnDateSelection()
-                                ->disabledDates(fn (Agenda $query): array => $query->pluck('date')->toArray())
+                                ->disabledDates(fn (Agenda $query): array => $query->pluck('datetime')->toArray())
+                                ->seconds(false)
                                 ->required(),
                             RichEditor::make('content')
                                 ->disableToolbarButtons([
@@ -85,15 +86,8 @@ class AgendaResource extends Resource
                         Section::make('Meta')->schema([
                             Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
                             Toggle::make('is_published')->label('Published')->onColor('success'),
-                            SpatieMediaLibraryFileUpload::make('image')
-                                ->label('Thumbnail')
-                                ->image()
-                                ->maxSize(1024)
-                                ->imageResizeMode('cover')
-                                ->imageCropAspectRatio('16:9')
-                                ->optimize('webp')
-                                ->imageEditor(),
                             DateTimePicker::make('published_at')
+                                ->seconds(false)
                                 ->disabled(),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),
@@ -115,7 +109,7 @@ class AgendaResource extends Resource
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 ColorColumn::make('bg_color')->label('Theme'),
-                TextColumn::make('date'),
+                TextColumn::make('datetime'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
                 TextColumn::make('status')
                     ->state(

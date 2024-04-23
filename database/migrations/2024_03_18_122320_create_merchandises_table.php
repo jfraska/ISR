@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->integer('price');
-            $table->string('link_buy');
+            $table->string('link');
 
             $table->boolean('is_published');
             $table->timestamp('published_at')->nullable();

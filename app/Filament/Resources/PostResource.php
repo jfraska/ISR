@@ -91,9 +91,16 @@ class PostResource extends Resource
                                                     ->icon('heroicon-m-plus')
                                                     ->color('gray')
                                                     ->form([
-                                                        TextInput::make('name')
-                                                            ->filled()
-                                                            ->required(),
+                                                        Split::make([
+                                                            TextInput::make('name')
+                                                                ->required()
+                                                                ->live()
+                                                                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                            TextInput::make('slug')
+                                                                ->readOnly()
+                                                                ->required()
+                                                                ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                        ]),
                                                         Hidden::make('model')
                                                             ->dehydrateStateUsing(fn (Post $query) => $query->getMorphClass())
                                                     ])
@@ -113,9 +120,16 @@ class PostResource extends Resource
                                                     ->icon('heroicon-m-plus')
                                                     ->color('gray')
                                                     ->form([
-                                                        TextInput::make('name')
-                                                            ->filled()
-                                                            ->required(),
+                                                        Split::make([
+                                                            TextInput::make('name')
+                                                                ->required()
+                                                                ->live()
+                                                                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                            TextInput::make('slug')
+                                                                ->readOnly()
+                                                                ->required()
+                                                                ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                        ]),
                                                         Select::make('parent_id')
                                                             ->label('Category')
                                                             ->required()
@@ -210,6 +224,7 @@ class PostResource extends Resource
                                     ->imageEditor(),
                                 SpatieTagsInput::make('tags'),
                                 DateTimePicker::make('published_at')
+                                    ->seconds(false)
                                     ->disabled(),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),

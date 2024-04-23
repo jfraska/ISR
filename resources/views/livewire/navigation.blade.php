@@ -1,5 +1,5 @@
 <div class="">
-    <nav class="bg-transparent bg-gradient-to-b from-gray-700 to-transparent top-0 left-0 right-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out"
+    <nav class="bg-transparent bg-gradient-to-b from-gray-700 to-transparent top-0 inset-x-0 z-50 fixed transition-all duration-200 ease-in-out"
         id="navbar">
         <div class="bg-transparent max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
             id="navbar-content">
@@ -16,15 +16,15 @@
                 </button>
                 <div class="flex flex-row items-center p-1 md:p-0">
                     <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
-                    <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/images/upn-blu-navbar-logo.png" class="h-12" alt="UPN BLU Logo" />
-                    </a>
-                    <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/images/isr-navbar-logo.png" class="h-12" alt="ISR Logo" />
-                    </a>
-                    <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/images/isr-navbar-logo2.png" class="h-12" alt="ISR Logo2" />
-                    </a>
+                        <a href="{{ route('home') }}" class="ml-4 flex items-center space-x-3 rtl:space-x-reverse">
+                            <img src="/images/upn-blu-navbar-logo.png" class="h-12" alt="UPN BLU Logo" />
+                        </a>
+                        <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
+                            <img src="/images/isr-navbar-logo.png" class="h-12" alt="ISR Logo" />
+                        </a>
+                        <a href="#" class="ml-2 flex items-center space-x-3 rtl:space-x-reverse">
+                            <img src="/images/isr-navbar-logo2.png" class="h-12" alt="ISR Logo2" />
+                        </a>
                 </div>
             </div>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -170,7 +170,8 @@
                     <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
                     @foreach ($this->departments as $department)
                         <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
-                        <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
+                            <a wire:key="{{ $department->id }}"
+                            href="{{ route('departments.show', $department->slug) }}"
                             class="text-white text-xs block px-4 py-3">{{ $department->title }}</a>
                     @endforeach
                 </div>

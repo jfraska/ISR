@@ -99,6 +99,7 @@ class DepartmentResource extends Resource
                                     }),
                                 DateTimePicker::make('published_at')
                                     ->readOnly()
+                                    ->seconds(false)
                                     ->dehydrateStateUsing(fn () => Carbon::now()),
                                 TextInput::make('meta_description'),
                             ])->columnSpan(2),

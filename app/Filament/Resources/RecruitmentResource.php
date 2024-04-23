@@ -72,9 +72,16 @@ class RecruitmentResource extends Resource
                                         ->icon('heroicon-m-plus')
                                         ->color('gray')
                                         ->form([
-                                            TextInput::make('name')
-                                                ->filled()
-                                                ->required(),
+                                            Split::make([
+                                                TextInput::make('name')
+                                                    ->required()
+                                                    ->live()
+                                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                TextInput::make('slug')
+                                                    ->readOnly()
+                                                    ->required()
+                                                    ->unique(Category::class, 'slug', fn ($record) => $record),
+                                            ]),
                                             Hidden::make('model')
                                                 ->dehydrateStateUsing(fn (Recruitment $query) => $query->getMorphClass())
                                         ])
@@ -104,7 +111,9 @@ class RecruitmentResource extends Resource
                                 ->imageCropAspectRatio('16:9')
                                 ->optimize('webp')
                                 ->imageEditor(),
-                            DateTimePicker::make('published_at'),
+                            DateTimePicker::make('published_at')
+                                ->seconds(false)
+                                ->disabled(),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),
                     ])

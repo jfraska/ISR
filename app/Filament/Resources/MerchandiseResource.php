@@ -59,7 +59,7 @@ class MerchandiseResource extends Resource
                                 ->mask(RawJs::make('$money($input)'))
                                 ->stripCharacters(',')
                                 ->numeric(),
-                            TextInput::make('link_buy')
+                            TextInput::make('link')
                                 ->required()
                                 ->url()
                                 ->suffixIcon('heroicon-m-globe-alt'),
@@ -85,6 +85,7 @@ class MerchandiseResource extends Resource
                                 ->optimize('webp')
                                 ->imageEditor(),
                             DateTimePicker::make('published_at')
+                                ->seconds(false)
                                 ->disabled(),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),
@@ -100,7 +101,7 @@ class MerchandiseResource extends Resource
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
-                TextColumn::make('link_buy'),
+                TextColumn::make('link'),
                 TextColumn::make('statuses.name')
                     ->label('Status')
                     ->badge()

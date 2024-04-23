@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');
-            $table->dateTime('date');
+            $table->dateTime('datetime');
             $table->string('bg_color');
 
             $table->boolean('is_published');

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Post;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -13,6 +14,8 @@ use Spatie\Tags\Tag;
 class PostList extends Component
 {
     use WithPagination;
+
+    public $category;
 
     #[Url()]
     public $sort = 'desc';
@@ -45,7 +48,7 @@ class PostList extends Component
     #[Computed()]
     public function posts()
     {
-        return Post::published()->with('tags')->when($this->activeTag, function ($query) {
+        return Post::withCategory($this->category)->published()->with('tags')->when($this->activeTag, function ($query) {
             $query->WithAllTags($this->tag);
         })->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
     }

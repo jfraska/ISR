@@ -73,6 +73,7 @@ class AchievementResource extends Resource
                                 ->optimize('webp')
                                 ->imageEditor(),
                             DateTimePicker::make('published_at')
+                                ->seconds(false)
                                 ->disabled(),
                             TextInput::make('meta_description'),
                         ])->columnSpan(2),

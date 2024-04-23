@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Str;
 use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
@@ -75,6 +76,14 @@ class Post extends Model implements HasMedia
     public function scopePublished($query)
     {
         $query->currentStatus('published')->where('is_published', true);
+    }
+
+    public function scopeWithCategory($query, Category $category)
+    {
+        $query->join('categories', function (JoinClause $join) use ($category) {
+            $join->on('posts.category_id', '=', 'categories.id')
+                ->where('categories.slug', $category->slug);
+        })->select('posts.*', 'categories.slug as category');
     }
 
     public function scopeSearch($query, string $search = '')

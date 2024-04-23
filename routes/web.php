@@ -24,8 +24,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class)->name('home');
+
 Route::get('/pojok-ilmiah', [PostController::class, 'index'])->name('posts.index');
-Route::get('/pojok-ilmiah/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/pojok-ilmiah/{category:slug}', [PostController::class, 'detail'])->name('posts.detail');
+Route::get('/pojok-ilmiah/{category:slug}/{post:slug}', [PostController::class, 'show'])->name('posts.show')->withoutScopedBindings();
+
 Route::get('/department/{department:slug}', [DepartmentController::class, 'show'])->name('departments.show');
 Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 'show'])->name('abouts.show');
 
