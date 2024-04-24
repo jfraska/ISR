@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Competition;
 use App\Models\Department;
 use App\Models\Organizational;
 use App\Models\Recruitment;
@@ -26,6 +27,12 @@ class Navigation extends Component
     public function recruitments()
     {
         return Recruitment::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
+    }
+
+    #[Computed()]
+    public function competitions()
+    {
+        return Competition::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
     }
 
     public function render()

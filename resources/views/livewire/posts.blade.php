@@ -87,11 +87,14 @@
             </div>
             <div
                 class="py-4 w-auto h-full bg-white rounded-lg flex flex-row items-center justify-start gap-8 flex-wrap">
+                @foreach ($this->posts as $post)
+                    <x-posts.post-card :post="$post" />
+                @endforeach
             </div>
             <div class="flex justify-center">
                 <div
                     class="flex flex-row items-center justify-center rounded-xl bg-[#FFDF4E] w-1/4 h-1/6 gap-2 transition-transform duration-300 hover:scale-110">
-                    <a {{-- href="{{ route('posts.detail', $post->slug) }}"  --}} class="p-3 text-lg font-bold">
+                    <a href="{{ route('posts.detail', ['category' => $post->category]) }}"  class="p-3 text-lg font-bold">
                         LIHAT SELENGKAPNYA
                     </a>
                     <img src="/images/black-arrow.svg" alt="arrow" class="w-7 h-7" />

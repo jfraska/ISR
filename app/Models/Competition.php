@@ -12,6 +12,7 @@ use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Traits\HasStatuses;
+use Illuminate\Database\Query\JoinClause;
 
 class Competition extends Model implements HasMedia
 {
@@ -51,5 +52,18 @@ class Competition extends Model implements HasMedia
     public function scopePublished($query)
     {
         $query->currentStatus('published')->where('is_published', true);
+    }
+
+    public function scopeWithCategory($query, Category $category)
+    {
+        $query->join('categories', function (JoinClause $join) use ($category) {
+            $join->on('competitions.category_id', '=', 'categories.id')
+                ->where('categories.slug', $category->slug);
+        })->select('competitions.*', 'categories.slug as category');
+    }
+
+    public function scopeSearch($query, string $search = '')
+    {
+        $query->where('title', 'like', "%{$search}%");
     }
 }

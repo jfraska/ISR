@@ -18,7 +18,7 @@
                 </span>
             </div>
             <h2 class="text-xl font-bold text-gray-900">
-                <a wire:navigate
+                <a
                     href="{{ route('posts.show', ['category' => $post->category, 'post' => $post->slug]) }}">
                     {{ $post->title }} </a>
             </h2>

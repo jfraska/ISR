@@ -118,8 +118,7 @@
                     </div>
                     <img src="/images/navbar/arrow.svg" alt="arrow" class="w-[25px] h-[25px]">
                 </a>
-                <a id="menu-kompetisi" href="#"
-                    class="flex flex-row w-[285px] h-[80px] items-center justify-between px-2">
+                <div id="menu-kompetisi" class="flex flex-row w-[285px] h-[80px] items-center justify-between px-2">
                     <div class="flex flex-row">
                         <img src="/images/navbar/kompetisi.svg" alt="kompetisi" class="w-[50px] h-[50px]">
                         <div class="flex flex-col justify-center">
@@ -128,7 +127,7 @@
                         </div>
                     </div>
                     <img src="/images/navbar/arrow.svg" alt="arrow" class="w-[25px] h-[25px]">
-                </a>
+                </div>
                 <a id="menu-market" href="{{ route('merchandise.index') }}"
                     class="flex flex-row w-[285px] h-[80px] items-center justify-start px-2">
                     <div class="flex flex-row">
@@ -162,9 +161,9 @@
                 </div>
                 <div id="submenu-ilmiah" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Pojok Ilmiah</p>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Artikel</a>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Berita</a>
-                    <a href="#" class="text-white text-xs block px-4 py-3">Mini Blog</a>
+                    <a href="{{ route('posts.index') }}" class="text-white text-xs block px-4 py-3">Artikel</a>
+                    <a href="{{ route('posts.index') }}" class="text-white text-xs block px-4 py-3">Berita</a>
+                    <a href="{{ route('posts.index') }}" class="text-white text-xs block px-4 py-3">Mini Blog</a>
                 </div>
                 <div id="submenu-departemen" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
@@ -192,14 +191,14 @@
                 <div id="submenu-kompetisi" class="hidden top-full left-0 h-full">
                     <p class="text-sm text-white font-bold block px-4 py-2">Kompetisi</p>
                     <div class="flex flex-col">
-                        <div class="flex felx-row justify-between pr-2">
-                            <a href="#" class="text-white text-xs block px-4 py-3">Lomba Umum</a>
-                            <img src="/images/navbar/arrow.svg" alt="arrow">
-                        </div>
-                        <div class="flex flex-row justify-between pr-2">
-                            <a href="#" class="text-white text-xs block px-4 py-3">Ajang Talenta DIKTI</a>
-                            <img src="/images/navbar/arrow.svg" alt="arrow">
-                        </div>
+                        @foreach ($this->competitions as $competition)
+                            <div class="flex felx-row justify-between pr-2">
+                                <a wire:key="{{ $competition->id }}"
+                                    href="{{ route('competitions.index', $competition->slug) }}"
+                                    class="text-white text-xs block px-4 py-3">{{ $competition->name }}</a>
+                                <img src="/images/navbar/arrow.svg" alt="arrow">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div id="submenu-market" class="hidden top-full left-0 h-full">
@@ -331,7 +330,7 @@
                                 ''; // Mengembalikan warna teks ke default saat tidak dihover
                         }
                     }
-                }, 200);
+                }, 100);
             });
         });
 
