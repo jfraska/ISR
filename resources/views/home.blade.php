@@ -231,7 +231,7 @@
         {{-- End Misi ISR --}}
 
         {{-- Start Berita Terkini --}}
-        {{-- <section class="bg-[#F5D05E]">
+        <section class="bg-[#F5D05E]">
             <div class="p-8">
                 <p class="text-center text-[30px] font-bold" style="color: #0d5568">
                     BERITA TERKINI
@@ -314,7 +314,7 @@
                     </a>
                 </div>
             </div>
-        </section> --}}
+        </section>
         {{-- End Berita Terkini --}}
 
         {{-- Start Artikel Terkini --}}
@@ -405,12 +405,12 @@
         {{-- End Artikel Terkini --}}
 
         {{-- Start Mini Blog --}}
-        {{-- <section class="bg-[#F5D05E]">
+        <section class="bg-[#F5D05E]">
             <div class="p-8">
                 <p class="text-center text-[30px] font-bold" style="color: #0d5568">
                     MINI BLOG
                 </p>
-                <div class="flex flex-row justify-center gap-6 py-5">
+                <div class="flex flex-row justify-center gap-6 py-5 flex-wrap">
                     <div
                         class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
                         <a href="#" class="flex justify-center">
@@ -488,7 +488,7 @@
                     </a>
                 </div>
             </div>
-        </section> --}}
+        </section>
         {{-- End Mini Blog --}}
 
         {{-- Start Kegiatan --}}
