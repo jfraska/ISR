@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         $posts = Post::where('is_featured', true)->latest()->take(3)->get();
-        $agenda = Agenda::published()->orderBy('date')->get();
+        $agenda = Agenda::published()->orderBy('datetime')->get();
 
         return view('home', [
             'posts' => $posts,

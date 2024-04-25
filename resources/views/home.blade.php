@@ -691,7 +691,7 @@
                                                 $agenda->map(function ($agenda) {
                                                     return [
                                                         'event_title' => $agenda->title,
-                                                        'event_date' => $agenda->date,
+                                                        'event_date' => $agenda->datetime,
                                                         'event_theme' => $agenda->bg_color,
                                                     ];
                                                 }),
@@ -765,7 +765,7 @@
 
                                 @foreach ($agenda->take(5) as $item)
                                     @php
-                                        $currentDate = \Carbon\Carbon::parse($item->date);
+                                        $currentDate = \Carbon\Carbon::parse($item->datetime);
                                         $formattedMonth = $currentDate->format('F');
                                         $formattedDay = $currentDate->format('d');
                                     @endphp
