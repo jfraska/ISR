@@ -14,7 +14,7 @@ class MerchandiseList extends Component
     #[Computed()]
     public function merchandises()
     {
-        return Merchandise::published()->orderBy('published_at', 'desc')->paginate(1);
+        return Merchandise::published()->orderBy('published_at', 'desc')->paginate(12);
     }
 
     public function render()

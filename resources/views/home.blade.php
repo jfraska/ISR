@@ -547,14 +547,17 @@
         {{-- End Kegiatan --}}
 
         {{-- Start Agenda --}}
-        <section class="bg-white">
-            <div class="py-4 md:px-32">
-                <p class="text-center text-[30px] font-bold py-4" style="color: #000000">
-                    Agenda
-                </p>
-                <hr style="border-color: #0D5568; border-width: 3px;">
+        <section class="bg-white flex w-full justify-center">
+            <div class="py-4 w-10/12">
+                <div class="relative px-4">
+                    <h1 class="relative text-3xl font-bold text-[#0D5568]">
+                        Agenda
+                        <span
+                            class="ml-5 after:absolute after:bottom-3 after:h-[3px] after:w-1/5 after:bg-[#F5D05E]"></span>
+                    </h1>
+                </div>
                 <div class="flex flex-row px-4 py-4">
-                    <div class="w-full border md:w-3/7">
+                    <div class="border w-3/5">
                         <div class="bg-gray-200 max-w-screen-lg">
                             <link rel="dns-prefetch" href="//unpkg.com" />
                             <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
@@ -566,37 +569,39 @@
                                     display: none;
                                 }
                             </style>
-                            <div class="antialiased sans-serif bg-white h-auto py-5">
+                            <div class="antialiased sans-serif bg-white h-auto pb-5">
                                 <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-                                    <div class="container my-auto mx-auto px-4 py-2 md:py-0">
-                                        <div class="flex items-center justify-center py-2 px-12">
-                                            <div class="rounded px-3" style="padding-top: 2px;">
-                                                <button type="button" @click="prevMonth()">
-                                                    <svg class="h-12 w-12 text-black inline-flex leading-none"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="3" d="M15 19l-7-7 7-7" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="flex flex-row">
-                                                <div class="mx-2 my-2">
-                                                    <div x-text="year" class="text-[30px] font-bold text-gray-600"
-                                                        style="font-size: 130%;">
-                                                    </div>
-                                                    <div x-text="MONTH_NAMES[month]"
-                                                        class="text-[50px] font-bold text-black">
+                                    <div class="container my-auto mx-auto px-4 py-2">
+                                        <div class="flex items-center justify-between py-3">
+                                            <div class="flex flex-row items-center px-3">
+                                                <div class="px-1">
+                                                    <div
+                                                        x-text="MONTH_NAMES[month]"class="text-2xl font-bold text-[#0D5568]">
                                                     </div>
                                                 </div>
+                                                <div class="px-1">
+                                                    <div x-text="year" class="text-2xl font-bold text-[#0D5568]"></div>
+                                                </div>
                                             </div>
-                                            <div class="rounded-xl px-3" style="padding-top: 2px;">
-                                                <button type="button" @click="nextMonth()">
-                                                    <svg class="h-12 w-12 text-black inline-flex leading-none"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="3" d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
+                                            <div class="pt-2 flex flex-row">
+                                                <div class="rounded px-3">
+                                                    <button type="button" @click="prevMonth()">
+                                                        <svg class="h-6 w-6 text-[#0D5568] inline-flex leading-none"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 19l-7-7 7-7" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="rounded px-3">
+                                                    <button type="button" @click="nextMonth()">
+                                                        <svg class="h-6 w-6 text-[#0D5568] inline-flex leading-none"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M9 5l7 7-7 7" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="bg-white rounded-sm shadow overflow-hidden">
@@ -682,15 +687,12 @@
                                         },
 
                                         async fetchEvents() {
-                                            // You can directly embed PHP code to fetch agenda data from your database here
-                                            // Make sure to format the data as per your JavaScript needs
-                                            // For example:
                                             this.events = {!! json_encode(
                                                 $agenda->map(function ($agenda) {
                                                     return [
                                                         'event_title' => $agenda->title,
                                                         'event_date' => $agenda->date,
-                                                        'event_theme' => $agenda->bg_color, // Set the default theme to blue
+                                                        'event_theme' => $agenda->bg_color,
                                                     ];
                                                 }),
                                             ) !!};
@@ -746,37 +748,54 @@
                             </script>
                         </div>
                     </div>
-                    <div class="w-full md:w-3/7 px-4">
+                    <div class="w-2/5 px-4">
                         <div class="container border bg-white mx-auto px-8 md:py-4">
-                            <p class="text-center text-[20px] font-bold py-4" style="color: #000000">
+                            <p class="text-[20px] font-bold py-0" style="color: #0D5568">
                                 List Agenda
                             </p>
                             <div class="py-5">
-                                <hr style="border-color: #0D5568; border-width: 2px;">
+                                <hr style="border-color: #F5D05E; border-width: 1px;">
                             </div>
                             <div class="w-auto mx-auto">
                                 <!-- List Agenda -->
-                                @foreach ($agenda as $item)
-                                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex mb-2">
-                                        <div class="w-1/4">
-                                            <img class="object-cover w-full h-full" src="{{ $item->getFirstMediaUrl() }}"
-                                                alt="Agenda_Image">
+                                @php
+                                    $lastMonth = null;
+                                    $lastDay = null;
+                                @endphp
+
+                                @foreach ($agenda->take(5) as $item)
+                                    @php
+                                        $currentDate = \Carbon\Carbon::parse($item->date);
+                                        $formattedMonth = $currentDate->format('F');
+                                        $formattedDay = $currentDate->format('d');
+                                    @endphp
+
+                                    @if ($lastDay != $formattedDay)
+                                        <div class="flex flex-row">
+                                            <div class="font-semibold text-gray-600 text-2sm px-1 mb-2">{{ $formattedDay }}
+                                            </div>
+                                            <div class="font-semibold text-gray-600 text-2sm px-1 mb-2">
+                                                {{ $formattedMonth }}
+                                            </div>
                                         </div>
-                                        <div class="w-2/4 p-4">
-                                            <h2 class="text-xl font-bold mb-2">{{ $item->title }}</h2>
-                                            <p class="text-gray-600 text-sm mb-2">
-                                                {{ $item->published_at->format('d-m-Y') }}
-                                            </p>
+                                    @endif
+
+                                    <div class="bg-gray-100 border rounded-lg flex mb-2">
+                                        <div class="w-1/4 px-4 flex items-center">
+                                            <div class="text-lg font-bold">9.00</div>
+                                            <hr
+                                                style="border-left: 2px solid {{ $item->bg_color }}; height: 75%; margin: 0 20px;">
+                                        </div>
+                                        <div class="w-3/4 py-2 px-4">
+                                            <h2 class="text-lg font-bold mb-2">{{ $item->title }}</h2>
                                             <p class="text-gray-700">{!! $item->content !!}</p>
                                         </div>
-                                        <div class="w-1/4 items-center justify-center p-4">
-                                            <p class="text-[15px] font-bold text-gray-500">PUKUL</p>
-                                            <p class="text-black text-xl font-bold mb-2">
-                                                {{ $item->published_at->format('H:m') }}
-                                            </p>
-                                            <p class="text-[15px] font-bold text-gray-500">WIB</p>
-                                        </div>
                                     </div>
+
+                                    @php
+                                        $lastMonth = $formattedMonth;
+                                        $lastDay = $formattedDay;
+                                    @endphp
                                 @endforeach
                             </div>
                         </div>
@@ -785,7 +804,5 @@
             </div>
         </section>
         {{-- End Agenda --}}
-
-
     </div>
 @endsection
