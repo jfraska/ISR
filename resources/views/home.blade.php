@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="">
+    <div class="px-0 py-0 mx-auto w-full">
         {{-- Start Hero Page --}}
         <section class="relative aspect-video w-full">
             <video autoplay muted loop class="h-full w-full object-cover">
@@ -18,39 +18,33 @@
         {{-- Start Profil ISR --}}
         <section class="bg-white">
             <div
-                class="relative flex w-full flex-col-reverse items-center justify-end gap-10 px-8 py-8 md:flex-row md:gap-20">
-                <div class="absolute left-4 top-4 hidden items-center justify-center md:block">
+                class="relative flex flex-col-reverse items-center justify-end gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row">
+                <div class="absolute left-4 top-4 hidden items-center justify-center xl:block">
                     <div class="z-10 h-14 w-40 bg-[#0D5568]"></div>
-                    <div class="z-20 h-14 w-40 bg-[#7e7e7d]"></div>
+                    <div class="z-20 h-14 w-40 bg-[#F5D05E]"></div>
                 </div>
-                <div class="w-full md:w-[397px]">
-                    <h1 class="relative w-full text-3xl font-bold">
+                <div class="w-full sm:w-[50%] md:w-[70%] lg:w-[397px]">
+                    <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
                         Profil ISR
                         <span
                             class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
                     </h1>
-                    <p class="mt-[10px] text-[12px]">
-                        Interdisciplinary Scientific Research(ISR) merupakan
-                        suatu kelompok studi di bidang penalaran dan penelitian
-                        di lingkup kampus Universitas Pembangunan Nasional “
-                        Veteran” Yogyakarta. Organisasi ini lahir sebagai wujud
-                        kontribusi mahasiswa dalam menjujung tinggi Tri Dharma
-                        Perguruan Tinggi yaitu pendidikan dan pengajaran,
-                        penelitian, dan pengabdian kepada masyarakat serta
-                        mendukung visi dan misi UPN “ Veteran” Yogyakarta dalam
-                        menyelenggarakan penelitian dan pengabdian kepada
-                        masyarakat.
+                    <p class="mt-3 md:mt-5 lg:mt-5 text-sm md:text-base">
+                        Interdisciplinary Scientific Research (ISR) merupakan suatu kelompok studi di bidang penalaran dan
+                        penelitian di lingkup kampus Universitas Pembangunan Nasional "Veteran" Yogyakarta. Organisasi ini
+                        lahir sebagai wujud kontribusi mahasiswa dalam menjujung tinggi Tri Dharma Perguruan Tinggi yaitu
+                        pendidikan dan pengajaran, penelitian, dan pengabdian kepada masyarakat serta mendukung visi dan
+                        misi UPN "Veteran" Yogyakarta dalam menyelenggarakan penelitian dan pengabdian kepada masyarakat.
                     </p>
-                    <div class="relative mt-3 flex w-fit items-center gap-5 border border-white bg-[#0D5568] p-3">
-                        <a href="" class="text-[12px] text-white">
-                            SELENGKAPNYA
-                        </a>
+                    <div class="relative mt-3 md:mt-5 lg:mt-5 flex items-center gap-5 border border-white bg-[#0D5568] p-3">
+                        <a href="" class="text-sm md:text-base text-white">SELENGKAPNYA</a>
                         <img src="/images/arrow.svg" alt="arrow" class="aspect-square w-4" />
                     </div>
                 </div>
-                <img src="/images/upn.png" alt="isr-profile" class="aspect-square w-full md:w-[658px]" />
-                <div class="absolute bottom-0 left-0 hidden md:block">
-                    <img src="/images/side-decor-bottom-left.png" alt="" class="aspect-square w-[20vw]" />
+                <img src="/images/upn.png" alt="isr-profile"
+                    class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px]" />
+                <div class="absolute bottom-0 left-0 hidden xl:block">
+                    <img src="/images/side-decor-bottom-left.png" alt="decor" class="aspect-square w-[20vw]" />
                 </div>
             </div>
         </section>
@@ -60,7 +54,7 @@
         <section class="relative bg-white py-10">
             <div class="absolute inset-x-0 top-0 z-0 hidden h-[170px] w-full bg-[#0D5568] md:block"></div>
             <div class="mx-auto flex w-full flex-row gap-5 overflow-x-auto md:w-4/5 md:flex-col">
-                <div class="z-10 flex h-[300px] gap-5 md:h-[180px]">
+                <div class="z-10 flex flex-row h-[300px] gap-5 md:h-[180px]">
                     <div class="flex w-full items-start gap-2 border-2 border-[#0D5568] bg-white p-2">
                         <img src="/images/oprec.svg" alt="oprec" class="aspect-square w-9" />
                         <div class="mr-[50px]">
@@ -163,27 +157,21 @@
 
         {{-- Start Visi ISR --}}
         <section class="">
-            <div class="p-8"
-                style="
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    flex-direction: row;
-                ">
-                <div class="absolute right-0 top-0 mr-10 items-center justify-center">
+            <div
+                class="relative flex flex-col items-center justify-start gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row">
+                <div class="absolute right-0 top-0 mr-10 items-center justify-center hidden xl:block">
                     <div class="z-10 h-14 w-40 bg-[#0D5568]"></div>
                     <div class="z-20 h-14 w-40 bg-[#F5D05E]"></div>
                 </div>
-                <img src="/images/upn.png" alt="isr-profile" class="h-[578px] w-[658px] flex-shrink-0" />
-                <div class="ml-[50px] mr-8 h-[120px] w-[400px] flex-grow-0">
-                    <div class="relative">
-                        <h1 class="relative text-3xl font-bold">
-                            Visi ISR
-                            <span
-                                class="ml-5 after:absolute after:bottom-3 after:h-[3px] after:w-2/3 after:bg-[#0D5568]"></span>
-                        </h1>
-                    </div>
-                    <p class="mt-[10px] text-[12px]">
+                <img src="/images/upn.png" alt="isr-profile"
+                    class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px]" />
+                <div class="w-full sm:w-[50%] md:w-[70%] lg:w-[397px]">
+                    <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
+                        Visi ISR
+                        <span
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                    </h1>
+                    <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
                         Menjadi lembaga penalaran dan penelitian interdisipliner
                         yang mampu mewadahi anggota dalam menghasilkan karya
                         karya yang kreatif, inovatif serta menumbuhkan
@@ -191,15 +179,13 @@
                         kepada masyarakat.
                     </p>
                     <div
-                        class="relative mt-3 flex h-[35px] w-[140px] flex-row items-center justify-between border border-white p-3 bg-[#0d5568]">
-                        <a href="" class="text-[12px] text-white">
-                            SELENGKAPNYA
-                        </a>
-                        <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
+                        class="relative mt-3 md:mt-5 lg:mt-8 flex items-center gap-5 border border-white bg-[#0D5568] p-3">
+                        <a href="" class="text-sm md:text-base text-white">SELENGKAPNYA</a>
+                        <img src="/images/arrow.svg" alt="arrow" class="aspect-square w-4" />
                     </div>
                 </div>
-                <div class="absolute bottom-0 right-0">
-                    <img src="/images/side-decor-bottom-right.png" alt="" />
+                <div class="absolute bottom-0 right-0 hidden xl:block">
+                    <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
                 </div>
             </div>
         </section>
@@ -207,21 +193,21 @@
 
         {{-- Start Misi ISR --}}
         <section class="bg-white">
-            <div class="relative flex flex-row-reverse items-center p-8">
-                <div class="absolute left-0 top-0 ml-10 items-center justify-center">
+            <div
+                class="relative flex flex-col items-center justify-start gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row-reverse">
+                <div class="absolute left-0 top-0 ml-10 items-center justify-center hidden xl:block">
                     <div class="z-10 h-14 w-40 bg-[#0D5568]"></div>
                     <div class="z-20 h-14 w-40 bg-[#F5D05E]"></div>
                 </div>
-                <img src="/images/upn.png" alt="isr-profile" class="h-[578px] w-[658px] flex-shrink-0" />
-                <div class="ml-[50px] mr-8 h-[120px] w-[400px] flex-grow-0">
-                    <div class="relative">
-                        <h1 class="relative text-3xl font-bold">
-                            Misi ISR
-                            <span
-                                class="ml-5 after:absolute after:bottom-3 after:h-[3px] after:w-2/3 after:bg-[#0D5568]"></span>
-                        </h1>
-                    </div>
-                    <ul class="mt-[10px] text-[12px]">
+                <img src="/images/upn.png" alt="isr-profile"
+                    class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px]" />
+                <div class="w-full sm:w-[50%] md:w-[70%] lg:w-[397px]">
+                    <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
+                        Misi ISR
+                        <span
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                    </h1>
+                    <ul class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
                         <li>
                             - Melakukan kegiatan pengkajian dan penelitian
                             dengan landasan ilmiah secara interdisipliner.
@@ -231,16 +217,14 @@
                             sesuai dengan kompetensi mahasiswa.
                         </li>
                     </ul>
-                    <div class="relative mt-3 flex h-[35px] w-[140px] flex-row items-center justify-between border border-white p-3"
-                        style="background-color: #0d5568">
-                        <a href="" class="text-[12px] text-white">
-                            SELENGKAPNYA
-                        </a>
-                        <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
+                    <div
+                        class="relative mt-3 md:mt-5 lg:mt-8 flex items-center gap-5 border border-white bg-[#0D5568] p-3">
+                        <a href="" class="text-sm md:text-base text-white">SELENGKAPNYA</a>
+                        <img src="/images/arrow.svg" alt="arrow" class="aspect-square w-4" />
                     </div>
                 </div>
-                <div class="absolute bottom-0 left-0">
-                    <img src="/images/side-decor-bottom-left.png" alt="" />
+                <div class="absolute bottom-0 left-0 hidden xl:block">
+                    <img src="/images/side-decor-bottom-left.png" alt="decor" />
                 </div>
             </div>
         </section>
@@ -252,7 +236,7 @@
                 <p class="text-center text-[30px] font-bold" style="color: #0d5568">
                     BERITA TERKINI
                 </p>
-                <div class="flex flex-row justify-center gap-6 py-5">
+                <div class="flex flex-row justify-center gap-6 py-5 flex-wrap">
                     <div
                         class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
                         <a href="#" class="flex justify-center">
@@ -339,7 +323,7 @@
                 <p class="text-center text-[30px] font-bold" style="color: #f5d05e">
                     ARTIKEL TERKINI
                 </p>
-                <div class="flex flex-row justify-center gap-6 py-5">
+                <div class="flex flex-row justify-center gap-6 py-5 flex-wrap">
                     <div
                         class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#F5D05E] border-r-[#F5D05E] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
                         <a href="#" class="flex justify-center">
@@ -426,7 +410,7 @@
                 <p class="text-center text-[30px] font-bold" style="color: #0d5568">
                     MINI BLOG
                 </p>
-                <div class="flex flex-row justify-center gap-6 py-5">
+                <div class="flex flex-row justify-center gap-6 py-5 flex-wrap">
                     <div
                         class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
                         <a href="#" class="flex justify-center">
@@ -515,7 +499,7 @@
                         <img src="/images/kegiatan.png" alt="" class="h-full object-cover object-center" />
                     </div>
                     <div class="flex w-full items-center justify-center bg-[#0D5568]">
-                        <div class="flex-col">
+                        <div class="flex-col px-2">
                             <p class="text-[20px] font-bold" style="color: #f5d05e">
                                 Kegiatan 1
                             </p>
@@ -528,7 +512,7 @@
                 </div>
                 <div class="flex h-[400px] w-full justify-between">
                     <div class="flex w-full items-center justify-center bg-[#F5D05E]">
-                        <div class="flex-col">
+                        <div class="flex-col px-2">
                             <p class="text-[20px] font-bold" style="color: #0d5568">
                                 Kegiatan 2
                             </p>
