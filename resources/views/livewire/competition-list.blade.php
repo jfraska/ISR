@@ -15,7 +15,7 @@
     </div>
     <div class="py-4">
         @foreach ($this->competitions as $competition)
-            <x-posts.competition-item wire:key="{{ $competition->id }}" :competition="$competition" />
+            <x-competitions.competition-item wire:key="{{ $competition->id }}" :competition="$competition" />
         @endforeach
     </div>
 
