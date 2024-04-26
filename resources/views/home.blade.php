@@ -496,7 +496,8 @@
             <div class="mx-auto flex w-full flex-col p-0">
                 <div class="flex h-[400px] w-full justify-between">
                     <div class="w-full">
-                        <img src="/images/kegiatan.png" alt="" class="h-full object-cover object-center" />
+                        <img src="/images/kegiatan.png" alt=""
+                            class="h-full w-full bg-cover object-cover object-center" />
                     </div>
                     <div class="flex w-full items-center justify-center bg-[#0D5568]">
                         <div class="flex-col px-2">
@@ -523,7 +524,8 @@
                         </div>
                     </div>
                     <div class="w-full">
-                        <img src="/images/kegiatan.png" alt="" class="h-full object-cover object-center" />
+                        <img src="/images/kegiatan.png" alt=""
+                            class="h-full w-full bg-cover object-cover object-center" />
                     </div>
                 </div>
             </div>
