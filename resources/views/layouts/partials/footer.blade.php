@@ -1,5 +1,5 @@
 <footer class="relative bottom-0 flex w-full justify-center bg-[#0D5568]">
-    <div class="flex flex-col">
+    <div class="flex flex-col w-full">
         <div class="w-4/5 mx-auto">
             <div
                 class="flex flex-col md:flex-row w-full items-center justify-between gap-10 md:border-b md:border-white text-center md:text-left">
@@ -180,7 +180,7 @@
                 </div>
             </div>
         </div>
-        <div class="z-10">
+        <div class="w-full z-10">
             <img src="/images/footer.png" alt="" class="w-full object-cover" />
         </div>
     </div>
