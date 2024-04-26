@@ -532,7 +532,7 @@
 
         {{-- Start Agenda --}}
         <section class="bg-white flex w-full justify-center">
-            <div class="py-4 w-10/12">
+            <div class="py-4 w-full xl:w-10/12">
                 <div class="relative px-4">
                     <h1 class="relative text-3xl font-bold text-[#0D5568]">
                         Agenda
@@ -540,8 +540,8 @@
                             class="ml-5 after:absolute after:bottom-3 after:h-[3px] after:w-1/5 after:bg-[#F5D05E]"></span>
                     </h1>
                 </div>
-                <div class="flex flex-row px-4 py-4">
-                    <div class="border w-3/5">
+                <div class="flex flex-col lg:flex-row px-4 py-4">
+                    <div class="border w-full lg:w-3/5 py-3 lg:py-0">
                         <div class="bg-gray-200 max-w-screen-lg">
                             <link rel="dns-prefetch" href="//unpkg.com" />
                             <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
@@ -651,7 +651,7 @@
                                 const MONTH_NAMES = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
                                     'Oktober', 'November', 'Desember'
                                 ];
-                                const DAYS = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                                const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
                                 function app() {
                                     return {
@@ -659,7 +659,7 @@
                                         year: '',
                                         no_of_days: [],
                                         blankdays: [],
-                                        days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+                                        days: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
                                         events: [], // Initialize events array
 
                                         initDate() {
@@ -732,8 +732,8 @@
                             </script>
                         </div>
                     </div>
-                    <div class="w-2/5 px-4">
-                        <div class="container border bg-white mx-auto px-8 md:py-4">
+                    <div class="w-full lg:w-2/5 px-0 lg:px-4 py-3 lg:py-0">
+                        <div class="w-full container border bg-white mx-auto px-8 lg:py-4">
                             <p class="text-[20px] font-bold py-0" style="color: #0D5568">
                                 List Agenda
                             </p>
@@ -764,15 +764,37 @@
                                         </div>
                                     @endif
 
-                                    <div class="bg-gray-100 border rounded-lg flex mb-2">
-                                        <div class="w-1/4 px-4 flex items-center">
-                                            <div class="text-lg font-bold">9.00</div>
-                                            <hr
-                                                style="border-left: 2px solid {{ $item->bg_color }}; height: 75%; margin: 0 20px;">
+                                    <div class="hidden lg:block">
+                                        <div class="bg-gray-100 border rounded-lg mb-2 flex">
+                                            <div class="w-1/5 md:2-1/4 px-4 mx-auto flex items-center justify-between">
+                                                <div class="text-md md:text-lg font-bold pr-2">
+                                                    {{ $item->published_at->format('H:i') }}
+                                                </div>
+                                                <hr class="hidden md:block"
+                                                    style="border-left: 2px solid {{ $item->bg_color }}; height: 75%; ">
+                                            </div>
+                                            <div class="w-4/5 md:w-3/4 py-2 px-4">
+                                                <h2 class="text-md md:text-lg font-bold mb-2">{{ $item->title }}</h2>
+                                                <p class="text-gray-700">{!! $item->content !!}</p>
+                                            </div>
                                         </div>
-                                        <div class="w-3/4 py-2 px-4">
-                                            <h2 class="text-lg font-bold mb-2">{{ $item->title }}</h2>
-                                            <p class="text-gray-700">{!! $item->content !!}</p>
+                                    </div>
+
+                                    <div class="block lg:hidden">
+                                        <div class="bg-gray-100 border rounded-lg mb-2 flex"
+                                            style="border-color:
+                                            {{ $item->bg_color }};">
+                                            <div class="w-1/5 md:2-1/4 px-4 mx-auto flex items-center justify-between">
+                                                <div class="text-md md:text-lg font-bold pr-2">
+                                                    {{ $item->published_at->format('H:i') }}
+                                                </div>
+                                                <hr class="hidden md:block"
+                                                    style="border-left: 2px solid {{ $item->bg_color }}; height: 75%; ">
+                                            </div>
+                                            <div class="w-4/5 md:w-3/4 py-2 px-4">
+                                                <h2 class="text-md md:text-lg font-bold mb-2">{{ $item->title }}</h2>
+                                                <p class="text-gray-700">{!! $item->content !!}</p>
+                                            </div>
                                         </div>
                                     </div>
 
