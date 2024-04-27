@@ -754,7 +754,10 @@
                                         $currentDate = \Carbon\Carbon::parse($item->datetime);
                                         $formattedMonth = $currentDate->format('F');
                                         $formattedDay = $currentDate->format('d');
-                                        $uniqueId = 'content_' . $key; // Membuat ID unik untuk setiap item
+                                        $uniqueIdc = 'content_' . $key;
+                                        $uniqueIdt = 'title_' . $key;
+                                        $uniqueIdcLg = 'contentLg_' . $key;
+                                        $uniqueIdtLg = 'titleLg_' . $key;
                                     @endphp
 
                                     @if ($lastDay != $formattedDay)
@@ -775,11 +778,14 @@
                                                 <hr class="hidden md:block"
                                                     style="border-left: 2px solid {{ $item->bg_color }}; height: 75%;">
                                             </div>
-                                            <button onclick="toggleTruncate('{{ $uniqueId }}')"
+                                            <button
+                                                onclick="toggleTruncateLg('{{ $uniqueIdcLg }}', '{{ $uniqueIdtLg }}')"
                                                 class="w-4/5 md:w-3/4 py-2 px-4">
-                                                <h2 class="text-md md:text-lg font-bold mb-2 text-start">
-                                                    {{ $item->title }}</h2>
-                                                <div class="text-gray-700 truncate text-start" id="{{ $uniqueId }}">
+                                                <div class="text-md font-bold truncate mb-2 text-start"
+                                                    id="{{ $uniqueIdtLg }}">
+                                                    <p>{!! $item->title !!}</p>
+                                                </div>
+                                                <div class="text-gray-700 truncate text-start" id="{{ $uniqueIdcLg }}">
                                                     {!! $item->content !!}
                                                 </div>
                                             </button>
@@ -790,17 +796,20 @@
                                         <div class="bg-gray-100 border rounded-lg mb-2 flex"
                                             style="border-color: {{ $item->bg_color }};">
                                             <div class="w-1/5 md:2-1/4 px-4 mx-auto flex items-center justify-between">
-                                                <div class="text-md md:text-lg font-bold pr-2">
+                                                <div class="text-md font-bold pr-2">
                                                     {{ $item->published_at->format('H:i') }}
                                                 </div>
                                                 <hr class="hidden md:block"
                                                     style="border-left: 2px solid {{ $item->bg_color }}; height: 75%;">
                                             </div>
-                                            <button onclick="toggleTruncate('{{ $uniqueId }}')"
+                                            <button
+                                                onclick="toggleTruncate('{{ $uniqueIdc }}', '{{ $uniqueIdt }}')"
                                                 class="w-4/5 md:w-3/4 py-2 px-4">
-                                                <h2 class="text-md md:text-lg font-bold mb-2 text-start">
-                                                    {{ $item->title }}</h2>
-                                                <div class="text-gray-700 truncate text-start" id="{{ $uniqueId }}">
+                                                <div class="text-md font-bold truncate mb-2 text-start"
+                                                    id="{{ $uniqueIdt }}">
+                                                    <p>{!! $item->title !!}</p>
+                                                </div>
+                                                <div class="text-gray-700 truncate text-start" id="{{ $uniqueIdc }}">
                                                     {!! $item->content !!}
                                                 </div>
                                             </button>
@@ -817,9 +826,18 @@
                     </div>
 
                     <script>
-                        function toggleTruncate(id) {
-                            var contentDiv = document.getElementById(id);
+                        function toggleTruncate(contentId, titleId) {
+                            var contentDiv = document.getElementById(contentId);
+                            var titleDiv = document.getElementById(titleId);
                             contentDiv.classList.toggle('truncate');
+                            titleDiv.classList.toggle('truncate');
+                        }
+
+                        function toggleTruncateLg(contentId, titleId) {
+                            var contentDiv = document.getElementById(contentId);
+                            var titleDiv = document.getElementById(titleId);
+                            contentDiv.classList.toggle('truncate');
+                            titleDiv.classList.toggle('truncate');
                         }
                     </script>
 
