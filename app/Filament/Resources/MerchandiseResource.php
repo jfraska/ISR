@@ -49,6 +49,8 @@ class MerchandiseResource extends Resource
         if (auth()->user()->can('merchandise:all')) {
             return static::getModel()::currentStatus('reviewing')->count() > 0 ? 'warning' : 'primary';
         }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count() > 0 ? 'warning' : 'primary';
     }
 
 
