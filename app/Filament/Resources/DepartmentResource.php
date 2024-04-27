@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DepartmentResource\Pages;
-use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
-use Filament\Forms;
-use Filament\Forms\Components\Builder as ComponentsBuilder;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -21,10 +19,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -35,18 +32,28 @@ class DepartmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(6)
+                Grid::make([
+                    'default' => 'full',
+                    'md' => 6,
+                ])
                     ->schema([
                         Tabs::make('Tabs')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
                             ->tabs([
                                 Tabs\Tab::make('Content')
                                     ->schema([
                                         Split::make([
                                             TextInput::make('title')
+                                                ->maxLength(255)
                                                 ->live(onBlur: true)
                                                 ->required()
                                                 ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
@@ -77,9 +84,13 @@ class DepartmentResource extends Resource
                                             ])
                                             ->columns(2)
                                     ]),
-                            ])->columnSpan(4),
+                            ]),
 
                         Section::make('Meta')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 2,
+                            ])
                             ->schema([
                                 Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
                                 SpatieMediaLibraryFileUpload::make('image')
@@ -88,7 +99,7 @@ class DepartmentResource extends Resource
                                     ->image()
                                     ->imageResizeMode('cover')
                                     ->imageCropAspectRatio('16:9')
-                                    ->maxSize(1024)
+                                    ->maxSize(5120)
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 TextInput::make('periode')
@@ -102,7 +113,7 @@ class DepartmentResource extends Resource
                                     ->seconds(false)
                                     ->dehydrateStateUsing(fn () => Carbon::now()),
                                 TextInput::make('meta_description'),
-                            ])->columnSpan(2),
+                            ]),
                     ])
             ]);
     }
@@ -124,9 +135,12 @@ class DepartmentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                //
             ]);
     }
 

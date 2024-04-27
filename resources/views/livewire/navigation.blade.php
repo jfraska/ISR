@@ -5,9 +5,8 @@
             id="navbar-content">
             <div class="flex flex-wrap items-center">
                 <button data-collapse-toggle="navbar-hamburger" type="button"
-                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    class="inline-flex w-10 aspect-square items-center justify-center p-2 text-white focus:outline-none"
                     aria-controls="navbar-hamburger" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
                     <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -51,11 +50,6 @@
                         </a>
                     </div>
                 </div>
-                @auth
-                    @include('layouts.partials.header-right-auth')
-                @else
-                    @include('layouts.partials.header-right-guest')
-                @endauth
             </div>
         </div>
     </nav>
@@ -168,7 +162,7 @@
                 <h1 class="font-bold mb-2">Pojok Ilmiah</h1>
                 <a data-menu data-submenu="artikel" id="artikel" href="{{ route('posts.index') }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between">Artikel</a>
-                <a href="{{ route('posts.index') }}"
+                <a data-menu data-submenu="berita" id="berita" href="{{ route('posts.index') }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between">Berita</a>
                 <a href="{{ route('posts.index') }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between">Mini Blog</a>
@@ -228,7 +222,7 @@
                 <a href="#" class="text-white text-xs block px-4 py-3">National Competition</a>
                 <a href="#" class="text-white text-xs block px-4 py-3">International Competition</a>
             </div>
-            <div id="sub-submenu-ajang-talenta-dikti" class="hidden top-full left-0 h-full">
+            <div data-menu data-menu-target="berita" class="hidden flex-col overflow-y-scroll w-80">
                 <p class="text-sm text-white font-bold block px-4 py-2">Ajang Talenta DIKTI</p>
                 <a href="#" class="text-white text-xs block px-4 py-3">P2MW</a>
                 <a href="#" class="text-white text-xs block px-4 py-3">PKKO</a>

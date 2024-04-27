@@ -43,10 +43,17 @@ class OrganizationalProfile extends Page
 
     protected static string $view = 'filament.pages.organizational-profile';
 
+    protected static ?int $navigationSort = 1;
+
     public ?array $data = [];
 
     #[Locked]
     public ?Organizational $record = null;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->can('organizational:all');
+    }
 
     public static function sidebar(): FilamentPageSidebar
     {

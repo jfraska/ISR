@@ -4,11 +4,11 @@
         <div class="flex">
             <nav class="flex flex-row w-full h-20 items-center justify-between px-96 bg-[#0D5568]">
                 <div
-                    class="{{ $category->slug === 'artikel' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
+                    class="{{ $category->slug === 'article' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
                     <button type="button" wire:click="setCategory('artikel')" class="">Artikel</button>
                 </div>
                 <div
-                    class="{{ $category->slug === 'berita' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
+                    class="{{ $category->slug === 'news' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
                     <button type="button" wire:click="setCategory('berita')" class="">News</button>
                 </div>
                 <div
@@ -94,7 +94,8 @@
             <div class="flex justify-center">
                 <div
                     class="flex flex-row items-center justify-center rounded-xl bg-[#FFDF4E] w-1/4 h-1/6 gap-2 transition-transform duration-300 hover:scale-110">
-                    <a href="{{ route('posts.detail', ['category' => $post->category]) }}"  class="p-3 text-lg font-bold">
+                    <a href="{{ route('posts.detail', ['category' => $post->category]) }}"
+                        class="p-3 text-lg font-bold">
                         LIHAT SELENGKAPNYA
                     </a>
                     <img src="/images/black-arrow.svg" alt="arrow" class="w-7 h-7" />

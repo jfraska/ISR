@@ -43,13 +43,3 @@ Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'sh
 
 Route::get('/download', [DownloadController::class, 'index'])->name('downloads.index');
 Route::get('/download/{download:slug}', [DownloadController::class, 'show'])->name('downloads.show');
-
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });

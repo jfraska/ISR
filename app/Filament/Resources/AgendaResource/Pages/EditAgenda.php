@@ -17,8 +17,13 @@ class EditAgenda extends EditRecord
         ];
     }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function afterSave(): void
     {
-        $this->record->is_published ?  $this->record->statuses()->update(['name' => 'reviewing']) : null;
+        $this->record->status === "published" ?  $this->record->updateStatus('reviewing') : null;
     }
 }

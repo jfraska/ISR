@@ -18,8 +18,11 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
-use App\Filament\Pages\Setting\EditProfile;
+use Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource;
+use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,27 +32,42 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('dashboard')
             ->path('dashboard')
-            // ->login()
+            ->login()
+            ->registration()
+            ->passwordReset()
+            ->emailVerification()
+            ->profile()
             ->colors([
-                'primary' => Color::Amber,
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Indigo,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
             ])
-            ->userMenuItems([
-                MenuItem::make()
-                    ->label('Profile')
-                    ->icon('heroicon-o-user-circle')
-                // ->url(url(EditProfile::getUrl()))
-                ,
-            ])
+            ->font('Inter', provider: GoogleFontProvider::class)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                // Pages\Dashboard::class,
-                EditProfile::class,
+                Pages\Dashboard::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Roles')
+                    ->url(fn (): string => RoleResource::getUrl())
+                    ->icon('heroicon-o-lock-closed')
+                    ->group('Settings')
+                    ->sort(3)
+                    ->visible(fn (): bool => auth()->user()->can('roles:all')),
+                NavigationItem::make('Permissions')
+                    ->url(fn (): string => PermissionResource::getUrl())
+                    ->icon('heroicon-o-lock-closed')
+                    ->group('Settings')
+                    ->sort(4)
+                    ->visible(fn (): bool => auth()->user()->can('permissions:all')),
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -65,6 +83,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make());
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->breadcrumbs(false)
+            ->sidebarCollapsibleOnDesktop();
     }
 }

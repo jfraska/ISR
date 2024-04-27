@@ -9,19 +9,23 @@ use Illuminate\Auth\Access\Response;
 class PostPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return true;
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Post $post): bool
     {
-        return true;
+        if ($post->status === "published") {
+            return true;
+        }
+
+        if ($user === null) {
+            return false;
+        }
+
+        if ($user->can('post:all')) {
+            return true;
+        }
+
+        return $user->id === $post->user_id;
     }
 
     /**
@@ -29,7 +33,7 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->can('post:create');
     }
 
     /**
@@ -37,7 +41,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return true;
+        return $user->id === $post->user_id || $user->can('post:all');
     }
 
     /**
@@ -45,7 +49,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return true;
+        return ($user->id === $post->user_id && $post->status !== "published") || $user->can('post:all');
     }
 
     /**
@@ -53,7 +57,7 @@ class PostPolicy
      */
     public function restore(User $user, Post $post): bool
     {
-        return true;
+        return $user->id === $post->user_id || $user->can('post:all');
     }
 
     /**
@@ -61,6 +65,6 @@ class PostPolicy
      */
     public function forceDelete(User $user, Post $post): bool
     {
-        return true;
+        return $user->can('post:delete');
     }
 }
