@@ -16,4 +16,9 @@ class EditAchievement extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        $this->record->updateStatus('reviewing');
+    }
 }
