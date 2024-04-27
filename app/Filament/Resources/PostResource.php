@@ -3,13 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\RelationManagers;
 use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\SubCategory;
-use Carbon\Carbon;
-use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\SpatieTagsInput;
@@ -30,7 +26,6 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\ActionSize;
 use Filament\Support\Enums\Alignment;
-use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
@@ -39,7 +34,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -50,27 +44,48 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-pencil';
 
-    // protected static ?string $label = 'Pojok Ilmiah';
-    // protected static ?string $navigationLabel = 'Pojok Ilmiah';
-    // protected static ?string $navigationGroup = 'Pojok Ilmiah';
+    protected static ?string $navigationLabel = 'Pojok Ilmiah';
+
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (auth()->user()->can('post:all')) {
+            return static::getModel()::currentStatus('reviewing')->count();
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count();
+    }
 
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+        if (auth()->user()->can('post:all')) {
+            return static::getModel()::currentStatus('reviewing')->count() > 0 ? 'warning' : 'primary';
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count() > 0 ? 'warning' : 'primary';
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(6)
+                Grid::make([
+                    'default' => 'full',
+                    'md' => 6,
+                ])
                     ->schema([
                         Tabs::make('Tabs')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
                             ->tabs([
                                 Tabs\Tab::make('Title')
                                     ->schema([
                                         Split::make([
                                             TextInput::make('title')
+                                                ->maxLength(255)
                                                 ->live(onBlur: true)
                                                 ->required()
                                                 ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
@@ -94,7 +109,7 @@ class PostResource extends Resource
                                                         Split::make([
                                                             TextInput::make('name')
                                                                 ->required()
-                                                                ->live()
+                                                                ->live(onBlur: true)
                                                                 ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                                                             TextInput::make('slug')
                                                                 ->readOnly()
@@ -123,7 +138,7 @@ class PostResource extends Resource
                                                         Split::make([
                                                             TextInput::make('name')
                                                                 ->required()
-                                                                ->live()
+                                                                ->live(onBlur: true)
                                                                 ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                                                             TextInput::make('slug')
                                                                 ->readOnly()
@@ -150,9 +165,9 @@ class PostResource extends Resource
                                                 ComponentsBuilder\Block::make('heading')
                                                     ->schema([
                                                         TextInput::make('content')
-                                                            ->autocapitalize('words')
                                                             ->required(),
                                                         Select::make('level')
+                                                            ->live(onBlur: true)
                                                             ->options([
                                                                 'h1' => 'Heading 1',
                                                                 'h2' => 'Heading 2',
@@ -165,7 +180,7 @@ class PostResource extends Resource
                                                             return 'Heading';
                                                         }
 
-                                                        return $state['content'] ?? 'Untitled heading';
+                                                        return $state['level'] ?? 'Untitled heading';
                                                     })
                                                     ->icon('heroicon-o-bookmark')
                                                     ->columns(2),
@@ -201,9 +216,13 @@ class PostResource extends Resource
                                             ->maxItems(6)
                                             ->collapsed(),
                                     ]),
-                            ])->columnSpan(4),
+                            ]),
 
                         Section::make('Meta')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 2,
+                            ])
                             ->schema([
                                 Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
                                 Split::make([
@@ -216,10 +235,7 @@ class PostResource extends Resource
                                     ->image()
                                     ->imageResizeMode('cover')
                                     ->imageCropAspectRatio('16:9')
-                                    ->multiple()
-                                    ->minFiles(1)
-                                    ->maxFiles(3)
-                                    ->maxSize(1024)
+                                    ->maxSize(5120)
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 SpatieTagsInput::make('tags'),
@@ -227,7 +243,7 @@ class PostResource extends Resource
                                     ->seconds(false)
                                     ->disabled(),
                                 TextInput::make('meta_description'),
-                            ])->columnSpan(2),
+                            ]),
                     ])
             ]);
     }
@@ -235,6 +251,9 @@ class PostResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->when(!auth()->user()->can('post:all'), function ($query) {
+                $query->where('user_id', Auth::id());
+            }))
             ->groups([
                 Group::make('statuses.name')
                     ->label('Status')
@@ -276,32 +295,33 @@ class PostResource extends Resource
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
-                Tables\Actions\Action::make('published')
-                    ->label('Publish')
-                    ->action(fn (Post $record) => $record->updateStatus('published'))
-                    ->requiresConfirmation()
-                    ->button()
-                    ->size(ActionSize::Small)
-                    ->color("success")
-                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
                     ->action(fn (Post $record) => $record->updateStatus('reviewing'))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
                     ->size(ActionSize::Small)
+                    ->color("primary")
+                    ->visible(fn (Post $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
+                Tables\Actions\Action::make('accept')
+                    ->action(fn (Post $record) => $record->updateStatus('published'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
                     ->color("success")
-                    ->visible(fn (Post $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
                     ->action(fn (Post $record) => $record->updateStatus('rejected'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("danger")
-                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
+                    ->visible(fn (Post $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('post:delete'))
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

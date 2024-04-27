@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $superAdmin = Role::create(['name' => 'Super Admin']);
+        Role::create(['name' => 'Guest']);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Super Admin',

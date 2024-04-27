@@ -6,21 +6,35 @@ namespace App\Models;
 
 use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
-    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable, HasSuperAdmin;
+    use HasApiTokens, HasFactory, Notifiable, HasSuperAdmin;
+
+    protected static function booted(): void
+    {
+        static::creating(function (User $user) {
+            if (!$user->hasRole('Super Admin'))
+                $user->assignRole('guest');
+        });
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@upnyk.ac.id') && $this->hasVerifiedEmail();
+        return str_ends_with($this->email, 'upnyk.ac.id')
+            // && $this->hasVerifiedEmail()
+        ;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_url;
     }
 
     /**
@@ -42,8 +56,6 @@ class User extends Authenticatable implements FilamentUser
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
@@ -53,14 +65,6 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
+        'password' => 'hashed',
     ];
 }

@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CompetitionResource\Pages;
-use App\Filament\Resources\CompetitionResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Competition;
-use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
@@ -29,8 +27,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -41,115 +37,148 @@ class CompetitionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-trophy';
 
+    protected static ?int $navigationSort = 6;
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (auth()->user()->can('competition:all')) {
+            return static::getModel()::currentStatus('reviewing')->count();
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        if (auth()->user()->can('competition:all')) {
+            return static::getModel()::currentStatus('reviewing')->count() > 0 ? 'warning' : 'primary';
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count() > 0 ? 'warning' : 'primary';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(6)
+                Grid::make([
+                    'default' => 'full',
+                    'md' => 6,
+                ])
                     ->schema([
-                        Section::make('Content')->schema([
-                            Split::make([
-                                TextInput::make('title')
-                                    ->autocapitalize()
-                                    ->live(onBlur: true)
+                        Section::make('Content')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
+                            ->schema([
+                                Split::make([
+                                    TextInput::make('title')
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->required()
+                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                    TextInput::make('slug')
+                                        ->readOnly()
+                                        ->required()
+                                        ->unique(Competition::class, 'slug', fn ($record) => $record),
+                                ]),
+                                Select::make('category_id')
+                                    ->label('Category')
+                                    ->disabledOn('edit')
                                     ->required()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->readOnly()
+                                    ->live()
+                                    ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Competition $Competition) => $query->where("model", $Competition->getMorphClass()),)
+                                    ->suffixAction(
+                                        Action::make('create_category')
+                                            ->label('Create Category')
+                                            ->icon('heroicon-m-plus')
+                                            ->color('gray')
+                                            ->form([
+                                                Split::make([
+                                                    TextInput::make('name')
+                                                        ->required()
+                                                        ->live(onBlur: true)
+                                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                    TextInput::make('slug')
+                                                        ->readOnly()
+                                                        ->required()
+                                                        ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                ]),
+                                                Hidden::make('model')
+                                                    ->dehydrateStateUsing(fn (Competition $query) => $query->getMorphClass())
+                                            ])
+                                            ->action(function (array $data, Category $query) {
+                                                $query->create($data);
+                                            })->visible(auth()->user()->can('category:create'))
+                                    ),
+
+                                Select::make('sub_category')
+                                    ->label('Sub Category')
                                     ->required()
-                                    ->unique(Competition::class, 'slug', fn ($record) => $record),
+                                    ->disabledOn('edit')
+                                    ->visible(fn (Category $query, Get $get) => $query->where('parent_id', $get('category_id'))->exists())
+                                    ->relationship(name: 'subCategories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Get $get) => $query->where('parent_id', $get('category_id'))
+                                        ->whereNotNull('parent_id'),)
+                                    ->suffixAction(
+                                        Action::make('create_sub_category')
+                                            ->label('Create Sub Category')
+                                            ->icon('heroicon-m-plus')
+                                            ->color('gray')
+                                            ->form([
+                                                Split::make([
+                                                    TextInput::make('name')
+                                                        ->required()
+                                                        ->live(onBlur: true)
+                                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                    TextInput::make('slug')
+                                                        ->readOnly()
+                                                        ->required()
+                                                        ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                ]),
+                                                Select::make('parent_id')
+                                                    ->label('Category')
+                                                    ->required()
+                                                    ->options(fn (Competition $query): Collection => Category::query()
+                                                        ->where("model", $query->getMorphClass())
+                                                        ->pluck('name', 'id')),
+                                            ])
+                                            ->action(function (array $data, Category $query) {
+                                                $query->create($data);
+                                            })->visible(auth()->user()->can('category:create'))
+                                    ),
+                                TextInput::make('link')
+                                    ->required()
+                                    ->url()
+                                    ->suffixIcon('heroicon-m-globe-alt'),
+                                RichEditor::make('content')
+                                    ->disableToolbarButtons([
+                                        'attachFiles'
+                                    ])->required()
                             ]),
-                            Select::make('category_id')
-                                ->label('Category')
-                                ->disabledOn('edit')
-                                ->required()
-                                ->live()
-                                ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Competition $Competition) => $query->where("model", $Competition->getMorphClass()),)
-                                ->suffixAction(
-                                    Action::make('create_category')
-                                        ->label('Create Category')
-                                        ->icon('heroicon-m-plus')
-                                        ->color('gray')
-                                        ->form([
-                                            Split::make([
-                                                TextInput::make('name')
-                                                    ->required()
-                                                    ->live()
-                                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                                TextInput::make('slug')
-                                                    ->readOnly()
-                                                    ->required()
-                                                    ->unique(Category::class, 'slug', fn ($record) => $record),
-                                            ]),
-                                            Hidden::make('model')
-                                                ->dehydrateStateUsing(fn (Competition $query) => $query->getMorphClass())
-                                        ])
-                                        ->action(function (array $data, Category $query) {
-                                            $query->create($data);
-                                        })->visible(auth()->user()->can('category:create'))
-                                ),
 
-                            Select::make('sub_category')
-                                ->label('Sub Category')
-                                ->required()
-                                ->disabledOn('edit')
-                                ->visible(fn (Category $query, Get $get) => $query->where('parent_id', $get('category_id'))->exists())
-                                ->relationship(name: 'subCategories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Get $get) => $query->where('parent_id', $get('category_id'))
-                                    ->whereNotNull('parent_id'),)
-                                ->suffixAction(
-                                    Action::make('create_sub_category')
-                                        ->label('Create Sub Category')
-                                        ->icon('heroicon-m-plus')
-                                        ->color('gray')
-                                        ->form([
-                                            Split::make([
-                                                TextInput::make('name')
-                                                    ->required()
-                                                    ->live()
-                                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                                TextInput::make('slug')
-                                                    ->readOnly()
-                                                    ->required()
-                                                    ->unique(Category::class, 'slug', fn ($record) => $record),
-                                            ]),
-                                            Select::make('parent_id')
-                                                ->label('Category')
-                                                ->required()
-                                                ->options(fn (Competition $query): Collection => Category::query()
-                                                    ->where("model", $query->getMorphClass())
-                                                    ->pluck('name', 'id')),
-                                        ])
-                                        ->action(function (array $data, Category $query) {
-                                            $query->create($data);
-                                        })->visible(auth()->user()->can('category:create'))
-                                ),
-                            TextInput::make('link')
-                                ->required()
-                                ->url()
-                                ->suffixIcon('heroicon-m-globe-alt'),
-                            RichEditor::make('content')
-                                ->disableToolbarButtons([
-                                    'attachFiles'
-                                ])->required()
-                        ])->columnSpan(4),
-
-                        Section::make('Meta')->schema([
-                            Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                            Toggle::make('is_published')->label('Published')->onColor('success'),
-                            SpatieMediaLibraryFileUpload::make('image')
-                                ->label('Thumbnail')
-                                ->required()
-                                ->image()
-                                ->maxSize(1024)
-                                ->imageResizeMode('cover')
-                                ->imageCropAspectRatio('16:9')
-                                ->optimize('webp')
-                                ->imageEditor(),
-                            DateTimePicker::make('published_at')
-                                ->seconds(false)
-                                ->disabled(),
-                            TextInput::make('meta_description'),
-                        ])->columnSpan(2),
+                        Section::make('Meta')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 2,
+                            ])
+                            ->schema([
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Toggle::make('is_published')->label('Published')->onColor('success'),
+                                SpatieMediaLibraryFileUpload::make('image')
+                                    ->label('Thumbnail')
+                                    ->required()
+                                    ->image()
+                                    ->maxSize(5120)
+                                    ->imageResizeMode('cover')
+                                    ->imageCropAspectRatio('16:9')
+                                    ->optimize('webp')
+                                    ->imageEditor(),
+                                DateTimePicker::make('published_at')
+                                    ->seconds(false)
+                                    ->disabled(),
+                                TextInput::make('meta_description'),
+                            ]),
                     ])
             ]);
     }
@@ -191,29 +220,30 @@ class CompetitionResource extends Resource
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
-                Tables\Actions\Action::make('published')
-                    ->label('Publish')
-                    ->action(fn (Competition $record) => $record->updateStatus('published'))
-                    ->requiresConfirmation()
-                    ->button()
-                    ->size(ActionSize::Small)
-                    ->color("success")
-                    ->visible(fn (Competition $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
                     ->action(fn (Competition $record) => $record->updateStatus('reviewing'))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
                     ->size(ActionSize::Small)
+                    ->color("primary")
+                    ->visible(fn (Competition $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
+                Tables\Actions\Action::make('accept')
+                    ->action(fn (Competition $record) => $record->updateStatus('published'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
                     ->color("success")
-                    ->visible(fn (Competition $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                    ->visible(fn (Competition $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
                     ->action(fn (Competition $record) => $record->updateStatus('rejected'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("danger")
-                    ->visible(fn (Competition $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
+                    ->visible(fn (Competition $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('competition:delete'))

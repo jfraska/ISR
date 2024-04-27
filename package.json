@@ -7,8 +7,6 @@
         "format": "prettier --write resources/**/*.blade.php"
     },
     "devDependencies": {
-        "@tailwindcss/forms": "^0.5.2",
-        "@tailwindcss/typography": "^0.5.0",
         "autoprefixer": "^10.4.7",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",

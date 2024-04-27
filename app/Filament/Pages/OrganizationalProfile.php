@@ -43,6 +43,8 @@ class OrganizationalProfile extends Page
 
     protected static string $view = 'filament.pages.organizational-profile';
 
+    protected static ?int $navigationSort = 1;
+
     public ?array $data = [];
 
     #[Locked]

@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AchievementResource\Pages;
-use App\Filament\Resources\AchievementResource\RelationManagers;
 use App\Models\Achievement;
-use Filament\Forms;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -24,10 +22,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AchievementResource extends Resource
@@ -36,47 +32,80 @@ class AchievementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
+    protected static ?int $navigationSort = 5;
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (auth()->user()->can('achievement:all')) {
+            return static::getModel()::currentStatus('reviewing')->count();
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        if (auth()->user()->can('achievement:all')) {
+            return static::getModel()::currentStatus('reviewing')->count() > 0 ? 'warning' : 'primary';
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count() > 0 ? 'warning' : 'primary';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(6)
+                Grid::make([
+                    'default' => 'full',
+                    'md' => 6,
+                ])
                     ->schema([
-                        Section::make('Content')->schema([
-                            Split::make([
-                                TextInput::make('title')
-                                    ->autocapitalize()
-                                    ->live(onBlur: true)
-                                    ->required()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->readOnly()
-                                    ->required()
-                                    ->unique(Achievement::class, 'slug', fn ($record) => $record),
+                        Section::make('Content')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
+                            ->schema([
+                                Split::make([
+                                    TextInput::make('title')
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->required()
+                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                    TextInput::make('slug')
+                                        ->readOnly()
+                                        ->required()
+                                        ->unique(Achievement::class, 'slug', fn ($record) => $record),
+                                ]),
+                                RichEditor::make('content')
+                                    ->disableToolbarButtons([
+                                        'attachFiles'
+                                    ])->required()
                             ]),
-                            RichEditor::make('content')
-                                ->disableToolbarButtons([
-                                    'attachFiles'
-                                ])->required()
-                        ])->columnSpan(4),
 
-                        Section::make('Meta')->schema([
-                            Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                            Toggle::make('is_published')->label('Published')->onColor('success'),
-                            SpatieMediaLibraryFileUpload::make('image')
-                                ->label('Thumbnail')
-                                ->required()
-                                ->image()
-                                ->maxSize(1024)
-                                ->imageResizeMode('cover')
-                                ->imageCropAspectRatio('16:9')
-                                ->optimize('webp')
-                                ->imageEditor(),
-                            DateTimePicker::make('published_at')
-                                ->seconds(false)
-                                ->disabled(),
-                            TextInput::make('meta_description'),
-                        ])->columnSpan(2),
+                        Section::make('Meta')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 2,
+                            ])
+                            ->schema([
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Toggle::make('is_published')->label('Published')->onColor('success'),
+                                SpatieMediaLibraryFileUpload::make('image')
+                                    ->label('Thumbnail')
+                                    ->required()
+                                    ->image()
+                                    ->maxSize(5120)
+                                    ->imageResizeMode('cover')
+                                    ->imageCropAspectRatio('16:9')
+                                    ->optimize('webp')
+                                    ->imageEditor(),
+                                DateTimePicker::make('published_at')
+                                    ->seconds(false)
+                                    ->disabled(),
+                                TextInput::make('meta_description'),
+                            ]),
                     ])
             ]);
     }
@@ -117,29 +146,30 @@ class AchievementResource extends Resource
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
-                Tables\Actions\Action::make('published')
-                    ->label('Publish')
-                    ->action(fn (Achievement $record) => $record->updateStatus('published'))
-                    ->requiresConfirmation()
-                    ->button()
-                    ->size(ActionSize::Small)
-                    ->color("success")
-                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
                     ->action(fn (Achievement $record) => $record->updateStatus('reviewing'))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
                     ->size(ActionSize::Small)
+                    ->color("primary")
+                    ->visible(fn (Achievement $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
+                Tables\Actions\Action::make('accept')
+                    ->action(fn (Achievement $record) => $record->updateStatus('published'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
                     ->color("success")
-                    ->visible(fn (Achievement $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
                     ->action(fn (Achievement $record) => $record->updateStatus('rejected'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("danger")
-                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
+                    ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('achievement:delete'))

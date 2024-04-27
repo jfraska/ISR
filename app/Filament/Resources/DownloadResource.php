@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DownloadResource\Pages;
-use App\Filament\Resources\DownloadResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Download;
 use Filament\Forms;
@@ -16,7 +15,6 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
@@ -25,14 +23,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,18 +37,46 @@ class DownloadResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-arrow-down';
 
+    protected static ?int $navigationSort = 8;
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (auth()->user()->can('download:all')) {
+            return static::getModel()::currentStatus('reviewing')->count();
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        if (auth()->user()->can('download:all')) {
+            return static::getModel()::currentStatus('reviewing')->count() > 0 ? 'warning' : 'primary';
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count() > 0 ? 'warning' : 'primary';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(6)
+                Grid::make([
+                    'default' => 'full',
+                    'md' => 6,
+                ])
                     ->schema([
                         Tabs::make('Tabs')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
                             ->tabs([
                                 Tabs\Tab::make('Title')
                                     ->schema([
                                         Split::make([
                                             TextInput::make('title')
+                                                ->maxLength(255)
                                                 ->live(onBlur: true)
                                                 ->required()
                                                 ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
@@ -75,7 +98,7 @@ class DownloadResource extends Resource
                                                         Split::make([
                                                             TextInput::make('name')
                                                                 ->required()
-                                                                ->live()
+                                                                ->live(onBlur: true)
                                                                 ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                                                             TextInput::make('slug')
                                                                 ->readOnly()
@@ -99,7 +122,6 @@ class DownloadResource extends Resource
                                                 ComponentsBuilder\Block::make('heading')
                                                     ->schema([
                                                         TextInput::make('content')
-                                                            ->autocapitalize('words')
                                                             ->required(),
                                                         Select::make('level')
                                                             ->options([
@@ -114,7 +136,7 @@ class DownloadResource extends Resource
                                                             return 'Heading';
                                                         }
 
-                                                        return $state['content'] ?? 'Untitled heading';
+                                                        return $state['level'] ?? 'Untitled heading';
                                                     })
                                                     ->icon('heroicon-o-bookmark')
                                                     ->columns(2),
@@ -162,16 +184,21 @@ class DownloadResource extends Resource
                                             ->maxItems(6)
                                             ->collapsed(),
                                     ]),
-                            ])->columnSpan(4),
+                            ]),
 
-                        Section::make('Meta')->schema([
-                            Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                            Toggle::make('is_published')->label('Published')->onColor('success'),
-                            DateTimePicker::make('published_at')
-                                ->seconds(false)
-                                ->disabled(),
-                            TextInput::make('meta_description'),
-                        ])->columnSpan(2),
+                        Section::make('Meta')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 2,
+                            ])
+                            ->schema([
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Toggle::make('is_published')->label('Published')->onColor('success'),
+                                DateTimePicker::make('published_at')
+                                    ->seconds(false)
+                                    ->disabled(),
+                                TextInput::make('meta_description'),
+                            ]),
                     ])
             ]);
     }
@@ -212,29 +239,30 @@ class DownloadResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('published')
-                    ->label('Publish')
-                    ->action(fn (Download $record) => $record->updateStatus('published'))
-                    ->requiresConfirmation()
-                    ->button()
-                    ->size(ActionSize::Small)
-                    ->color("success")
-                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
                     ->action(fn (Download $record) => $record->updateStatus('reviewing'))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
                     ->size(ActionSize::Small)
+                    ->color("primary")
+                    ->visible(fn (Download $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
+                Tables\Actions\Action::make('accept')
+                    ->action(fn (Download $record) => $record->updateStatus('published'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
                     ->color("success")
-                    ->visible(fn (Download $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
                     ->action(fn (Download $record) => $record->updateStatus('rejected'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("danger")
-                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
+                    ->visible(fn (Download $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make()->visible(auth()->user()->can('Download:delete'))

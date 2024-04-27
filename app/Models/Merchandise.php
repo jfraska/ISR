@@ -19,7 +19,7 @@ class Merchandise extends Model implements HasMedia
         'title',
         'slug',
         'description',
-        'link_buy',
+        'link',
         'price',
         'is_published',
         'published_at',

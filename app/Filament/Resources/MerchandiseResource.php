@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MerchandiseResource\Pages;
-use App\Filament\Resources\MerchandiseResource\RelationManagers;
 use App\Models\Merchandise;
-use Filament\Forms;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -24,9 +22,8 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -36,59 +33,91 @@ class MerchandiseResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
+    protected static ?int $navigationSort = 7;
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (auth()->user()->can('merchandise:all')) {
+            return static::getModel()::currentStatus('reviewing')->count();
+        }
+
+        return static::getModel()::currentStatus('draft')->where("user_id", Auth::id())->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        if (auth()->user()->can('merchandise:all')) {
+            return static::getModel()::currentStatus('reviewing')->count() > 0 ? 'warning' : 'primary';
+        }
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Grid::make(6)
+                Grid::make([
+                    'default' => 'full',
+                    'md' => 6,
+                ])
                     ->schema([
-                        Section::make('Content')->schema([
-                            Split::make([
-                                TextInput::make('title')
-                                    ->autocapitalize()
-                                    ->live(onBlur: true)
+                        Section::make('Content')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
+                            ->schema([
+                                Split::make([
+                                    TextInput::make('title')
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->required()
+                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                    TextInput::make('slug')
+                                        ->readOnly()
+                                        ->required()
+                                        ->unique(Merchandise::class, 'slug', fn ($record) => $record),
+                                ]),
+                                TextInput::make('price')
                                     ->required()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->readOnly()
+                                    ->mask(RawJs::make('$money($input)'))
+                                    ->stripCharacters(',')
+                                    ->numeric(),
+                                TextInput::make('link')
                                     ->required()
-                                    ->unique(Merchandise::class, 'slug', fn ($record) => $record),
+                                    ->url()
+                                    ->suffixIcon('heroicon-m-globe-alt'),
+                                RichEditor::make('description')
+                                    ->disableToolbarButtons([
+                                        'attachFiles'
+                                    ])->required(),
                             ]),
-                            TextInput::make('price')
-                                ->required()
-                                ->mask(RawJs::make('$money($input)'))
-                                ->stripCharacters(',')
-                                ->numeric(),
-                            TextInput::make('link')
-                                ->required()
-                                ->url()
-                                ->suffixIcon('heroicon-m-globe-alt'),
-                            RichEditor::make('description')
-                                ->disableToolbarButtons([
-                                    'attachFiles'
-                                ])->required(),
-                        ])->columnSpan(4),
 
-                        Section::make('Meta')->schema([
-                            Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                            Toggle::make('is_published')->label('Published')->onColor('success'),
-                            SpatieMediaLibraryFileUpload::make('image')
-                                ->label('Thumbnail')
-                                ->required()
-                                ->image()
-                                ->imageResizeMode('cover')
-                                ->imageCropAspectRatio('16:9')
-                                ->maxSize(1024)
-                                ->multiple()
-                                ->minFiles(1)
-                                ->maxFiles(5)
-                                ->optimize('webp')
-                                ->imageEditor(),
-                            DateTimePicker::make('published_at')
-                                ->seconds(false)
-                                ->disabled(),
-                            TextInput::make('meta_description'),
-                        ])->columnSpan(2),
+                        Section::make('Meta')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 2,
+                            ])
+                            ->schema([
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Toggle::make('is_published')->label('Published')->onColor('success'),
+                                SpatieMediaLibraryFileUpload::make('image')
+                                    ->label('Thumbnail')
+                                    ->required()
+                                    ->image()
+                                    ->imageResizeMode('cover')
+                                    ->imageCropAspectRatio('1:1')
+                                    ->maxSize(2048)
+                                    ->multiple()
+                                    ->minFiles(1)
+                                    ->maxFiles(5)
+                                    ->optimize('webp')
+                                    ->imageEditor(),
+                                DateTimePicker::make('published_at')
+                                    ->seconds(false)
+                                    ->disabled(),
+                                TextInput::make('meta_description'),
+                            ]),
                     ])
             ]);
     }
@@ -96,6 +125,13 @@ class MerchandiseResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->groups([
+                Group::make('statuses.name')
+                    ->label('Status')
+                    ->collapsible(),
+            ])
+            ->groupingSettingsHidden()
+            ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->square(),
                 TextColumn::make('title')->searchable(),
@@ -122,29 +158,30 @@ class MerchandiseResource extends Resource
                 Tables\Filters\TrashedFilter::make()
             ])
             ->actions([
-                Tables\Actions\Action::make('published')
-                    ->label('Publish')
-                    ->action(fn (Merchandise $record) => $record->updateStatus('published'))
-                    ->requiresConfirmation()
-                    ->button()
-                    ->size(ActionSize::Small)
-                    ->color("success")
-                    ->visible(fn (Merchandise $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
                     ->action(fn (Merchandise $record) => $record->updateStatus('reviewing'))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
                     ->size(ActionSize::Small)
+                    ->color("primary")
+                    ->visible(fn (Merchandise $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
+                Tables\Actions\Action::make('accept')
+                    ->action(fn (Merchandise $record) => $record->updateStatus('published'))
+                    ->requiresConfirmation()
+                    ->button()
+                    ->size(ActionSize::Small)
                     ->color("success")
-                    ->visible(fn (Merchandise $record): bool => $record->status === "draft" || $record->status === "rejected"),
+                    ->visible(fn (Merchandise $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
                     ->action(fn (Merchandise $record) => $record->updateStatus('rejected'))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("danger")
-                    ->visible(fn (Merchandise $record): bool => auth()->user()->can('publish') && $record->status === "published" || $record->status === "reviewing"),
+                    ->visible(fn (Merchandise $record): bool => auth()->user()->can('publish') && ($record->status === "published" || $record->status === "reviewing")),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

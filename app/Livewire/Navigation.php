@@ -35,6 +35,12 @@ class Navigation extends Component
         return Competition::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
     }
 
+    #[Computed()]
+    public function subCompetitions()
+    {
+        return Competition::with('subCategories')->published()->get()->pluck('categories')->flatten()->unique('id');
+    }
+
     public function render()
     {
         return view('livewire.navigation');

@@ -10,16 +10,15 @@
         </div>
         <div class="col-span-8">
             <div class="article-meta flex items-center py-1 text-sm">
-                <img class="mr-3 h-7 w-7 rounded-full" src="{{ $post->user->profile_photo_url }}"
-                    alt="{{ $post->user->name }}" />
+                {{-- <img class="mr-3 h-7 w-7 rounded-full" src="{{ $post->user->profile_photo_url }}"
+                    alt="{{ $post->user->name }}" /> --}}
                 <span class="mr-1 text-xs">{{ $post->user->name }}</span>
                 <span class="text-xs text-gray-500">
                     . {{ $post->published_at->diffForHumans() }}
                 </span>
             </div>
             <h2 class="text-xl font-bold text-gray-900">
-                <a
-                    href="{{ route('posts.show', ['category' => $post->category, 'post' => $post->slug]) }}">
+                <a href="{{ route('posts.show', ['category' => $post->category, 'post' => $post->slug]) }}">
                     {{ $post->title }} </a>
             </h2>
 
