@@ -749,11 +749,12 @@
                                     $lastDay = null;
                                 @endphp
 
-                                @foreach ($agenda->take(5) as $item)
+                                @foreach ($agenda->take(5) as $key => $item)
                                     @php
                                         $currentDate = \Carbon\Carbon::parse($item->datetime);
                                         $formattedMonth = $currentDate->format('F');
                                         $formattedDay = $currentDate->format('d');
+                                        $uniqueId = 'content_' . $key; // Membuat ID unik untuk setiap item
                                     @endphp
 
                                     @if ($lastDay != $formattedDay)
@@ -761,8 +762,7 @@
                                             <div class="font-semibold text-gray-600 text-2sm px-1 mb-2">{{ $formattedDay }}
                                             </div>
                                             <div class="font-semibold text-gray-600 text-2sm px-1 mb-2">
-                                                {{ $formattedMonth }}
-                                            </div>
+                                                {{ $formattedMonth }}</div>
                                         </div>
                                     @endif
 
@@ -773,30 +773,37 @@
                                                     {{ $item->published_at->format('H:i') }}
                                                 </div>
                                                 <hr class="hidden md:block"
-                                                    style="border-left: 2px solid {{ $item->bg_color }}; height: 75%; ">
+                                                    style="border-left: 2px solid {{ $item->bg_color }}; height: 75%;">
                                             </div>
-                                            <div class="w-4/5 md:w-3/4 py-2 px-4">
-                                                <h2 class="text-md md:text-lg font-bold mb-2">{{ $item->title }}</h2>
-                                                <p class="text-gray-700">{!! $item->content !!}</p>
-                                            </div>
+                                            <button onclick="toggleTruncate('{{ $uniqueId }}')"
+                                                class="w-4/5 md:w-3/4 py-2 px-4">
+                                                <h2 class="text-md md:text-lg font-bold mb-2 text-start">
+                                                    {{ $item->title }}</h2>
+                                                <div class="text-gray-700 truncate text-start" id="{{ $uniqueId }}">
+                                                    {!! $item->content !!}
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
 
                                     <div class="block lg:hidden">
                                         <div class="bg-gray-100 border rounded-lg mb-2 flex"
-                                            style="border-color:
-                                            {{ $item->bg_color }};">
+                                            style="border-color: {{ $item->bg_color }};">
                                             <div class="w-1/5 md:2-1/4 px-4 mx-auto flex items-center justify-between">
                                                 <div class="text-md md:text-lg font-bold pr-2">
                                                     {{ $item->published_at->format('H:i') }}
                                                 </div>
                                                 <hr class="hidden md:block"
-                                                    style="border-left: 2px solid {{ $item->bg_color }}; height: 75%; ">
+                                                    style="border-left: 2px solid {{ $item->bg_color }}; height: 75%;">
                                             </div>
-                                            <div class="w-4/5 md:w-3/4 py-2 px-4">
-                                                <h2 class="text-md md:text-lg font-bold mb-2">{{ $item->title }}</h2>
-                                                <p class="text-gray-700">{!! $item->content !!}</p>
-                                            </div>
+                                            <button onclick="toggleTruncate('{{ $uniqueId }}')"
+                                                class="w-4/5 md:w-3/4 py-2 px-4">
+                                                <h2 class="text-md md:text-lg font-bold mb-2 text-start">
+                                                    {{ $item->title }}</h2>
+                                                <div class="text-gray-700 truncate text-start" id="{{ $uniqueId }}">
+                                                    {!! $item->content !!}
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -808,6 +815,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        function toggleTruncate(id) {
+                            var contentDiv = document.getElementById(id);
+                            contentDiv.classList.toggle('truncate');
+                        }
+                    </script>
+
                 </div>
             </div>
         </section>
