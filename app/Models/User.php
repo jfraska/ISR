@@ -17,14 +17,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable, HasSuperAdmin;
 
-    protected static function booted(): void
-    {
-        static::creating(function (User $user) {
-            if (!$user->hasRole('Super Admin'))
-                $user->assignRole('guest');
-        });
-    }
-
     public function canAccessPanel(Panel $panel): bool
     {
         return str_ends_with($this->email, 'upnyk.ac.id')
