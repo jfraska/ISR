@@ -17,8 +17,13 @@ class EditAchievement extends EditRecord
         ];
     }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function afterSave(): void
     {
-        $this->record->updateStatus('reviewing');
+        $this->record->status === "published" ?  $this->record->updateStatus('reviewing') : null;
     }
 }
