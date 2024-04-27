@@ -24,6 +24,6 @@ class EditAgenda extends EditRecord
 
     protected function afterSave(): void
     {
-        $this->record->status === "published" ??  $this->record->updateStatus('reviewing');
+        $this->record->status === "published" ?  $this->record->updateStatus('reviewing') : null;
     }
 }
