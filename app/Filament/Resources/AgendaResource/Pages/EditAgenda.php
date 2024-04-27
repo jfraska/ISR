@@ -19,7 +19,7 @@ class EditAgenda extends EditRecord
 
     protected function getRedirectUrl(): string
     {
-        return $this->record->status === "reviewing" ?? $this->getResource()::getUrl('index');
+        return $this->getResource()::getUrl('index');
     }
 
     protected function afterSave(): void
