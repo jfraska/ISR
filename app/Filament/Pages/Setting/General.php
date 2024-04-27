@@ -42,6 +42,11 @@ class General extends Page
     #[Locked]
     public ?Organizational $record = null;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->can('organizational:all');
+    }
+
     public static function sidebar(): FilamentPageSidebar
     {
         return FilamentPageSidebar::make()
