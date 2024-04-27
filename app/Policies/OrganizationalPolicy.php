@@ -13,7 +13,7 @@ class OrganizationalPolicy
      */
     public function view(User $user, Organizational $organizational): bool
     {
-        return $user->can('organizational:all');
+        return true;
     }
 
     /**
