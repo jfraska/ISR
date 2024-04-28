@@ -9,9 +9,8 @@ use AymanAlhattami\FilamentPageWithSidebar\Traits\HasPageSidebar;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -122,7 +121,7 @@ class General extends Page
                     ->blocks([
                         Builder\Block::make('activity')
                             ->schema([
-                                SpatieMediaLibraryFileUpload::make('thumbnail')
+                                FileUpload::make('url')
                                     ->image()
                                     ->maxSize(1024)
                                     ->optimize('webp')

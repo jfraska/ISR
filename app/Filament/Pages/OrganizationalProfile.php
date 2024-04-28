@@ -10,6 +10,7 @@ use Filament\Forms\Components\Builder;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
@@ -202,7 +203,7 @@ class OrganizationalProfile extends Page
                                                     ->icon('heroicon-m-bars-3-bottom-left'),
                                                 Builder\Block::make('image')
                                                     ->schema([
-                                                        SpatieMediaLibraryFileUpload::make('image')
+                                                        FileUpload::make('url')
                                                             ->label('Image')
                                                             ->image()
                                                             ->maxSize(1024)
