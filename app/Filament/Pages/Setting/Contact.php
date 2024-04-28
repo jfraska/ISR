@@ -116,6 +116,7 @@ class Contact extends Page
         return $form
             ->schema([
                 Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                Hidden::make('title'),
                 Hidden::make('slug'),
                 Builder::make('content')
                     ->hiddenLabel()
