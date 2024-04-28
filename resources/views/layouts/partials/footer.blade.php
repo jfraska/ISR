@@ -79,8 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="flex flex-col md:flex-row w-full items-center md:items-start justify-center md:justify-between gap-10 pt-5 text-center md:text-left">
+            <div class="hidden md:flex w-full items-start justify-between gap-10 pt-5 text-left">
                 <div class="flex flex-col w-full">
                     <div class="flex flex-col">
                         <div class="pb-2">
@@ -184,10 +183,10 @@
             <img src="/images/footer.png" alt="" class="w-full object-cover" />
         </div>
     </div>
-    <div class="absolute left-0 top-0 z-0 h-full">
-        <img src="/images/full-side-footer.png" alt="" class="w-full h-full bject-contain" />
+    <div class="absolute left-0 top-0 z-0 w-6 md:w-16 h-full">
+        <img src="/images/full-side-footer.png" alt="" class="w-full h-full bg-cover" />
     </div>
-    <div class="absolute right-0 top-0 z-0 flex flex-col items-end h-full">
-        <img src="/images/full-side-footer.png" alt="" class="w-full h-full object-contain" />
+    <div class="absolute right-0 top-0 z-0 w-6 md:w-16 h-full">
+        <img src="/images/full-side-footer.png" alt="" class="w-full h-full bg-cover" />
     </div>
 </footer>
