@@ -121,7 +121,7 @@ class General extends Page
                     ->blocks([
                         Builder\Block::make('activity')
                             ->schema([
-                                FileUpload::make('url')
+                                FileUpload::make('image')
                                     ->image()
                                     ->maxSize(1024)
                                     ->optimize('webp')
