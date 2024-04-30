@@ -15,12 +15,6 @@ class SideNavigation extends Component
         return Organizational::all();
     }
 
-    #[Computed()]
-    public function downloads()
-    {
-        return Download::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
-    }
-
     public function render()
     {
         return view('livewire.side-navigation');
