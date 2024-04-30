@@ -116,11 +116,11 @@
             </div>
         </div>
         <div data-menu data-menu-target="departemen" id="submenu-departemen"
-            class="hidden flex-col overflow-y-scroll w-80 h-full border-r border-white">
-            <p class="text-sm text-white font-bold block px-4 py-2">Departemen</p>
+            class="hidden flex-col gap-2 overflow-y-scroll w-80 h-full border-r border-white py-4 px-6">
+            <h1 class="font-bold mb-2">Departemen</h1>
             @foreach ($this->departments as $department)
                 <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
-                    class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $department->title }}
+                    class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $department->title }}
                     </>
             @endforeach
         </div>
