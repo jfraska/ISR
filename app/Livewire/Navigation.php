@@ -4,13 +4,29 @@ namespace App\Livewire;
 
 use App\Models\Competition;
 use App\Models\Department;
+use App\Models\Download;
 use App\Models\Organizational;
+use App\Models\Post;
 use App\Models\Recruitment;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Navigation extends Component
 {
+    #[Computed()]
+    public function posts()
+    {
+        return Post::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
+    }
+
+    #[Computed()]
+    public function subPosts($slug)
+    {
+        return Post::whereHas('categories', function ($query) use($slug) {
+            $query->where('slug', $slug);
+        })->with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
+    }
+
     #[Computed()]
     public function organizationals()
     {
@@ -33,6 +49,18 @@ class Navigation extends Component
     public function competitions()
     {
         return Competition::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
+    }
+
+    #[Computed()]
+    public function subCompetitions()
+    {
+        return Competition::with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
+    }
+
+    #[Computed()]
+    public function downloads()
+    {
+        return Download::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
     }
 
     public function render()
