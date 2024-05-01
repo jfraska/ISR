@@ -28,10 +28,14 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/pojok-ilmiah', [PostController::class, 'index'])->name('posts.index');
 Route::get('/pojok-ilmiah/{category:slug}', [PostController::class, 'detail'])->name('posts.detail');
-Route::get('/pojok-ilmiah/{category:slug}/{post:slug}', [PostController::class, 'show'])->name('posts.show')->withoutScopedBindings();
+Route::get('/pojok-ilmiah/{category:slug}/{post:slug}', [PostController::class, 'show'])
+    ->name('posts.show')
+    ->withoutScopedBindings();
 
 Route::get('/competitions/{category:slug}', [CompetitionController::class, 'index'])->name('competitions.index');
-Route::get('/competitions/{category:slug}/{competition:slug}', [CompetitionController::class, 'show'])->name('competitions.show')->withoutScopedBindings();
+Route::get('/competitions/{category:slug}/{competition:slug}', [CompetitionController::class, 'show'])
+    ->name('competitions.show')
+    ->withoutScopedBindings();
 
 Route::get('/department/{department:slug}', [DepartmentController::class, 'show'])->name('departments.show');
 Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 'show'])->name('abouts.show');
@@ -41,5 +45,5 @@ Route::get('/recruitment/{recruitment:slug}', [RecruitmentController::class, 'sh
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');
 Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'show'])->name('merchandise.show');
 
-Route::get('/download', [DownloadController::class, 'index'])->name('downloads.index');
-Route::get('/download/{download:slug}', [DownloadController::class, 'show'])->name('downloads.show');
+Route::get('/download/{category:slug}', [DownloadController::class, 'index'])->name('downloads.index');
+Route::get('/download/{category:slug}/{download:slug}', [DownloadController::class, 'show'])->name('downloads.show')->withoutScopedBindings();
