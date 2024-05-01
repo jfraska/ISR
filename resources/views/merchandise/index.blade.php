@@ -7,7 +7,7 @@
         <div class="flex flex-row">
             <img src="/images/merchandise.png" alt="merchandise" class="h-full w-full object-cover">
             <div class="flex justify-end items-center">
-                <h1 class="font-black text-xl sm:text-4xl md:text-5xl lg:text-7xl absolute text-white pr-10">MERCHANDISE OF
+                <h1 class="font-black text-xl sm:text-3xl md:text-4xl lg:text-5xl absolute text-white pr-10">MERCHANDISE OF
                     ISR</h1>
             </div>
         </div>
