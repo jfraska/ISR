@@ -25,10 +25,13 @@ class DownloadController extends Controller
 
     public function show(Category $category, Download $download)
     {
+        $downloads = Download::published()->latest()->take(5)->get();
         return view(
             'downloads.show',
             [
-                'download' => $download
+                'category' => $category,
+                'download' => $download,
+                'downloads' => $downloads
             ]
         );
     }

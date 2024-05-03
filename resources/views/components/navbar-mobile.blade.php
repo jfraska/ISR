@@ -149,7 +149,8 @@
         </a>
 
         <div class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
-            <a data-menu id="download" href="{{ route('downloads.index') }}" class="flex gap-2 items-center">
+            <a data-menu id="download" href="#" class="flex gap-2 items-center">
+                {{-- <a data-menu id="download" href="{{ route('downloads.index') }}" class="flex gap-2 items-center"> --}}
                 <img src="/images/navbar/download.svg" alt="download" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
                     <p class="font-bold">Download</p>
@@ -161,7 +162,7 @@
         <div data-menu data-menu-target="download" id="submenu-download" class="hidden top-full left-0 h-full">
             <div class="flex flex-col">
                 @foreach ($this->downloads as $download)
-                    <a wire:key="{{ $download->id }}" href="{{ route('downloads.show', $download->slug) }}"
+                    <a wire:key="{{ $download->id }}" href="{{ route('downloads.show', ['category' => $download->slug, 'download' => $download->slug]) }}"
                         class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $download->name }}</a>
                 @endforeach
             </div>
