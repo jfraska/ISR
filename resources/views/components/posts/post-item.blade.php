@@ -3,27 +3,28 @@
 <article class="border-gray-100 pb-10 [&:not(:last-child)]:border-b">
     <div class="article-body mt-5 grid grid-cols-12 items-start gap-3">
         <div class="article-thumbnail col-span-4 flex items-center">
-            <a href="">
-                <img class="mx-auto w-40 max-w-60 rounded-xl" src={{ $post->getFirstMediaUrl() }}
+            <a href="{{ route('posts.show', ['category' => $post->category, 'post' => $post->slug]) }}">
+                <img class="mx-auto w-full h-[220px] rounded-xl" src={{ $post->getFirstMediaUrl() }}
                     alt="{{ $post->title }}" />
             </a>
         </div>
-        <div class="col-span-8">
+        <div class="col-span-8 pl-3">
             <div class="article-meta flex items-center py-1 text-sm">
-                {{-- <img class="mr-3 h-7 w-7 rounded-full" src="{{ $post->user->profile_photo_url }}"
-                    alt="{{ $post->user->name }}" /> --}}
                 <span class="mr-1 text-xs">{{ $post->user->name }}</span>
                 <span class="text-xs text-gray-500">
                     . {{ $post->published_at->diffForHumans() }}
                 </span>
             </div>
-            <h2 class="text-xl font-bold text-gray-900">
+            <h2 class="text-md font-bold text-gray-900">
                 <a href="{{ route('posts.show', ['category' => $post->category, 'post' => $post->slug]) }}">
                     {{ $post->title }} </a>
             </h2>
+            @php
+                $strippedExcerpt = Illuminate\Support\Str::limit(strip_tags($post->excerpt()), 200);
+            @endphp
 
-            <p class="mt-2 text-base font-light text-gray-700">
-                {{ $post->excerpt() }}
+            <p class="mt-2 text-sm font-light text-gray-700">
+                {{ $strippedExcerpt }}
             </p>
             <div class="article-actions-bar mt-6 flex items-center justify-between">
                 <div class="flex gap-x-2">
@@ -41,7 +42,7 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <span>{{ $post->getPageViews() }}</span>
+                    <span class="flex gap-3"><img src="/images/view.png" alt="view" class="w-5">{{ $post->getPageViews() }}</span>
                     <livewire:like-button :key="'like-' . $post->id" :model="$post" />
                 </div>
             </div>

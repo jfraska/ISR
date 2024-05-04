@@ -26,21 +26,32 @@ class PostController extends Controller
         $tags = Cache::remember('tags', now()->addDays(3), function () {
             return Post::with('tags')->published()->get()->pluck('tags')->flatten()->unique('id')->take(10);
         });
+        $populars = Post::published()->withCategory($category)->latest()->take(5)->get();
 
         return view(
             'posts.detail',
             [
                 'category' => $category, 'tags' => $tags,
+                'posts' => $populars
             ]
         );
     }
 
     public function show(Category $category, Post $post)
     {
+        $posts = Post::published()->latest()->take(5)->get();
+        $subCategory = $post->subCategories;
+        $popular = Post::published()->withCategory($category)->latest()->take(5)->get();
+        $relate = Post::published()->withCategory($category)->latest()->take(5)->get();
+
         return view(
             'posts.show',
             [
-                'post' => $post
+                'post' => $post,
+                'subCategory' => $subCategory,
+                'posts' => $posts,
+                'populars' => $popular,
+                'relates' => $relate,
             ]
         );
     }

@@ -28,6 +28,12 @@ class Posts extends Component
         return Post::withCategory($this->category)->published()->with('tags')->get();
     }
 
+    #[Computed()]
+    public function subPosts()
+    {
+        return Post::with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
+    }
+
     public function render()
     {
         return view('livewire.posts');

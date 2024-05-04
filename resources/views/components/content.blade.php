@@ -5,13 +5,13 @@
 
         @if ($item['type'] === 'heading')
             @if ($item['data']['level'] === 'h1')
-                <h1 class="text-2xl font-bold mb-2">{!! $item['data']['content'] !!}</h1>
+                <h1 class="text-2xl font-bold mb-2 py-5">{!! $item['data']['content'] !!}</h1>
             @endif
             @if ($item['data']['level'] === 'h2')
-                <h2 class="text-xl font-bold mb-2">{!! $item['data']['content'] !!}</h2>
+                <h2 class="text-xl font-bold mb-2 py-3">{!! $item['data']['content'] !!}</h2>
             @endif
             @if ($item['data']['level'] === 'h3')
-                <h3 class="text-lg font-bold mb-2">{!! $item['data']['content'] !!}</h3>
+                <h3 class="text-lg font-bold mb-2 py-2">{!! $item['data']['content'] !!}</h3>
             @endif
         @endif
 
