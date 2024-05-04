@@ -8,8 +8,8 @@
                     <button type="button" wire:click="setCategory('article')" class="">Artikel</button>
                 </div>
                 <div
-                    class="{{ $category->slug === 'berita' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
-                    <button type="button" wire:click="setCategory('berita')" class="">News</button>
+                    class="{{ $category->slug === 'news' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
+                    <button type="button" wire:click="setCategory('news')" class="">News</button>
                 </div>
                 <div
                     class="{{ $category->slug === 'mini-blog' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
@@ -28,7 +28,7 @@
     {{-- Carousel End --}}
 
     {{-- Category Start --}}
-    @if ($category->slug === 'artikel' || $category->slug === 'mini-blog')
+    @if ($category->slug === 'article' || $category->slug === 'mini-blog')
         <section class="bg-white">
             <div class="p-10 flex flex-col gap-5 w-full">
                 <div class="">
@@ -76,7 +76,7 @@
                         </div>
                     @endif
                     
-                    @if ($category->slug === 'artikel')
+                    @if ($category->slug === 'article')
                         <div
                             class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-lg shadow bg-slate-400">
                             <div class="p-2 lg:p-5 relative flex flex-col items-center h-full gap-2 lg:gap-10 bg-cover bg-center"
@@ -172,7 +172,7 @@
             <div class="flex items-center justify-center">
                 <div
                     class="flex flex-row items-center justify-center rounded-xl bg-[#FFDF4E] w-60 h-10 gap-2 transition-transform duration-300 hover:scale-110">
-                    @if ($category->slug === 'artikel' || $category->slug === 'mini-blog')
+                    @if ($category->slug === 'article' || $category->slug === 'mini-blog')
                         <a href="{{ route('posts.detail', ['category' => $post->category]) }}"
                             class="p-3 text-sm md:text-base font-bold">
                             LIHAT SELENGKAPNYA
