@@ -4,8 +4,8 @@
         <div class="flex w-full">
             <nav class="flex flex-row w-full h-20 items-center justify-center bg-[#0D5568]">
                 <div
-                    class="{{ $category->slug === 'artikel' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
-                    <button type="button" wire:click="setCategory('artikel')" class="">Artikel</button>
+                    class="{{ $category->slug === 'article' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
+                    <button type="button" wire:click="setCategory('article')" class="">Artikel</button>
                 </div>
                 <div
                     class="{{ $category->slug === 'berita' ? 'border-b-4 border-b-[#F5D05E]' : 'border-none' }} text-2xl font-bold w-auto h-full p-6 text-white">
