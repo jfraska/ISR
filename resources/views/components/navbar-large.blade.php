@@ -1,4 +1,5 @@
-<div id="navbar-hamburger" class="hidden inset-x-16 mt-px top-16 text-lg text-white z-50 fixed bg-[#0D5568] w-11/12 h-5/6">
+<div id="navbar-hamburger"
+    class="hidden inset-x-16 mt-px top-16 text-lg text-white z-50 fixed bg-[#0D5568] w-11/12 h-5/6">
     {{-- Menu --}}
     <div class="flex flex-col overflow-y-scroll w-80 h-full border-r border-white">
         <a data-menu id="isr" href="#"
@@ -12,7 +13,7 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <a data-menu id="ilmiah" href="#"
+        <a data-menu id="ilmiah" href="{{ route('posts.index') }}"
             class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/ilmiah.svg" alt="ilmiah" class="w-12 aspect-square">
@@ -128,8 +129,12 @@
             class="hidden flex-col overflow-y-scroll w-80 h-full border-r border-white">
             <p class="text-sm text-white font-bold block px-4 py-2">Rekrutmen</p>
             @foreach ($this->recruitments as $recruitment)
-                <a wire:key="{{ $recruitment->id }}" href="{{ route('recruitments.show', $recruitment->name) }}"
-                    class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $recruitment->name }}</a>
+                <div id="{{ $recruitment->slug }}" data-menu data-submenu="{{ $recruitment->slug }}"
+                    wire:key="{{ $recruitment->id }}" class="flex felx-row justify-between pr-2">
+                    <a href="{{ route('recruitments.index', $recruitment->slug) }}"
+                        class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $recruitment->name }}</a>
+                    <img src="/images/navbar/arrow.svg" alt="arrow" class="aspect-square w-5">
+                </div>
             @endforeach
         </div>
         <div data-menu data-menu-target="prestasi" id="submenu-prestasi" class="hidden top-full left-0 h-full">

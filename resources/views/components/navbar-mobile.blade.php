@@ -90,13 +90,13 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <div data-menu data-menu-target="rekrutmen" id="submenu-rekrutmen"
+        {{-- <div data-menu data-menu-target="rekrutmen" id="submenu-rekrutmen"
             class="hidden flex-col w-80 h-full border-r border-white">
             @foreach ($this->recruitments as $recruitment)
                 <a wire:key="{{ $recruitment->id }}" href="{{ route('recruitments.show', $recruitment->name) }}"
                     class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $recruitment->name }}</a>
             @endforeach
-        </div>
+        </div> --}}
 
         <a data-menu id="prestasi" href="#" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
