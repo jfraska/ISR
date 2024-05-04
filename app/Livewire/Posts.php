@@ -12,9 +12,9 @@ class Posts extends Component
 {
     public $category;
 
-    public function mount()
+    public function mount(Post $post)
     {
-        $this->category = Category::first();
+        $this->category = Category::where('model', $post->getMorphClass())->first();
     }
 
     public function setCategory($category)

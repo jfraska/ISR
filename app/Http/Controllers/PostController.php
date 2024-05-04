@@ -11,11 +11,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::published()->latest()->take(3)->get();
+        $posts = Post::with('tags')->published()->get()->pluck('tags')->flatten()->unique('id')->take(10);
 
         return view(
-            'posts.index',
-            [
+            'posts.index', [
                 'posts' => $posts
             ]
         );
