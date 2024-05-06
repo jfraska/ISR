@@ -46,4 +46,11 @@ class Recruitment extends Model implements HasMedia
     {
         $query->currentStatus('published')->where('is_published', true);
     }
+
+    public function scopeWithCategory($query, string $category = '')
+    {
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category);
+        });
+    }
 }
