@@ -45,10 +45,9 @@ class Recruitment extends Model implements HasMedia
 
     public function scopeWithCategory($query, Category $category)
     {
-        $query->join('categories', function (JoinClause $join) use ($category) {
-            $join->on('recruitments.category_id', '=', 'categories.id')
-                ->where('categories.slug', $category->slug);
-        })->select('recruitments.*', 'categories.slug as category');
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category->slug);
+        });
     }
 
     public function scopeSearch($query, string $search = '')

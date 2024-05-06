@@ -39,4 +39,9 @@ class Achievement extends Model implements HasMedia
     {
         $query->currentStatus('published')->where('is_published', true);
     }
+
+    public function scopeSearch($query, string $search = '')
+    {
+        $query->where('title', 'like', "%{$search}%");
+    }
 }

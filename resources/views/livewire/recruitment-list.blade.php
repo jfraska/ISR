@@ -29,7 +29,7 @@
     </div>
     <div class="py-4">
         @foreach ($this->recruitments as $recruitment)
-            <x-posts.post-item wire:key="{{ $recruitment->id }}" :post="$recruitment" />
+            <x-recruitment-item wire:key="{{ $recruitment->id }}" :recruitment="$recruitment" />
         @endforeach
     </div>
 

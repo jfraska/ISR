@@ -10,12 +10,10 @@ class RecruitmentController extends Controller
 {
     public function index(Category $category)
     {
-        $recruitment = Recruitment::published()->withCategory($category)->latest()->take(5)->get();
-
         return view(
             'recruitments.index',
             [
-                'recruitment' => $recruitment
+                'category' => $category
             ]
         );
     }
