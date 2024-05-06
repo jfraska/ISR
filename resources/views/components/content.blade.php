@@ -49,7 +49,7 @@
         @endif
 
         @if ($item['type'] === 'image')
-            <img src="/{{ $item['data']['url'] }}" alt="{{ $item['data']['alt'] }}" />
+            <img src="/storage/{{ $item['data']['url'] }}" alt="{{ $item['data']['alt'] }}" />
         @endif
 
         {{--
