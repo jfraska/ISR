@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Achievement;
 use App\Models\Competition;
 use App\Models\Department;
 use App\Models\Download;
@@ -22,7 +23,7 @@ class Navigation extends Component
     #[Computed()]
     public function subPosts($slug)
     {
-        return Post::whereHas('categories', function ($query) use($slug) {
+        return Post::whereHas('categories', function ($query) use ($slug) {
             $query->where('slug', $slug);
         })->with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
     }
@@ -61,6 +62,14 @@ class Navigation extends Component
     public function downloads()
     {
         return Download::with('categories')->published()->get()->pluck('categories')->flatten()->unique('id');
+    }
+
+    #[Computed()]
+    public function achievements()
+    {
+        return Achievement::published()->get()->groupBy(function ($achievement) {
+            return $achievement->created_at->year;
+        });
     }
 
     public function render()

@@ -12,6 +12,7 @@ use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Traits\HasStatuses;
+use Illuminate\Database\Query\JoinClause;
 
 class Recruitment extends Model implements HasMedia
 {
@@ -42,15 +43,20 @@ class Recruitment extends Model implements HasMedia
         return $this->morphToMany(Category::class, 'categoriable');
     }
 
+    public function scopeWithCategory($query, Category $category)
+    {
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category->slug);
+        });
+    }
+
+    public function scopeSearch($query, string $search = '')
+    {
+        $query->where('title', 'like', "%{$search}%");
+    }
+
     public function scopePublished($query)
     {
         $query->currentStatus('published')->where('is_published', true);
-    }
-
-    public function scopeWithCategory($query, string $category = '')
-    {
-        $query->whereHas('categories', function ($query) use ($category) {
-            $query->where('slug', $category);
-        });
     }
 }
