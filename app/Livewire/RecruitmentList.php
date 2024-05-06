@@ -43,7 +43,7 @@ class RecruitmentList extends Component
     #[Computed()]
     public function recruitments()
     {
-        return Recruitment::withCategory($this->category)->published()->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
+        return Recruitment::published()->withCategory($this->category)->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
     }
 
     public function render()

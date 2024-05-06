@@ -18,7 +18,7 @@ class RecruitmentController extends Controller
         );
     }
 
-    public function show(Recruitment $recruitment)
+    public function show(Category $category, Recruitment $recruitment)
     {
         return view(
             'recruitments.show',

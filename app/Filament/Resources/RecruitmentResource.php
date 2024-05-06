@@ -65,54 +65,59 @@ class RecruitmentResource extends Resource
                     'md' => 6,
                 ])
                     ->schema([
-                        Section::make('Content')->schema([
-                            Split::make([
-                                TextInput::make('title')
-                                    ->maxLength(255)
-                                    ->live(onBlur: true)
+                        Section::make('Content')
+                            ->columnSpan([
+                                'default' => 'full',
+                                'md' => 4,
+                            ])
+                            ->schema([
+                                Split::make([
+                                    TextInput::make('title')
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->required()
+                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                    TextInput::make('slug')
+                                        ->readOnly()
+                                        ->required()
+                                        ->unique(Recruitment::class, 'slug', fn ($record) => $record),
+                                ]),
+                                Select::make('category')
+                                    ->disabledOn('edit')
                                     ->required()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->readOnly()
+                                    ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Recruitment $recruitment) => $query->where("model", $recruitment->getMorphClass()),)
+                                    ->suffixAction(
+                                        Action::make('create')
+                                            ->label('Create Category')
+                                            ->icon('heroicon-m-plus')
+                                            ->color('gray')
+                                            ->form([
+                                                Split::make([
+                                                    TextInput::make('name')
+                                                        ->required()
+                                                        ->live(onBlur: true)
+                                                        ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                                    TextInput::make('slug')
+                                                        ->readOnly()
+                                                        ->required()
+                                                        ->unique(Category::class, 'slug', fn ($record) => $record),
+                                                ]),
+                                                Hidden::make('model')
+                                                    ->dehydrateStateUsing(fn (Recruitment $query) => $query->getMorphClass())
+                                            ])
+                                            ->action(function (array $data, Category $query) {
+                                                $query->create($data);
+                                            })->visible(auth()->user()->can('category:create'))
+                                    ),
+                                TextInput::make('link')
                                     ->required()
-                                    ->unique(Recruitment::class, 'slug', fn ($record) => $record),
+                                    ->url()
+                                    ->suffixIcon('heroicon-m-globe-alt'),
+                                RichEditor::make('content')
+                                    ->disableToolbarButtons([
+                                        'attachFiles'
+                                    ])->required(),
                             ]),
-                            Select::make('category')
-                                ->disabledOn('edit')
-                                ->required()
-                                ->relationship(name: 'categories', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query, Recruitment $recruitment) => $query->where("model", $recruitment->getMorphClass()),)
-                                ->suffixAction(
-                                    Action::make('create')
-                                        ->label('Create Category')
-                                        ->icon('heroicon-m-plus')
-                                        ->color('gray')
-                                        ->form([
-                                            Split::make([
-                                                TextInput::make('name')
-                                                    ->required()
-                                                    ->live(onBlur: true)
-                                                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                                                TextInput::make('slug')
-                                                    ->readOnly()
-                                                    ->required()
-                                                    ->unique(Category::class, 'slug', fn ($record) => $record),
-                                            ]),
-                                            Hidden::make('model')
-                                                ->dehydrateStateUsing(fn (Recruitment $query) => $query->getMorphClass())
-                                        ])
-                                        ->action(function (array $data, Category $query) {
-                                            $query->create($data);
-                                        })->visible(auth()->user()->can('category:create'))
-                                ),
-                            TextInput::make('link')
-                                ->required()
-                                ->url()
-                                ->suffixIcon('heroicon-m-globe-alt'),
-                            RichEditor::make('content')
-                                ->disableToolbarButtons([
-                                    'attachFiles'
-                                ])->required(),
-                        ]),
 
                         Section::make('Meta')
                             ->columnSpan([

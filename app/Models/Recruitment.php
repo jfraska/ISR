@@ -12,7 +12,7 @@ use Kilobyteno\LaravelUserGuestLike\Traits\HasUserGuestLike;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Traits\HasStatuses;
-use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Str;
 
 class Recruitment extends Model implements HasMedia
 {
@@ -41,6 +41,11 @@ class Recruitment extends Model implements HasMedia
     public function categories(): MorphToMany
     {
         return $this->morphToMany(Category::class, 'categoriable');
+    }
+
+    public function excerpt(): string
+    {
+        return Str::words(strip_tags($this->content), 200, '...');
     }
 
     public function scopeWithCategory($query, Category $category)
