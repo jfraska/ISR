@@ -128,7 +128,7 @@ class AgendaResource extends Resource
             ->groupingSettingsHidden()
             ->defaultGroup('statuses.name')
             ->columns([
-                TextColumn::make('title')->searchable(),
+                TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 ColorColumn::make('bg_color')->label('Theme'),
                 TextColumn::make('datetime'),

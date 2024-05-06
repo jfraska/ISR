@@ -10,32 +10,29 @@ use Livewire\Component;
 
 class Posts extends Component
 {
-    public $category;
+    public $category = "article";
 
-    public function mount(Post $post)
+    #[On('category')]
+    public function setCategory(string $category)
     {
-        $this->category = Category::where('model', $post->getMorphClass())->first();
-    }
-
-    public function setCategory($category)
-    {
-        $this->category = Category::where('slug', $category)->first();
+        $this->category = $category;
     }
 
     #[Computed()]
     public function posts()
     {
-        return Post::withCategory($this->category)->published()->with('tags')->get();
+        return Post::published()->withCategory($this->category)->with('tags')->get();
     }
 
     #[Computed()]
     public function subPosts()
     {
-        return Post::with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
+        return Post::published()->with('subCategories')->get()->pluck('subCategories')->flatten();
     }
 
-    public function render()
+    public function render(Post $post)
     {
-        return view('livewire.posts');
+        $categories = Category::where('model', $post->getMorphClass())->orderBy('name', 'asc')->get();
+        return view('livewire.posts', ['categories' => $categories]);
     }
 }

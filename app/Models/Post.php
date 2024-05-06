@@ -77,12 +77,11 @@ class Post extends Model implements HasMedia
         $query->currentStatus('published')->where('is_published', true);
     }
 
-    public function scopeWithCategory($query, Category $category)
+    public function scopeWithCategory($query, string $category = '')
     {
-        $query->join('categories', function (JoinClause $join) use ($category) {
-            $join->on('posts.category_id', '=', 'categories.id')
-                ->where('categories.slug', $category->slug);
-        })->select('posts.*', 'categories.slug as category');
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category);
+        });
     }
 
     public function scopeSearch($query, string $search = '')

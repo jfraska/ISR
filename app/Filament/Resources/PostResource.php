@@ -263,7 +263,7 @@ class PostResource extends Resource
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
-                TextColumn::make('title')->searchable(),
+                TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn ($state): bool => $state !== null),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),

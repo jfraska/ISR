@@ -122,7 +122,7 @@ class AchievementResource extends Resource
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
-                TextColumn::make('title')->searchable(),
+                TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
                 TextColumn::make('statuses.name')

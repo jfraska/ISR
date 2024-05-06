@@ -1,13 +1,27 @@
-@props(['post'])
+@props([
+    "post",
+])
 
-<div class="rounded-lg shadow w-60 h-60 md:w-96 md:h-96 bg-[#0D5568]">
-    <a href="{{ route('posts.show', ['category' => $post->category, 'post' => $post->slug]) }}">
-        <div class="flex flex-col h-52 md:h-80 relative rounded-lg"
-            style="background-image: url('{{ $post->getFirstMediaUrl() }}'); background-size: cover; background-position: center;">
-            <p class="absolute left-2 bottom-2 text-sm md:text-base font-semibold text-white text-wrap shadow-lg">{{ $post->title }}</p>
+<div class="aspect-square w-60 rounded-lg bg-[#0D5568] shadow md:w-72">
+    <a
+        href="{{ route("posts.show", ["category" => $post->categories->slug, "post" => $post->slug]) }}"
+    >
+        <div
+            class="relative h-full rounded-lg bg-cover bg-center"
+            style="background-image: url('{{ $post->getFirstMediaUrl() }}')"
+        >
+            <p
+                class="absolute bottom-2 left-2 text-wrap text-sm font-semibold text-white shadow-lg md:text-base"
+            >
+                {{ $post->title }}
+            </p>
         </div>
-        <div class="p-2 md:p-5 flex items-center justify-center">
-            <h5 class="mb-2 text-xs md:text-base tracking-tight text-white text-center">{!! \Carbon\Carbon::parse($post->published_at)->format('d F Y, H:i') !!}</h5>
+        <div class="flex items-center justify-center p-2 md:p-5">
+            <h5
+                class="mb-2 text-center text-xs tracking-tight text-white md:text-base"
+            >
+                {!! \Carbon\Carbon::parse($post->published_at)->format("d F Y, H:i") !!}
+            </h5>
         </div>
     </a>
 </div>

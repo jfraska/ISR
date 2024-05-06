@@ -152,7 +152,7 @@ class RecruitmentResource extends Resource
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
-                TextColumn::make('title')->searchable(),
+                TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('categories.name')->label('Category')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 TextColumn::make('link'),

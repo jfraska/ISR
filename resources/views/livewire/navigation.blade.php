@@ -5,7 +5,7 @@
             id="navbar-content">
             <div class="flex flex-wrap items-center">
                 <button data-collapse-toggle="navbar-hamburger" type="button"
-                    class="hidden h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:block"
+                    class="hidden w-fit aspect-square items-center justify-center text-sm text-white focus:outline-none md:block"
                     aria-controls="navbar-hamburger-mobile" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -15,7 +15,7 @@
                     </svg>
                 </button>
                 <button data-collapse-toggle="navbar-hamburger-mobile" type="button"
-                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
+                    class="inline-flex w-fit aspect-square items-center justify-center text-sm text-white focus:outline-none md:hidden"
                     aria-controls="navbar-hamburger-mobile" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

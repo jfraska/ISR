@@ -48,7 +48,7 @@ class PostList extends Component
     #[Computed()]
     public function posts()
     {
-        return Post::withCategory($this->category)->published()->with('tags')->when($this->activeTag, function ($query) {
+        return Post::published()->withCategory($this->category->slug)->with('tags')->when($this->activeTag, function ($query) {
             $query->WithAllTags($this->tag);
         })->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
     }

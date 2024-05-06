@@ -122,8 +122,9 @@ class DepartmentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->searchable(),
+                TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('Kepala')
+                    ->limit(50)
                     ->state(
                         fn (Department $record) => $record->member[0]['name']
                     ),

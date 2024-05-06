@@ -42,7 +42,7 @@
     <button
         wire:loading.attr="disabled"
         type="submit"
-        class="inline-flex items-center rounded-lg bg-primary-700 px-4 py-2.5 text-center text-xs font-medium text-black bg-[#F5D05E] hover:bg-primary-800 focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900"
+        class="bg-primary-700 hover:bg-primary-800 focus:ring-primary-200 dark:focus:ring-primary-900 inline-flex items-center rounded-lg bg-[#F5D05E] px-4 py-2.5 text-center text-xs font-medium text-black focus:ring-4"
     >
         <div wire:loading wire:target="{{ $method }}">
             @include("livewire.partials.loader")

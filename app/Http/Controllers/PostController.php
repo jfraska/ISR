@@ -14,7 +14,8 @@ class PostController extends Controller
         $posts = Post::with('tags')->published()->get()->pluck('tags')->flatten()->unique('id')->take(10);
 
         return view(
-            'posts.index', [
+            'posts.index',
+            [
                 'posts' => $posts
             ]
         );
@@ -23,15 +24,16 @@ class PostController extends Controller
     public function detail(Category $category)
     {
         $tags = Cache::remember('tags', now()->addDays(3), function () {
-            return Post::with('tags')->published()->get()->pluck('tags')->flatten()->unique('id')->take(10);
+            return Post::published()->with('tags')->get()->pluck('tags')->flatten()->take(10);
         });
-        $populars = Post::published()->withCategory($category)->latest()->take(5)->get();
+        $populars = Post::published()->withCategory($category->slug)->latest()->take(5)->get();
 
         return view(
             'posts.detail',
             [
-                'category' => $category, 'tags' => $tags,
-                'posts' => $populars
+                'category' => $category,
+                'tags' => $tags,
+                'populars' => $populars
             ]
         );
     }
@@ -39,18 +41,16 @@ class PostController extends Controller
     public function show(Category $category, Post $post)
     {
         $posts = Post::published()->latest()->take(5)->get();
-        $subCategory = $post->subCategories;
-        $popular = Post::published()->withCategory($category)->latest()->take(5)->get();
-        $relate = Post::published()->withCategory($category)->latest()->take(5)->get();
+        $populars = Post::published()->withCategory($category->slug)->latest()->take(5)->get();
+        $relates = Post::published()->withCategory($category->slug)->latest()->take(5)->get();
 
         return view(
             'posts.show',
             [
                 'post' => $post,
-                'subCategory' => $subCategory,
                 'posts' => $posts,
-                'populars' => $popular,
-                'relates' => $relate,
+                'populars' => $populars,
+                'relates' => $relates,
             ]
         );
     }

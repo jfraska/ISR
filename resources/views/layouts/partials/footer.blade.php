@@ -1,17 +1,24 @@
 <footer class="relative bottom-0 flex w-full justify-center bg-[#0D5568]">
-    <div class="flex flex-col w-full">
-        <div class="w-4/5 mx-auto">
+    <div class="flex w-full flex-col">
+        <div class="mx-auto w-4/5">
             <div
-                class="flex flex-col md:flex-row w-full items-center justify-between gap-10 md:border-b md:border-white text-center md:text-left">
-                <div class="flex w-3/5 md:w-full flex-row justify-center">
+                class="flex w-full flex-col items-center justify-between gap-10 text-center md:flex-row md:border-b md:border-white md:text-left"
+            >
+                <div class="flex w-3/5 flex-row justify-center md:w-full">
                     <div class="">
-                        <img src="/images/isr-footer.png" alt="isr footer" class="" />
+                        <img
+                            src="/images/isr-footer.png"
+                            alt="isr footer"
+                            class=""
+                        />
                     </div>
                 </div>
-                <div class="flex flex-col w-full">
+                <div class="flex w-full flex-col">
                     <div class="flex flex-col items-center md:items-start">
-                        <div class="flex flex-col flex-grow gap-2">
-                            <h1 class="text-base font-bold text-white">Alamat</h1>
+                        <div class="flex flex-grow flex-col gap-2">
+                            <h1 class="text-base font-bold text-white">
+                                Alamat
+                            </h1>
                             <p class="text-xs text-white">
                                 Universitas Pembangunan Nasional "VETERAN"
                                 Yogyakarta
@@ -41,7 +48,7 @@
                     </div>
                 </div>
                 <div class="w-full">
-                    <div class="flex flex-col flex-grow gap-4">
+                    <div class="flex flex-grow flex-col gap-4">
                         <div class="flex flex-col">
                             <div class="pb-2">
                                 <p class="text-base font-bold text-white">
@@ -80,8 +87,9 @@
                 </div>
             </div>
             <div
-                class="flex flex-col md:flex-row w-full items-center md:items-start justify-center md:justify-between gap-10 pt-5 text-center md:text-left">
-                <div class="flex flex-col w-full">
+                class="flex w-full flex-col items-center justify-center gap-10 pt-5 text-center md:flex-row md:items-start md:justify-between md:text-left"
+            >
+                <div class="flex w-full flex-col">
                     <div class="flex flex-col">
                         <div class="pb-2">
                             <p class="text-base font-bold text-white">
@@ -110,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col w-full">
+                <div class="flex w-full flex-col">
                     <div class="flex flex-col">
                         <div class="pb-2">
                             <p class="text-base font-bold text-white">
@@ -172,22 +180,28 @@
                             </a>
                         </div>
                         <div class="pb-1">
-                            <a href="#" class="text-sm text-white">
-                                Asset ISR
-                            </a>
+                            <a href="#" class="text-sm text-white">Asset ISR</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="w-full z-10">
+        <div class="z-10 w-full">
             <img src="/images/footer.png" alt="" class="w-full object-cover" />
         </div>
     </div>
     <div class="absolute left-0 top-0 z-0 h-full">
-        <img src="/images/full-side-footer.png" alt="" class="w-full h-full bject-contain" />
+        <img
+            src="/images/full-side-footer.png"
+            alt=""
+            class="bject-contain h-full w-full"
+        />
     </div>
-    <div class="absolute right-0 top-0 z-0 flex flex-col items-end h-full">
-        <img src="/images/full-side-footer.png" alt="" class="w-full h-full object-contain" />
+    <div class="absolute right-0 top-0 z-0 flex h-full flex-col items-end">
+        <img
+            src="/images/full-side-footer.png"
+            alt=""
+            class="h-full w-full object-contain"
+        />
     </div>
 </footer>
