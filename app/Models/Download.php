@@ -45,4 +45,18 @@ class Download extends Model implements HasMedia
     {
         $query->currentStatus('published')->where('is_published', true);
     }
+
+    public function getReadingTime()
+    {
+        $content = "";
+        foreach ($this->content as $item) {
+            if (isset($item['type']) && $item['type'] === 'paragraph') {
+                $content .= strip_tags($item['data']['content']);
+            }
+        }
+
+        $mins = round(str_word_count($content) / 250);
+
+        return ($mins < 1) ? 1 : $mins;
+    }
 }

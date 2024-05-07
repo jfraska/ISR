@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $post->title)
-@section('meta_description', $post->meta_description)
+@section('title', $download->title)
+@section('meta_description', $download->meta_description)
 
 @section('content')
     <article class="col-span-4 flex h-full w-full flex-col items-center md:col-span-3">
@@ -113,3 +113,4 @@
         </div>
     </article>
 @endsection
+
