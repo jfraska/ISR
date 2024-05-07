@@ -17,13 +17,13 @@ class HomeController extends Controller
     {
         // $posts = Post::published()->withCategory('article')->with('tags')->get();
         $berita = Post::withCategory('berita')->published()->latest()->take(3)->get();
-        $artikel = Post::withCategory('article')->published()->latest()->take(3)->get();
+        $artikel = Post::withCategory('artikel')->published()->latest()->take(3)->get();
         $miniBlog = Post::withCategory('mini-blog')->published()->latest()->take(3)->get();
         $agenda = Agenda::published()->orderBy('datetime')->get();
 
-        $profil = Organizational::where('slug', 'profile')->firstOrFail();
-        $misi = Organizational::where('slug', 'mission')->firstOrFail();
-        $kabinet = Organizational::where('slug', 'cabinet')->firstOrFail();
+        $profil = Organizational::where('slug', 'profile')->first();
+        $misi = Organizational::where('slug', 'mission')->first();
+        $kabinet = Organizational::where('slug', 'cabinet')->first();
 
         return view('home', [
             // 'posts' => $posts,
