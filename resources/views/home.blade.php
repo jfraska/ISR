@@ -244,10 +244,10 @@
         {{-- Start Profil ISR --}}
         <section class="bg-white">
             <div
-                class="relative flex flex-col-reverse items-center justify-end 
-                gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-15 lg:flex-row">
+                class="relative flex flex-col-reverse items-center justify-end gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-15 lg:flex-row">
                 <div class="absolute left-4 top-10 hidden items-center justify-center xl:block">
-                    <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(10%)"></div>
+                    <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(10%)">
+                    </div>
                     <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
                 </div>
                 <div class="w-full sm:w-[50%] md:w-[70%] lg:w-[397px] xl:pl-80 rounded-lg">
@@ -287,73 +287,74 @@
             <div class="absolute bottom-0 left-0 hidden xl:block">
                 <img src="/images/side-decor-bottom-left.png" alt="decor" class="aspect-square w-[20vw]" />
             </div>
-        </section>
-        {{-- End Profil ISR --}}
+        </div>
+    </section>
+    {{-- End Profil ISR --}}
 
-        {{-- Start Visi ISR --}}
-        <section class="">
-            <div
-                class="relative flex flex-col items-center justify-start gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row">
-                <div class="absolute right-0 top-10 mr-10 items-center justify-center hidden xl:block">
-                    <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(-10%)">
-                    </div>
-                    <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
+    {{-- Start Visi ISR --}}
+    <section class="">
+        <div
+            class="relative flex flex-col items-center justify-start gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row">
+            <div class="absolute right-0 top-10 mr-10 items-center justify-center hidden xl:block">
+                <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(-10%)">
                 </div>
-                <img src="/images/upn.png" alt="isr-profile"
-                    class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
-                <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
-                    <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
-                        {{ $misi->title }}
-                        <span
-                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
-                    </h1>
-                    <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
-                        @foreach ($misi->content as $item)
-                            @if ($item['type'] === 'heading')
-                                @if ($item['data']['level'] === 'h1')
-                                    <h1 class="text-2xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h1>
-                                @endif
-                                @if ($item['data']['level'] === 'h2')
-                                    <h2 class="text-xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h2>
-                                @endif
-                                @if ($item['data']['level'] === 'h3')
-                                    <h3 class="text-lg font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h3>
-                                @endif
+                <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
+            </div>
+            <img src="/images/upn.png" alt="isr-profile"
+                class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
+            <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
+                <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
+                    {{ $misi->title }}
+                    <span
+                        class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                </h1>
+                <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
+                    @foreach ($misi->content as $item)
+                        @if ($item['type'] === 'heading')
+                            @if ($item['data']['level'] === 'h1')
+                                <h1 class="text-2xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h1>
                             @endif
-                            @if ($item['type'] === 'paragraph')
-                                @php
-                                    $content = $item['data']['content'];
-                                    $modifiedContent = preg_replace(
-                                        '/<p>/',
-                                        '<p class="text-md font-regular text-justify mb-5">',
-                                        $content,
-                                        1,
-                                    );
-                                    $modifiedContent = preg_replace(
-                                        '/<ol>/',
-                                        '<ol start="1" class="list-decimal pl-5 mb-5">',
-                                        $modifiedContent,
-                                        1,
-                                    );
-                                @endphp
-                                {!! $modifiedContent !!}
+                            @if ($item['data']['level'] === 'h2')
+                                <h2 class="text-xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h2>
                             @endif
-                        @endforeach
-                    </p>
-                    <div
-                        class="relative mt-5 flex h-[50px] w-[175px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
-                        <a href="" class="text-sm" style="color: white">
-                            SELENGKAPNYA
-                        </a>
-                        <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
-                    </div>
-                </div>
-                <div class="absolute bottom-0 right-0 hidden xl:block">
-                    <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
+                            @if ($item['data']['level'] === 'h3')
+                                <h3 class="text-lg font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h3>
+                            @endif
+                        @endif
+                        @if ($item['type'] === 'paragraph')
+                            @php
+                                $content = $item['data']['content'];
+                                $modifiedContent = preg_replace(
+                                    '/<p>/',
+                                    '<p class="text-md font-regular text-justify mb-5">',
+                                    $content,
+                                    1,
+                                );
+                                $modifiedContent = preg_replace(
+                                    '/<ol>/',
+                                    '<ol start="1" class="list-decimal pl-5 mb-5">',
+                                    $modifiedContent,
+                                    1,
+                                );
+                            @endphp
+                            {!! $modifiedContent !!}
+                        @endif
+                    @endforeach
+                </p>
+                <div
+                    class="relative mt-5 flex h-[50px] w-[175px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
+                    <a href="" class="text-sm" style="color: white">
+                        SELENGKAPNYA
+                    </a>
+                    <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
                 </div>
             </div>
-        </section>
-        {{-- End Visi ISR --}}
+            <div class="absolute bottom-0 right-0 hidden xl:block">
+                <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
+            </div>
+        </div>
+    </section>
+    {{-- End Visi ISR --}}
 
     {{-- Start Berita Terkini --}}
     <section class="bg-[#F5D05E]">
@@ -365,12 +366,12 @@
                 @foreach ($berita as $beritas)
                     <div
                         class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                        <a href="#" class="flex justify-center">
+                        <a href="{{ route('posts.show', ["category" => $beritas->categories->slug, "post" => $beritas->slug]) }}" class="flex justify-center">
                             <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $beritas->getFirstMediaUrl() }}"
                                 alt="berita terkini" />
                         </a>
                         <div class="px-14">
-                            <a href="#">
+                            <a href="{{ route('posts.show', ["category" => $beritas->categories->slug, "post" => $beritas->slug]) }}">
                                 @php
                                     $words = explode(' ', $beritas->title);
                                     $limitedTitle = implode(' ', array_slice($words, 0, 7));
@@ -419,12 +420,12 @@
             @foreach ($artikel as $artikels)
                 <div
                     class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#f5d05e] border-r-[#f5d05e] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                    <a href="#" class="flex justify-center">
+                    <a href="{{ route('posts.show', ["category" => $artikels->categories->slug, "post" => $artikels->slug]) }}" class="flex justify-center">
                         <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $artikels->getFirstMediaUrl() }}"
                             alt="berita terkini" />
                     </a>
                     <div class="px-14">
-                        <a href="#">
+                        <a href="{{ route('posts.show', ["category" => $artikels->categories->slug, "post" => $artikels->slug]) }}">
                             @php
                                 $words = explode(' ', $artikels->title);
                                 $limitedTitle = implode(' ', array_slice($words, 0, 7));
@@ -473,12 +474,12 @@
         @foreach ($miniBlog as $miniBlogs)
             <div
                 class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                <a href="#" class="flex justify-center">
+                <a href="{{ route('posts.show', ["category" => $miniBlogs->categories->slug, "post" => $miniBlogs->slug]) }}" class="flex justify-center">
                     <img class="m-3 h-[179px] w-[248px] rounded-xl"
                         src="{{ $miniBlogs->getFirstMediaUrl() }}" alt="berita terkini" />
                 </a>
                 <div class="px-14">
-                    <a href="#">
+                    <a href="{{ route('posts.show', ["category" => $miniBlogs->categories->slug, "post" => $miniBlogs->slug]) }}">
                         @php
                             $words = explode(' ', $miniBlogs->title);
                             $limitedTitle = implode(' ', array_slice($words, 0, 7));
@@ -881,6 +882,6 @@
 </div>
 </div>
 </section>
-</div>
 {{-- End Agenda --}}
+</div>
 @endsection

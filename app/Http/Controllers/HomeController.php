@@ -15,13 +15,10 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request, Category $category, Organizational $organizational)
     {
-        // $posts = Post::where('is_featured', true)->latest()->take(3)->get();
-        $beritaCategory = Category::where('slug', 'berita')->firstOrFail();
-        $artikelCategory = Category::where('slug', 'article')->firstOrFail();
-        $miniBlogCategory = Category::where('slug', 'mini-blog')->firstOrFail();
-        $berita = Post::withCategory($beritaCategory)->published()->latest()->take(3)->get();
-        $artikel = Post::withCategory($artikelCategory)->published()->latest()->take(3)->get();
-        $miniBlog = Post::withCategory($miniBlogCategory)->published()->latest()->take(3)->get();
+        // $posts = Post::published()->withCategory('article')->with('tags')->get();
+        $berita = Post::withCategory('berita')->published()->latest()->take(3)->get();
+        $artikel = Post::withCategory('article')->published()->latest()->take(3)->get();
+        $miniBlog = Post::withCategory('mini-blog')->published()->latest()->take(3)->get();
         $agenda = Agenda::published()->orderBy('datetime')->get();
 
         $profil = Organizational::where('slug', 'profile')->firstOrFail();
@@ -29,6 +26,7 @@ class HomeController extends Controller
         $kabinet = Organizational::where('slug', 'cabinet')->firstOrFail();
 
         return view('home', [
+            // 'posts' => $posts,
             'berita' => $berita,
             'artikel' => $artikel,
             'miniBlog' => $miniBlog,
