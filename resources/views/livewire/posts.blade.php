@@ -21,7 +21,7 @@
     {{-- Carousel End --}}
 
     {{-- Category Start --}}
-    @if ($category === 'article' || $category === 'mini-blog')
+    @if ($category === 'artikel' || $category === 'mini-blog')
         <section class="bg-white">
             <div class="p-10 flex flex-col gap-5 w-full">
                 <div class="">
@@ -69,7 +69,7 @@
                         </div>
                     @endif
 
-                    @if ($category === 'article')
+                    @if ($category === 'artikel')
                         <div
                             class="flex items-center justify-center w-36 h-36 lg:w-52 lg:h-52 xl:w-60 xl:h-60 rounded-lg shadow bg-slate-400">
                             <div class="p-2 lg:p-5 relative flex flex-col items-center h-full gap-2 lg:gap-10 bg-cover bg-center"

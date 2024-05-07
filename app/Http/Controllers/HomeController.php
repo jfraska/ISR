@@ -15,7 +15,6 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request, Category $category, Organizational $organizational)
     {
-        // $posts = Post::published()->withCategory('article')->with('tags')->get();
         $berita = Post::withCategory('berita')->published()->latest()->take(3)->get();
         $artikel = Post::withCategory('artikel')->published()->latest()->take(3)->get();
         $miniBlog = Post::withCategory('mini-blog')->published()->latest()->take(3)->get();

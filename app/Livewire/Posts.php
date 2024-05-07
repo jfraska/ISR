@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Posts extends Component
 {
-    public $category = "article";
+    public $category = "artikel";
 
     #[On('category')]
     public function setCategory(string $category)
