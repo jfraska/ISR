@@ -167,7 +167,7 @@
             <p class="font-bold mb-2">Download</p>
             <div class="flex flex-col">
                 @foreach ($this->downloads as $download)
-                    <a wire:key="{{ $download->id }}" href="{{ route('downloads.show', ['category' => $download->slug, 'download' => $download->slug]) }}"
+                    <a wire:key="{{ $download->id }}" href="{{ route('downloads.index', ['category' => $download->slug]) }}"
                         class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $download->name }}</a>
                 @endforeach
             </div>

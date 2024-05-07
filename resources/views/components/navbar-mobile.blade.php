@@ -3,7 +3,8 @@
     {{-- Menu --}}
     <div class="flex flex-col overflow-y-scroll w-full h-full border-r border-white">
         {{-- Menu Tentang ISR Start --}}
-        <a data-menu id="isr-mobile" href="#" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a data-menu id="isr-mobile" href="#"
+            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/isr.svg" alt="isr" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center items-start">
@@ -23,7 +24,8 @@
         {{-- Menu Tentang ISR End --}}
 
         {{-- Menu Pojok Ilmiah Start --}}
-        <a data-menu id="ilmiah-mobile" href="#" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a data-menu id="ilmiah-mobile" href="#"
+            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/ilmiah.svg" alt="ilmiah" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center items-start">
@@ -61,7 +63,8 @@
         {{-- Menu Pojok Ilmiah End --}}
 
         {{-- Menu Departemen Start --}}
-        <a data-menu id="departemen-mobile" href="#" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a data-menu id="departemen-mobile" href="#"
+            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/departemen.svg" alt="departemen" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -82,7 +85,8 @@
         {{-- Menu Departemen End --}}
 
         {{-- Menu Rekrutmen Start --}}
-        <a data-menu id="rekrutmen-mobile" href="#" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a data-menu id="rekrutmen-mobile" href="#"
+            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/rekrutmen.svg" alt="rekrutmen" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -102,7 +106,8 @@
         {{-- Menu Rekrutmen End --}}
 
         {{-- Menu Prestasi Start --}}
-        <a data-menu id="prestasi-mobile" href="#" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a data-menu id="prestasi-mobile" href="#"
+            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/prestasi.svg" alt="prestasi" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -112,7 +117,8 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <div data-menu data-menu-target="prestasi-mobile" id="submenu-prestasi" class="hidden top-full left-0 h-full">
+        <div data-menu data-menu-target="prestasi-mobile" id="submenu-prestasi"
+            class="hidden top-full left-0 h-full">
             <a href="#" class="text-white text-xs block px-4 py-3">Tahun 2023</a>
             <a href="#" class="text-white text-xs block px-4 py-3">Tahun 2024</a>
             <a href="#" class="text-white text-xs block px-4 py-3">Tahun 2025</a>
@@ -130,7 +136,8 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <div data-menu data-menu-target="kompetisi-mobile" id="submenu-kompetisi" class="hidden top-full left-0 h-full">
+        <div data-menu data-menu-target="kompetisi-mobile" id="submenu-kompetisi"
+            class="hidden top-full left-0 h-full">
             <div class="flex flex-col">
                 @foreach ($this->competitions as $competition)
                     <div class="flex felx-row justify-between pr-2">
@@ -159,7 +166,7 @@
 
         {{-- Menu Download Start --}}
         <div class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
-            <a data-menu id="download-mobile" href="{{ route('downloads.index') }}" class="flex gap-2 items-center">
+            <a data-menu id="download-mobile" href="#" class="flex gap-2 items-center">
                 <img src="/images/navbar/download.svg" alt="download" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
                     <p class="font-bold">Download</p>
@@ -168,11 +175,13 @@
             </a>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </div>
-        <div data-menu data-menu-target="download-mobile" id="submenu-download" class="hidden top-full left-0 h-full">
+        <div data-menu data-menu-target="download-mobile" id="submenu-download"
+            class="hidden top-full left-0 h-full">
             <div class="flex flex-col">
                 @foreach ($this->downloads as $download)
-                    <a wire:key="{{ $download->id }}" href="{{ route('downloads.show', $download->slug) }}"
-                        class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-4">{{ $download->name }}</a>
+                    <a wire:key="{{ $download->id }}"
+                        href="{{ route('downloads.index', ['category' => $download->slug]) }}"
+                        class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $download->name }}</a>
                 @endforeach
             </div>
         </div>
