@@ -6,8 +6,6 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchandiseController;
-use App\Http\Controllers\NavbarController;
-use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\OrganizationalController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RecruitmentController;

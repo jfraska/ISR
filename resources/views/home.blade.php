@@ -1,6 +1,6 @@
-@extends("layouts.app")
+@extends('layouts.app')
 
-@section("title")
+@section('title')
     Home
 @endsection
 
@@ -27,8 +27,7 @@
                     <h1 class="relative text-2xl md:text-3xl lg:text-4xl font-bold">
                         Arti Lambang Widyantara Abisatya
                         <span
-                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"
-                        ></span>
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
                     </h1>
                     <div class="flex flex-col mt-3 md:mt-5 lg:mt-5">
                         <div class="flex flex-row items-center pb-3">
@@ -65,11 +64,7 @@
                     <img src="/images/widyantara.png" alt="isr-profile" style="max-width: 100%; max-height: 100%;" />
                 </div>
                 <div class="absolute bottom-0 left-0 hidden xl:block">
-                    <img
-                        src="/images/side-decor-bottom-left.png"
-                        alt="decor"
-                        class="aspect-square w-[20vw]"
-                    />
+                    <img src="/images/side-decor-bottom-left.png" alt="decor" class="aspect-square w-[20vw]" />
                 </div>
             </div>
         </section>
@@ -143,21 +138,11 @@
 
         {{-- Start Pendaftaran --}}
         <section class="relative bg-white py-10">
-            <div
-                class="absolute inset-x-0 top-0 z-0 hidden h-[170px] w-full bg-[#0D5568] md:block"
-            ></div>
-            <div
-                class="mx-auto flex w-full flex-row gap-5 overflow-x-auto md:w-4/5 md:flex-col"
-            >
-                <div class="z-10 flex h-[300px] flex-row gap-5 md:h-[180px]">
-                    <div
-                        class="flex w-full items-start gap-2 border-2 border-[#0D5568] bg-white p-2"
-                    >
-                        <img
-                            src="/images/oprec.svg"
-                            alt="oprec"
-                            class="aspect-square w-9"
-                        />
+            <div class="absolute inset-x-0 top-0 z-0 hidden h-[170px] w-full bg-[#0D5568] md:block"></div>
+            <div class="mx-auto flex w-full flex-row gap-5 overflow-x-auto md:w-4/5 md:flex-col">
+                <div class="z-10 flex flex-row h-[300px] gap-5 md:h-[180px]">
+                    <div class="flex w-full items-start gap-2 border-2 border-[#0D5568] bg-white p-2">
+                        <img src="/images/oprec.svg" alt="oprec" class="aspect-square w-9" />
                         <div class="mr-[50px]">
                             <h1 class="text-sm font-bold text-[#0D5568]">
                                 Open Recruitmen ISR
@@ -171,35 +156,19 @@
                                 Research (ISR)
                             </p>
                             <div
-                                class="mt-3 flex h-[35px] w-[135px] items-center justify-between border border-white bg-[#0D5568] p-3"
-                            >
-                                <a
-                                    href=""
-                                    class="text-[12px]"
-                                    style="color: white"
-                                >
+                                class="mt-3 flex h-[35px] w-[135px] items-center justify-between border border-white bg-[#0D5568] p-3">
+                                <a href="" class="text-[12px]" style="color: white">
                                     SELENGKAPNYA
                                 </a>
-                                <img
-                                    src="/images/arrow.svg"
-                                    alt="arrow"
-                                    class="h-[10px] w-[10px]"
-                                />
+                                <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
                             </div>
                         </div>
                     </div>
                     <div class="w-full border-2 border-[#0D5568] bg-white p-2">
                         <div class="relative flex flex-row items-start p-3">
-                            <img
-                                src="/images/volunteer.svg"
-                                alt="oprec"
-                                class="mr-4 h-[35px] w-[35px]"
-                            />
+                            <img src="/images/volunteer.svg" alt="oprec" class="mr-4 h-[35px] w-[35px]" />
                             <div class="mr-[50px]">
-                                <h1
-                                    class="text-[14px] font-bold"
-                                    style="color: #0d5568"
-                                >
+                                <h1 class="text-[14px] font-bold" style="color: #0d5568">
                                     Pendaftaran Volunteer
                                 </h1>
                                 <p class="mb-0 text-[11px]">
@@ -209,20 +178,11 @@
                                     bermanfaat? Yap disini tempatnya!
                                 </p>
                                 <div
-                                    class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3"
-                                >
-                                    <a
-                                        href=""
-                                        class="text-[12px]"
-                                        style="color: white"
-                                    >
+                                    class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
+                                    <a href="" class="text-[12px]" style="color: white">
                                         SELENGKAPNYA
                                     </a>
-                                    <img
-                                        src="/images/arrow.svg"
-                                        alt="arrow"
-                                        class="h-[10px] w-[10px]"
-                                    />
+                                    <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
                                 </div>
                             </div>
                         </div>
@@ -232,16 +192,9 @@
                 <div class="flex h-[300px] gap-5 md:h-[180px]">
                     <div class="w-full border-2 border-[#0D5568] bg-white p-2">
                         <div class="relative flex flex-row items-start p-3">
-                            <img
-                                src="/images/lomba.svg"
-                                alt="oprec"
-                                class="mr-4 h-[35px] w-[35px]"
-                            />
+                            <img src="/images/lomba.svg" alt="oprec" class="mr-4 h-[35px] w-[35px]" />
                             <div class="mr-[50px] flex-grow">
-                                <h1
-                                    class="text-[14px] font-bold"
-                                    style="color: #0d5568"
-                                >
+                                <h1 class="text-[14px] font-bold" style="color: #0d5568">
                                     Pendaftaran Lomba Umum
                                 </h1>
                                 <p class="mb-0 text-[11px]">
@@ -251,36 +204,20 @@
                                     bermanfaat? Yap disini tempatnya!
                                 </p>
                                 <div
-                                    class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3"
-                                >
-                                    <a
-                                        href=""
-                                        class="text-[12px]"
-                                        style="color: white"
-                                    >
+                                    class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
+                                    <a href="" class="text-[12px]" style="color: white">
                                         SELENGKAPNYA
                                     </a>
-                                    <img
-                                        src="/images/arrow.svg"
-                                        alt="arrow"
-                                        class="h-[10px] w-[10px]"
-                                    />
+                                    <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="w-full border-2 border-[#0D5568] bg-white p-2">
                         <div class="relative flex flex-row items-start p-3">
-                            <img
-                                src="/images/talenta.svg"
-                                alt="oprec"
-                                class="mr-4 h-[35px] w-[35px]"
-                            />
+                            <img src="/images/talenta.svg" alt="oprec" class="mr-4 h-[35px] w-[35px]" />
                             <div class="mr-[50px] flex-grow">
-                                <h1
-                                    class="text-[14px] font-bold"
-                                    style="color: #0d5568"
-                                >
+                                <h1 class="text-[14px] font-bold" style="color: #0d5568">
                                     Pendaftaran Ajang Talenta Dikti
                                 </h1>
                                 <p class="mb-0 text-[11px]">
@@ -290,20 +227,11 @@
                                     bermanfaat? Yap disini tempatnya!
                                 </p>
                                 <div
-                                    class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3"
-                                >
-                                    <a
-                                        href=""
-                                        class="text-[12px]"
-                                        style="color: white"
-                                    >
+                                    class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
+                                    <a href="" class="text-[12px]" style="color: white">
                                         SELENGKAPNYA
                                     </a>
-                                    <img
-                                        src="/images/arrow.svg"
-                                        alt="arrow"
-                                        class="h-[10px] w-[10px]"
-                                    />
+                                    <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
                                 </div>
                             </div>
                         </div>
@@ -316,18 +244,17 @@
         {{-- Start Profil ISR --}}
         <section class="bg-white">
             <div
-                class="relative flex flex-col-reverse items-center justify-end gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-15 lg:flex-row">
+                class="relative flex flex-col-reverse items-center justify-end 
+                gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-15 lg:flex-row">
                 <div class="absolute left-4 top-10 hidden items-center justify-center xl:block">
-                    <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(10%)">
-                    </div>
+                    <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(10%)"></div>
                     <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
                 </div>
                 <div class="w-full sm:w-[50%] md:w-[70%] lg:w-[397px] xl:pl-80 rounded-lg">
                     <h1 class="relative text-2xl md:text-3xl lg:text-4xl font-bold">
                         {{ $profil->title }}
                         <span
-                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"
-                        ></span>
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
                     </h1>
                     <div class="mt-3 md:mt-5 lg:mt-5 text-sm md:text-base">
                         @foreach ($profil->content as $item)
@@ -360,74 +287,73 @@
             <div class="absolute bottom-0 left-0 hidden xl:block">
                 <img src="/images/side-decor-bottom-left.png" alt="decor" class="aspect-square w-[20vw]" />
             </div>
-        </div>
-    </section>
-    {{-- End Profil ISR --}}
+        </section>
+        {{-- End Profil ISR --}}
 
-    {{-- Start Visi ISR --}}
-    <section class="">
-        <div
-            class="relative flex flex-col items-center justify-start gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row">
-            <div class="absolute right-0 top-10 mr-10 items-center justify-center hidden xl:block">
-                <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(-10%)">
+        {{-- Start Visi ISR --}}
+        <section class="">
+            <div
+                class="relative flex flex-col items-center justify-start gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-20 lg:flex-row">
+                <div class="absolute right-0 top-10 mr-10 items-center justify-center hidden xl:block">
+                    <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(-10%)">
+                    </div>
+                    <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
                 </div>
-                <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
-            </div>
-            <img src="/images/upn.png" alt="isr-profile"
-                class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
-            <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
-                <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
-                    {{ $misi->title }}
-                    <span
-                        class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
-                </h1>
-                <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
-                    @foreach ($misi->content as $item)
-                        @if ($item['type'] === 'heading')
-                            @if ($item['data']['level'] === 'h1')
-                                <h1 class="text-2xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h1>
+                <img src="/images/upn.png" alt="isr-profile"
+                    class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
+                <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
+                    <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
+                        {{ $misi->title }}
+                        <span
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                    </h1>
+                    <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
+                        @foreach ($misi->content as $item)
+                            @if ($item['type'] === 'heading')
+                                @if ($item['data']['level'] === 'h1')
+                                    <h1 class="text-2xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h1>
+                                @endif
+                                @if ($item['data']['level'] === 'h2')
+                                    <h2 class="text-xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h2>
+                                @endif
+                                @if ($item['data']['level'] === 'h3')
+                                    <h3 class="text-lg font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h3>
+                                @endif
                             @endif
-                            @if ($item['data']['level'] === 'h2')
-                                <h2 class="text-xl font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h2>
+                            @if ($item['type'] === 'paragraph')
+                                @php
+                                    $content = $item['data']['content'];
+                                    $modifiedContent = preg_replace(
+                                        '/<p>/',
+                                        '<p class="text-md font-regular text-justify mb-5">',
+                                        $content,
+                                        1,
+                                    );
+                                    $modifiedContent = preg_replace(
+                                        '/<ol>/',
+                                        '<ol start="1" class="list-decimal pl-5 mb-5">',
+                                        $modifiedContent,
+                                        1,
+                                    );
+                                @endphp
+                                {!! $modifiedContent !!}
                             @endif
-                            @if ($item['data']['level'] === 'h3')
-                                <h3 class="text-lg font-bold mb-2 text-center">{!! $item['data']['content'] !!}</h3>
-                            @endif
-                        @endif
-                        @if ($item['type'] === 'paragraph')
-                            @php
-                                $content = $item['data']['content'];
-                                $modifiedContent = preg_replace(
-                                    '/<p>/',
-                                    '<p class="text-md font-regular text-justify mb-5">',
-                                    $content,
-                                    1,
-                                );
-                                $modifiedContent = preg_replace(
-                                    '/<ol>/',
-                                    '<ol start="1" class="list-decimal pl-5 mb-5">',
-                                    $modifiedContent,
-                                    1,
-                                );
-                            @endphp
-                            {!! $modifiedContent !!}
-                        @endif
-                    @endforeach
-                </p>
-                <div
-                    class="relative mt-5 flex h-[50px] w-[175px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
-                    <a href="" class="text-sm" style="color: white">
-                        SELENGKAPNYA
-                    </a>
-                    <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
+                        @endforeach
+                    </p>
+                    <div
+                        class="relative mt-5 flex h-[50px] w-[175px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
+                        <a href="" class="text-sm" style="color: white">
+                            SELENGKAPNYA
+                        </a>
+                        <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
+                    </div>
+                </div>
+                <div class="absolute bottom-0 right-0 hidden xl:block">
+                    <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
                 </div>
             </div>
-            <div class="absolute bottom-0 right-0 hidden xl:block">
-                <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
-            </div>
-        </div>
-    </section>
-    {{-- End Visi ISR --}}
+        </section>
+        {{-- End Visi ISR --}}
 
     {{-- Start Berita Terkini --}}
     <section class="bg-[#F5D05E]">
@@ -438,8 +364,7 @@
             <div class="flex flex-row justify-center gap-6 py-5 flex-wrap">
                 @foreach ($berita as $beritas)
                     <div
-                        class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800"
-                    >
+                        class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
                         <a href="#" class="flex justify-center">
                             <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $beritas->getFirstMediaUrl() }}"
                                 alt="berita terkini" />
@@ -956,6 +881,6 @@
 </div>
 </div>
 </section>
-{{-- End Agenda --}}
 </div>
+{{-- End Agenda --}}
 @endsection
