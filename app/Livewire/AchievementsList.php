@@ -19,6 +19,9 @@ class AchievementsList extends Component
     #[Url()]
     public $search = '';
 
+    #[Url()]
+    public $year = '';
+
     public function setSort($sort)
     {
         $this->sort = ($sort === 'desc') ? 'desc' : 'asc';
@@ -40,15 +43,7 @@ class AchievementsList extends Component
     #[Computed()]
     public function achievements()
     {
-        return Achievement::published()->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
-    }
-
-    #[Computed()]
-    public function achievementsYear()
-    {
-        return Achievement::published()->get()->groupBy(function ($achievement) {
-            return $achievement->created_at->year;
-        });
+        return Achievement::published()->year($this->year)->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
     }
 
     public function render()

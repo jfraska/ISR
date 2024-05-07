@@ -141,7 +141,7 @@
             class="hidden flex-col gap-2 overflow-y-scroll w-80 h-full border-r border-white py-4 px-6">
             <h1 class="font-bold mb-2">Prestasi</h1>
             @foreach ($this->achievements as $year => $achievementsOfYear)
-                <a href="{{ route('achievements.index') }}" class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">Tahun {{ $year }}</a>
+                <a href="{{ route('achievements.index', ['year' => $year]) }}" class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">Tahun {{ $year }}</a>
             @endforeach
         </div>
         <div data-menu data-menu-target="kompetisi" id="submenu-kompetisi"

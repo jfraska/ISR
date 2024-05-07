@@ -18,7 +18,7 @@
                     {{ $recruitment->title }}
                 </h1>
                 <p class="text-sm font-normal">
-                    {{ $recruitment->published_at }}
+                    {!! \Carbon\Carbon::parse($recruitment->published_at)->format('d F Y, H:i') !!}
                 </p>
             </div>
 
@@ -31,7 +31,7 @@
                             </p>
                         </div>
                         <div class="flex">
-                            <span class="mr-2 text-gray-500">
+                            <span class="mr-2 md:text-sm text-gray-500">
                                 {{ $recruitment->published_at->diffForHumans() }}
                             </span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.3"

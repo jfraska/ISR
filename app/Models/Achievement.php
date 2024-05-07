@@ -44,4 +44,9 @@ class Achievement extends Model implements HasMedia
     {
         $query->where('title', 'like', "%{$search}%");
     }
+
+    public function scopeYear($query, string $year)
+    {
+        return $query->whereYear('created_at', $year);
+    }
 }
