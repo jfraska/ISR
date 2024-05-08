@@ -176,8 +176,8 @@
 
     {{-- Sub Sub Menu --}}
     <div class="w-fit h-full">
-        <div data-menu data-menu-target="article" class="hidden flex-col overflow-y-scroll w-80">
-            @foreach ($this->subPosts('article') as $subpost)
+        <div data-menu data-menu-target="artikel" class="hidden flex-col overflow-y-scroll w-80">
+            @foreach ($this->subPosts('artikel') as $subpost)
                 <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => $subpost->slug]) }}"
                     class="text-white text-xs px-4 py-3">{{ $subpost->name }}</a>
             @endforeach

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="mx-auto w-full">
+    <div class="mx-auto w-full p-0">
         {{-- Start Hero Page --}}
         <section class="relative aspect-video w-full">
             <video autoplay muted loop class="h-full w-full object-cover">
