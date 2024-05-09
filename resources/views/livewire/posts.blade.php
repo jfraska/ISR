@@ -39,7 +39,7 @@
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
                                     <a wire:key="#"
-                                        href="{{ route('posts.detail', ['category' => 'fact-in-research']) }}"
+                                        href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'fact-in-research']) }}"
                                         class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">FACT
                                         IN
                                         RESEARCH</a>
@@ -57,7 +57,7 @@
                                     class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'isr-edu']) }}"
                                         class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">ISR
                                         EDU</a>
                                 </div>
@@ -78,7 +78,7 @@
                                     class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'isr-journey']) }}"
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'isr-journey']) }}"
                                         class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">ISR
                                         JOURNEY</a>
                                 </div>
@@ -94,7 +94,7 @@
                                     class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'isr-journey']) }}"
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'opini-refleksi']) }}"
                                         class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">OPINI
                                         &
                                         REFLEKSI</a>
@@ -111,7 +111,7 @@
                                     class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'isr-journey']) }}"
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'tips-trick']) }}"
                                         class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">TIPS
                                         &
                                         TRICK</a>
@@ -129,7 +129,7 @@
                                     class="w-28 h-7 lg:w-56 lg:h-14 border border-[#FFDF4E] flex items-center justify-center gap-1 lg:gap-4 rounded-lg lg:rounded-2xl">
                                     <img src="/images/sub-category/category-icon.svg" alt="cat icon"
                                         class="w-4 lg:w-6 aspect-square">
-                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'isr-journey']) }}"
+                                    <a wire:key="#" href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'prestasi-isr']) }}"
                                         class="text-center text-xs lg:text-sm font-normal lg:font-bold text-[#FFDF4E]">PRESTASI
                                         ISR</a>
                                 </div>

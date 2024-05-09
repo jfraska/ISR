@@ -6,7 +6,7 @@
     <div class="px-0 py-0 mx-auto w-full">
         <livewire:posts>
             {{-- Topik Start --}}
-            <section>
+            {{-- <section>
                 <div class="px-10 py-5 flex flex-col gap-5 w-full min-h-[300px]">
                     <div class="">
                         <h1 class="border-b-4 border-b-[#FFDF4E] text-4xl w-full pb-2">Topik</h1>
@@ -23,7 +23,7 @@
                             </div>
                         @endforeach
                     </div>
-            </section>
+            </section> --}}
             {{-- Topik End --}}
     </div>
 @endsection

@@ -83,6 +83,13 @@ class Post extends Model implements HasMedia
             $query->where('slug', $category);
         });
     }
+    
+    public function scopeWithSubCategory($query, string $subCategory = '')
+    {
+        $query->whereHas('subCategories', function ($query) use ($subCategory) {
+            $query->where('slug', $subCategory);
+        });
+    }
 
     public function scopeSearch($query, string $search = '')
     {

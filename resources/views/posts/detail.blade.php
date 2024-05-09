@@ -29,7 +29,7 @@
                             <ul class="py-2 text-sm" aria-labelledby="dropdownDefaultButton">
                                 @if ($category->slug === 'artikel')
                                     <li>
-                                        <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                        <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'isr-journey']) }}"
                                             class="block px-4 py-2 ">
                                             <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
                                                 style="background-image: url('/images/sub-category/isr-journey.png');">
@@ -43,7 +43,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                        <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'opini-refleksi']) }}"
                                             class="block px-4 py-2 ">
                                             <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
                                                 style="background-image: url('/images/sub-category/opini-refleksi.png');">
@@ -57,7 +57,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                        <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'tips-trick']) }}"
                                             class="block px-4 py-2 ">
                                             <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
                                                 style="background-image: url('/images/sub-category/tips-trick.png');">
@@ -71,7 +71,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                        <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'prestasi-isr']) }}"
                                             class="block px-4 py-2 ">
                                             <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
                                                 style="background-image: url('/images/sub-category/prestasi-isr.png');">
@@ -88,7 +88,7 @@
 
                                 @if ($category->slug === 'mini-blog')
                                     <li>
-                                        <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                        <a href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'fact-in-research']) }}"
                                             class="block px-4 py-2 ">
                                             <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
                                                 style="background-image: url('/images/sub-category/fact-research.png');">
@@ -102,7 +102,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
+                                        <a href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'isr-edu']) }}"
                                             class="block px-4 py-2 ">
                                             <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
                                                 style="background-image: url('/images/sub-category/isr-edu.png');">

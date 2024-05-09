@@ -4,7 +4,7 @@
         @foreach ($tags as $tag)
             <x-badge
                 wire:navigate
-                href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                href="{{ route('posts.detail', ['category' => $category, 'tag' => $tag->slug]) }}"
             >
                 {{ $tag->name }}
             </x-badge>

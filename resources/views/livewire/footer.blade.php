@@ -162,7 +162,7 @@
         </div>
     </div>
     <div class="absolute left-0 top-0 z-0 h-full">
-        <img src="/images/full-side-footer.png" alt="" class="bject-contain h-full w-full" />
+        <img src="/images/full-side-footer.png" alt="" class="object-contain h-full w-full" />
     </div>
     <div class="absolute right-0 top-0 z-0 flex h-full flex-col items-end">
         <img src="/images/full-side-footer.png" alt="" class="h-full w-full object-contain" />

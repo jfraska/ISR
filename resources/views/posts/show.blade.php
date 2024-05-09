@@ -75,7 +75,8 @@
                         class="article-actions-bar my-6 flex flex-row items-center justify-between border-b border-t border-gray-200 p-2 text-sm">
                         <div class="flex flex-row gap-x-2">
                             @foreach ($post->tags as $tag)
-                                <x-badge wire:navigate href="{{ route('posts.index', ['tag' => $tag->slug]) }}">
+                                <x-badge wire:navigate
+                                    href="{{ route('posts.detail', ['category' => $post->categories->slug, 'tag' => $tag->slug]) }}">
                                     {{ $tag->name }}
                                 </x-badge>
                             @endforeach
@@ -113,4 +114,3 @@
         </div>
     </article>
 @endsection
-

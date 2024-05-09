@@ -102,8 +102,7 @@ class AchievementResource extends Resource
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 DateTimePicker::make('published_at')
-                                    ->seconds(false)
-                                    ->disabled(),
+                                    ->seconds(false),
                                 TextInput::make('meta_description'),
                             ]),
                     ])
@@ -149,7 +148,9 @@ class AchievementResource extends Resource
                 Tables\Actions\RestoreAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\Action::make('publish')
-                    ->action(fn (Achievement $record) => $record->updateStatus('reviewing'))
+                    ->action(fn (Achievement $record) => $record->statuses()->update([
+                        'name' => 'reviewing',
+                    ]))
                     ->requiresConfirmation()
                     ->button()
                     ->icon("heroicon-m-cloud-arrow-up")
@@ -157,14 +158,18 @@ class AchievementResource extends Resource
                     ->color("primary")
                     ->visible(fn (Achievement $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
                 Tables\Actions\Action::make('accept')
-                    ->action(fn (Achievement $record) => $record->updateStatus('published'))
+                    ->action(fn (Achievement $record) => $record->statuses()->update([
+                        'name' => 'published',
+                    ]))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)
                     ->color("success")
                     ->visible(fn (Achievement $record): bool => auth()->user()->can('publish') && $record->status === "reviewing"),
                 Tables\Actions\Action::make('reject')
-                    ->action(fn (Achievement $record) => $record->updateStatus('rejected'))
+                    ->action(fn (Achievement $record) => $record->statuses()->update([
+                        'name' => 'rejected',
+                    ]))
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)

@@ -4,7 +4,7 @@
 
 @section('content')
     <article class="col-span-4 w-full min-h-[2000px] md:col-span-3 flex flex-col items-center">
-        <div class="w-full h-[75vh] bg-cover bg-center" style="background-image: url('/images/thumbnail-achievement.png');">>
+        <div class="w-full h-[75vh] bg-cover bg-center" style="background-image: url('/images/thumbnail-achievement.png');">
         </div>
         <div class="px-5 bg-white -mt-20 z-20 w-5/6">
             <div class="grid w-full grid-cols-4 gap-10 pt-16">

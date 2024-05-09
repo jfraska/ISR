@@ -1,7 +1,7 @@
 <div>
     <div class="flex items-center justify-between border-b border-gray-100">
         <div class="text-gray-600">
-            @if ($this->activeTag || $search)
+            @if ($this->activeTag || $this->activeSubCategory || $search)
                 <button
                     class="gray-500 mr-3 text-xs"
                     wire:click="clearFilters()"
@@ -13,9 +13,18 @@
             @if ($this->activeTag)
                 <x-badge
                     wire:navigate
-                    href="{{ route('posts.index', ['tag' => $this->activeTag->slug]) }}"
+                    href="{{ route('posts.detail', ['category' => $category, 'tag' => $this->activeTag->slug]) }}"
                 >
                     {{ $this->activeTag->name }}
+                </x-badge>
+            @endif
+
+            @if ($this->activeSubCategory)
+                <x-badge
+                    wire:navigate
+                    href="{{ route('posts.detail', ['category' => $category, 'subCategory' => $this->activeSubCategory->slug]) }}"
+                >
+                    {{ $this->activeSubCategory->name }}
                 </x-badge>
             @endif
 
