@@ -3,7 +3,7 @@
 @section('title', 'Posts')
 
 @section('content')
-    <article>
+    <article class="min-h-[1500px]">
         <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="background-image: url('/images/thumbnail-detail.png');">
         </div>
@@ -24,20 +24,10 @@
 
                     {{-- Category Dropdown Start --}}
                     <div class="flex w-full border border-gray-200 rounded">
-                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                            class="w-full h-10 text-black bg-white hover:bg-gray-100 font-medium text-sm px-2 py-0 text-center inline-flex items-center dark:bg-white dark:hover:bg-gray-200 justify-between"
-                            type="button">
-                            <h1 class="text-lg">Category</h1> <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-
-                        <!-- Dropdown menu -->
-                        <div id="dropdown" class="w-full h-auto hidden rounded">
+                        <div class="flex flex-col">
+                            <h1 class="text-lg pt-3 pl-3 font-bold">CATEGORY</h1>
                             <ul class="py-2 text-sm" aria-labelledby="dropdownDefaultButton">
-                                @if ($category->slug === 'article')
+                                @if ($category->slug === 'artikel')
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'isr-edu']) }}"
                                             class="block px-4 py-2 ">
