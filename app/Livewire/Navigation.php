@@ -68,7 +68,7 @@ class Navigation extends Component
     public function achievements()
     {
         return Achievement::published()->get()->groupBy(function ($achievement) {
-            return $achievement->created_at->year;
+            return $achievement->published_at->year;
         });
     }
 

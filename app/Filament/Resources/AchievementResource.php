@@ -102,8 +102,7 @@ class AchievementResource extends Resource
                                     ->optimize('webp')
                                     ->imageEditor(),
                                 DateTimePicker::make('published_at')
-                                    ->seconds(false)
-                                    ->disabled(),
+                                    ->seconds(false),
                                 TextInput::make('meta_description'),
                             ]),
                     ])
@@ -157,7 +156,11 @@ class AchievementResource extends Resource
                     ->color("primary")
                     ->visible(fn (Achievement $record): bool => ($record->status === "draft" || $record->status === "rejected") && $record->user->id === Auth::id()),
                 Tables\Actions\Action::make('accept')
-                    ->action(fn (Achievement $record) => $record->updateStatus('published'))
+                    ->action(
+                        fn (Achievement $record) => $record->statuses()->update([
+                            'name' => 'published',
+                        ])
+                    )
                     ->requiresConfirmation()
                     ->button()
                     ->size(ActionSize::Small)

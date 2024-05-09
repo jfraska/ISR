@@ -47,6 +47,6 @@ class Achievement extends Model implements HasMedia
 
     public function scopeYear($query, string $year)
     {
-        return $query->whereYear('created_at', $year);
+        return $query->whereYear('published_at', $year);
     }
 }
