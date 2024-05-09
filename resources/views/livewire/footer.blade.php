@@ -112,7 +112,7 @@
                             </p>
                         </div>
                         @foreach ($this->organizationals as $organizational)
-                            @if ($organizational->slug !== 'contact')
+                            @if ($organizational->slug !== 'contact' && $organizational->slug !== 'general')
                                 <div class="pb-1">
                                     <a wire:key="{{ $organizational->id }}"
                                         href="{{ route('abouts.show', $organizational->slug) }}"
