@@ -96,8 +96,10 @@
             class="hidden flex-col gap-2 overflow-y-scroll w-80 h-full border-r border-white py-4 px-6">
             <h1 class="font-bold mb-2">Tentang ISR</h1>
             @foreach ($this->organizationals as $organizational)
-                <a wire:key="{{ $organizational->id }}" href="{{ route('abouts.show', $organizational->slug) }}"
-                    class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $organizational->title }}</a>
+                @if ($organizational->slug !== 'contact' && $organizational->slug !== 'general')
+                    <a wire:key="{{ $organizational->id }}" href="{{ route('abouts.show', $organizational->slug) }}"
+                        class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $organizational->title }}</a>
+                @endif
             @endforeach
         </div>
         <div data-menu data-menu-target="ilmiah"
@@ -122,7 +124,7 @@
             @foreach ($this->departments as $department)
                 <a wire:key="{{ $department->id }}" href="{{ route('departments.show', $department->slug) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $department->title }}
-                    </>
+                </a>
             @endforeach
         </div>
         <div data-menu data-menu-target="rekrutmen" id="submenu-rekrutmen"
@@ -130,9 +132,10 @@
             <h1 class="font-bold mb-2">Rekrutmen</h1>
             @foreach ($this->recruitments as $recruitment)
                 <div id="{{ $recruitment->slug }}" data-menu data-submenu="{{ $recruitment->slug }}"
-                    wire:key="{{ $recruitment->id }}" class="flex flex-row pr-2">
+                    wire:key="{{ $recruitment->id }}" class="flex felx-row justify-between pr-2">
                     <a href="{{ route('recruitments.index', $recruitment->slug) }}"
                         class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $recruitment->name }}</a>
+                    <img src="/images/navbar/arrow.svg" alt="arrow" class="aspect-square w-5">
                 </div>
             @endforeach
         </div>
@@ -188,19 +191,18 @@
                     class="text-white text-xs px-4 py-3">{{ $subpost->name }}</a>
             @endforeach
         </div>
-        <div data-menu data-menu-target="lomba-umum" class="hidden flex-col overflow-y-scroll w-80">
-            @foreach ($this->subCompetitions('lomba-umum') as $subCompetition)
+        <div data-menu data-menu-target="umum" class="hidden flex-col overflow-y-scroll w-80">
+            @foreach ($this->subCompetitions('umum') as $subCompetition)
                 <a wire:key="{{ $subCompetition->id }}"
                     href="{{ route('competitions.index', ['category' => $subCompetition->slug]) }}"
                     class="text-white text-xs px-4 py-3">{{ $subCompetition->name }}</a>
             @endforeach
         </div>
-        <div data-menu data-menu-target="ajang-talenta-dikti" class="hidden flex-col overflow-y-scroll w-80">
-            @foreach ($this->subCompetitions('ajang-talenta-dikti') as $subCompetition)
-                <a wire:key="{{ $subCompetition->id }}"
-                    href="{{ route('competitions.index', ['category' => $subCompetition->slug]) }}"
-                    class="text-white text-xs px-4 py-3">{{ $subCompetition->name }}</a>
-            @endforeach
+        <div data-menu data-menu-target="#" class="hidden top-full left-0 h-full">
+            <p class="text-sm text-white font-bold block px-4 py-2">Ajang Talenta DIKTI</p>
+            <a href="#" class="text-white text-xs block px-4 py-3">P2MW</a>
+            <a href="#" class="text-white text-xs block px-4 py-3">PKKO</a>
+            <a href="#" class="text-white text-xs block px-4 py-3">PKM</a>
         </div>
     </div>
 </div>

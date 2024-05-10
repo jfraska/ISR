@@ -103,7 +103,6 @@ class AchievementResource extends Resource
                                     ->imageEditor(),
                                 DateTimePicker::make('published_at')
                                     ->seconds(false),
-                                    ->seconds(false),
                                 TextInput::make('meta_description'),
                             ]),
                     ])

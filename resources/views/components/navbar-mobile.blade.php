@@ -33,9 +33,11 @@
                 <div class="px-5">
                     <div class="flex-col gap-4 w-full px-6">
                         @foreach ($this->organizationals as $organizational)
-                            <a wire:key="{{ $organizational->id }}"
-                                href="{{ route('abouts.show', $organizational->slug) }}"
-                                class="text-sm flex w-full hover:text-[#F5D05E] px-5 py-1">{{ $organizational->title }}</a>
+                            @if ($organizational->slug !== 'contact' && $organizational->slug !== 'general')
+                                <a wire:key="{{ $organizational->id }}"
+                                    href="{{ route('abouts.show', $organizational->slug) }}"
+                                    class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $organizational->title }}</a>
+                            @endif
                         @endforeach
                     </div>
                 </div>
