@@ -19,7 +19,7 @@
                 <h1 class="max-w-2xl text-wrap text-center text-3xl font-medium">
                     {{ $post->title }}
                 </h1>
-                <p class="text-[10px] md:text-sm">
+                <p class="text-sm md:text-base">
                     {!! \Carbon\Carbon::parse($post->published_at)->format('d F Y, H:i') !!}
                 </p>
             </div>
