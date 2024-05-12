@@ -4,7 +4,7 @@
     <div class="article-body mt-5 grid grid-cols-12 items-start gap-3">
         <div class="col-span-4">
             <a href="{{ route('posts.show', ['category' => $post->categories->slug, 'post' => $post->slug]) }}">
-                <img class="h-full w-full rounded" src="{{ $post->getFirstMediaUrl() }}" alt="{{ $post->title }}" />
+                <img class="h-40 w-full rounded" src="{{ $post->getFirstMediaUrl() }}" alt="{{ $post->title }}" />
             </a>
         </div>
         <div class="col-span-8 pl-3">
@@ -30,7 +30,7 @@
                 {{ Illuminate\Support\Str::limit(strip_tags($post->excerpt()), 200) }}
             </p>
             <div
-                class="article-actions-bar mt-6 flex flex-col md:flex-row items-start md:items-center md:justify-between">
+                class="article-actions-bar mt-6 flex flex-col md:flex-row gap-y-3 items-start md:items-center md:justify-between">
                 <div class="flex gap-x-2">
                     @foreach ($post->tags as $tag)
                         <x-badge wire:navigate
@@ -39,7 +39,7 @@
                         </x-badge>
                     @endforeach
 
-                    <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-4">
                         <span class="text-sm text-gray-500">
                             {{ $post->getReadingTime() }} min read
                         </span>
