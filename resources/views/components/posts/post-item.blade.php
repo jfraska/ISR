@@ -19,16 +19,22 @@
                     {{ $post->title }}
                 </a>
             </h2>
-            <div class="bg-slate-500 w-fit p-1 rounded-md">
-                <p class="text-xs text-[#FFDF4E] leading-3">{{ $post->subCategories->first()->name }}</p>
-            </div>
+            @if ($post->categories->name === 'artikel' || $post->categories->name === 'mini-blog')
+                <div class="bg-slate-500 w-fit p-1 rounded-md">
+                    @if ($post->subCategories->first())
+                        <p class="text-xs text-[#FFDF4E] leading-3">{{ $post->subCategories->first()->name }}</p>
+                    @endif
+                </div>
+            @endif
             <p class="mt-2 text-sm font-light text-gray-700 w-full text-wrap overflow-hidden">
-                {{ Illuminate\Support\Str::limit(strip_tags($post->excerpt()), 200); }}
+                {{ Illuminate\Support\Str::limit(strip_tags($post->excerpt()), 200) }}
             </p>
-            <div class="article-actions-bar mt-6 flex items-center justify-between">
+            <div
+                class="article-actions-bar mt-6 flex flex-col md:flex-row items-start md:items-center md:justify-between">
                 <div class="flex gap-x-2">
                     @foreach ($post->tags as $tag)
-                        <x-badge wire:navigate href="{{ route('posts.detail', ['category' => $post->categories->slug, 'tag' => $tag->slug]) }}">
+                        <x-badge wire:navigate
+                            href="{{ route('posts.detail', ['category' => $post->categories->slug, 'tag' => $tag->slug]) }}">
                             {{ $tag->name }}
                         </x-badge>
                     @endforeach

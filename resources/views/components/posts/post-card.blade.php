@@ -2,7 +2,7 @@
 
 <div class="aspect-square w-60 rounded-lg bg-[#0D5568] shadow md:w-72">
     <a href="{{ route('posts.show', ['category' => $post->categories->slug, 'post' => $post->slug]) }}">
-        <div class="relative h-full rounded-lg bg-cover bg-center"
+        <div class="relative h-full rounded-t-lg bg-cover bg-center"
             style="background-image: url('{{ $post->getFirstMediaUrl() }}')">
             <p class="absolute bottom-2 left-2 text-wrap text-sm font-semibold text-white shadow-lg md:text-base">
                 {{ $post->title }}

@@ -10,8 +10,10 @@
         <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
             <x-breadcrumb :post="$post" menu="pojok-ilmiah" />
             <div class="mb-16 mt-5 flex flex-col items-center justify-start gap-5">
-                @if ($post->subCategories->first())
-                    <h2 class="text-sm">{{ $post->subCategories->first()->name }}</h2>
+                @if ($post->categories->name === 'artikel' || $post->categories->name === 'mini-blog')
+                    @if ($post->subCategories->first())
+                        <h2 class="text-sm">{{ $post->subCategories->first()->name }}</h2>
+                    @endif
                 @endif
 
                 <h1 class="max-w-2xl text-wrap text-center text-3xl font-medium">
@@ -51,20 +53,20 @@
                 <div class="w-full lg:w-3/4">
                     <div class="flex w-full flex-row justify-between border-b border-t border-gray-200 py-2">
                         <div class="flex">
-                            <p class="text-[10px] font-normal md:text-sm">
+                            <p class="text-[10px] font-normal sm:text-xs md:text-sm">
                                 Oleh: {{ $post->user->name }}
                             </p>
-                            <span class="text-[10px] text-gray-500 md:text-sm">
+                            <span class="text-[10px] text-gray-500 sm:text-xs md:text-sm">
                                 &nbsp;|&nbsp;{{ $post->getReadingTime() }} min
                                 read
                             </span>
                         </div>
                         <div class="flex">
-                            <span class="mr-2 text-gray-500 md:text-sm">
+                            <span class="mr-2 text-gray-500 text-xs md:text-sm">
                                 {{ $post->published_at->diffForHumans() }}
                             </span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.3"
-                                stroke="currentColor" class="h-5 w-5 text-gray-500">
+                                stroke="currentColor" class="w-3 md:w-5 aspect-square text-gray-500">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>

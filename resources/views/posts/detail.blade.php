@@ -3,7 +3,7 @@
 @section('title', 'Posts')
 
 @section('content')
-    <article class="min-h-[1500px]">
+    <article class="min-h-[2000px]">
         <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="background-image: url('/images/thumbnail-detail.png');">
         </div>
@@ -16,7 +16,7 @@
                     <livewire:post-list :category="$category">
                 </div>
                 <div id="side-bar" class="md:border-t-none top-0 col-span-4 h-screen space-y-10 md:col-span-1 md:px-0">
-                    <div class="flex flex-col gap-5 p-5 w-full h-auto rounded border border-gray-200">
+                    <div class="flex flex-col gap-5 py-5 w-full h-auto rounded border border-gray-200 px-3">
                         @include('posts.partials.search-box')
 
                         @include('posts.partials.tags-box')
@@ -24,19 +24,19 @@
 
                     {{-- Category Dropdown Start --}}
                     <div class="flex w-full border border-gray-200 rounded">
-                        <div class="flex flex-col">
-                            <h1 class="text-lg pt-3 pl-3 font-bold">CATEGORY</h1>
-                            <ul class="py-2 text-sm" aria-labelledby="dropdownDefaultButton">
+                        <div class="flex flex-col w-full">
+                            <h1 class="text-base md:text-sm lg:text-base pt-3 pl-3 font-bold">CATEGORY</h1>
+                            <ul class="py-2 text-sm flex flex-col" aria-labelledby="dropdownDefaultButton">
                                 @if ($category->slug === 'artikel')
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'isr-journey']) }}"
-                                            class="block px-4 py-2 ">
-                                            <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
+                                            class="block p-1">
+                                            <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
                                                 style="background-image: url('/images/sub-category/isr-journey.png');">
                                                 <div
-                                                    class="w-40 h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-2xl overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon">
-                                                    <p class="text-center text-sm font-bold text-[#FFDF4E]">
+                                                    class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         ISR JOURNEY</p>
                                                 </div>
                                             </div>
@@ -44,13 +44,13 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'opini-refleksi']) }}"
-                                            class="block px-4 py-2 ">
-                                            <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
+                                            class="block p-1">
+                                            <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
                                                 style="background-image: url('/images/sub-category/opini-refleksi.png');">
                                                 <div
-                                                    class="w-40 h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-2xl overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon">
-                                                    <p class="text-center text-sm font-bold text-[#FFDF4E]">
+                                                    class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         OPINI & REFLEKSI</p>
                                                 </div>
                                             </div>
@@ -58,13 +58,13 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'tips-trick']) }}"
-                                            class="block px-4 py-2 ">
-                                            <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
+                                            class="block p-1">
+                                            <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
                                                 style="background-image: url('/images/sub-category/tips-trick.png');">
                                                 <div
-                                                    class="w-40 h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-2xl overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon">
-                                                    <p class="text-center text-sm font-bold text-[#FFDF4E]">
+                                                    class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         TIPS & TRICK</p>
                                                 </div>
                                             </div>
@@ -72,13 +72,13 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'prestasi-isr']) }}"
-                                            class="block px-4 py-2 ">
-                                            <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
+                                            class="block p-1">
+                                            <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
                                                 style="background-image: url('/images/sub-category/prestasi-isr.png');">
                                                 <div
-                                                    class="w-40 h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-2xl overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon">
-                                                    <p class="text-center text-sm font-bold text-[#FFDF4E]">
+                                                    class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         PRESTASI ISR</p>
                                                 </div>
                                             </div>
@@ -89,13 +89,13 @@
                                 @if ($category->slug === 'mini-blog')
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'fact-in-research']) }}"
-                                            class="block px-4 py-2 ">
-                                            <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
+                                            class="block p-1">
+                                            <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
                                                 style="background-image: url('/images/sub-category/fact-research.png');">
                                                 <div
-                                                    class="w-40 h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-2xl overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon">
-                                                    <p class="text-center text-sm font-bold text-[#FFDF4E]">
+                                                    class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         FACT IN RESEARCH</p>
                                                 </div>
                                             </div>
@@ -103,13 +103,13 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'isr-edu']) }}"
-                                            class="block px-4 py-2 ">
-                                            <div class="p-5 flex flex-col items-center h-full bg-cover bg-center rounded-lg"
+                                            class="block p-1">
+                                            <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
                                                 style="background-image: url('/images/sub-category/isr-edu.png');">
                                                 <div
-                                                    class="w-40 h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-2xl overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon">
-                                                    <p class="text-center text-sm font-bold text-[#FFDF4E]">
+                                                    class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         ISR EDU</p>
                                                 </div>
                                             </div>
@@ -122,7 +122,7 @@
                     {{-- Category Dropdown End --}}
 
                     {{-- Post Populer Start --}}
-                    <div class="flex flex-col w-full h-auto rounded border border-gray-200 p-3">
+                    <div class="hidden md:flex flex-col w-full h-auto rounded border border-gray-200 p-3">
                         <div class="text-xl font-medium">{{ $category->name }} Populer</div>
                         @foreach ($populars as $item)
                             <a
