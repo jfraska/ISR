@@ -10,10 +10,12 @@
                 ">
                 <div class="absolute bottom-0 left-0 w-full h-44 bg-[#0D5568] bg-opacity-50">
                     <div class="absolute bottom-5 left-20 w-auto h-auto">
-                        <h1 class="text-sm md:text-2xl font-bold text-white text-wrap pb-4">{{ $post->title }}</h1>
+                        <h1 class="text-sm md:text-2xl font-bold text-white text-wrap pb-4">
+                            {{ Illuminate\Support\Str::limit(strip_tags($post->title), 50) }}</h1>
                         @foreach ($post->content as $item)
                             @if ($item['type'] === 'paragraph')
-                                <p class="text-white text-xs md:text-base pb-3">{{ Illuminate\Support\Str::limit(strip_tags($item['data']['content']), 200) }}</p>
+                                <p class="text-white text-xs md:text-base pb-3">
+                                    {{ Illuminate\Support\Str::limit(strip_tags($item['data']['content']), 200) }}</p>
                             @endif
                         @endforeach
                         <p class="text-white text-xs md:text-base">{!! \Carbon\Carbon::parse($post->published_at)->format('d F Y') !!}</p>
