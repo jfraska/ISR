@@ -10,7 +10,7 @@
                 ">
                 <div class="absolute bottom-0 left-0 w-full h-44 bg-[#0D5568] bg-opacity-50">
                     <div class="absolute bottom-5 left-20 w-auto h-auto">
-                        <h1 class="text-sm md:text-xl font-bold text-white text-wrap pb-2 md:pb-4">
+                        <h1 class="text-sm md:text-xl lg:text-2xl font-bold text-white text-wrap pb-2 md:pb-4">
                             {{ Illuminate\Support\Str::limit(strip_tags($post->title), 50) }}</h1>
                         @foreach ($post->content as $item)
                             @if ($item['type'] === 'paragraph')
