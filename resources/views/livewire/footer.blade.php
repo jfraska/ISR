@@ -28,15 +28,17 @@
                                         @if ($organizational->slug === 'contact')
                                             <div class="">
                                                 @foreach ($organizational->content as $item)
-                                                    @if ($item['data']['name'] === 'Telepon ISR')
-                                                        <p class="text-sm text-white pb-1">
-                                                            Telp. {!! $item['data']['number'] !!}
-                                                        </p>
-                                                    @endif
-                                                    @if ($item['data']['name'] === 'WhatsApp ISR')
-                                                        <p class="text-sm text-white pb-1">
-                                                            WhatsApp. {!! $item['data']['number'] !!}
-                                                        </p>
+                                                    @if ($item['type'] === 'contact')
+                                                        @if ($item['data']['name'] === 'Telepon ISR')
+                                                            <p class="text-sm text-white pb-1">
+                                                                Telp. {!! $item['data']['number'] !!}
+                                                            </p>
+                                                        @endif
+                                                        @if ($item['data']['name'] === 'WhatsApp ISR')
+                                                            <p class="text-sm text-white pb-1">
+                                                                WhatsApp. {!! $item['data']['number'] !!}
+                                                            </p>
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </div>
@@ -59,15 +61,17 @@
                                 @if ($organizational->slug === 'contact')
                                     <div class="">
                                         @foreach ($organizational->content as $item)
-                                            @if ($item['data']['name'] === 'Telepon Media Partner')
-                                                <p class="text-sm text-white pb-1">
-                                                    Telp. {!! $item['data']['number'] !!}
-                                                </p>
-                                            @endif
-                                            @if ($item['data']['name'] === 'WhatsApp Media Partner')
-                                                <p class="text-sm text-white pb-1">
-                                                    WhatsApp. {!! $item['data']['number'] !!}
-                                                </p>
+                                            @if ($item['type'] === 'contact')
+                                                @if ($item['data']['name'] === 'Telepon Media Partner')
+                                                    <p class="text-sm text-white pb-1">
+                                                        Telp. {!! $item['data']['number'] !!}
+                                                    </p>
+                                                @endif
+                                                @if ($item['data']['name'] === 'WhatsApp Media Partner')
+                                                    <p class="text-sm text-white pb-1">
+                                                        WhatsApp. {!! $item['data']['number'] !!}
+                                                    </p>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>
@@ -84,15 +88,17 @@
                                 @if ($organizational->slug === 'contact')
                                     <div class="">
                                         @foreach ($organizational->content as $item)
-                                            @if ($item['data']['name'] === 'Telepon Keuangan')
-                                                <p class="text-sm text-white pb-1">
-                                                    Telp. {!! $item['data']['number'] !!}
-                                                </p>
-                                            @endif
-                                            @if ($item['data']['name'] === 'WhatsApp Keuangan')
-                                                <p class="text-sm text-white pb-1">
-                                                    WhatsApp. {!! $item['data']['number'] !!}
-                                                </p>
+                                            @if ($item['type'] === 'contact')
+                                                @if ($item['data']['name'] === 'Telepon Keuangan')
+                                                    <p class="text-sm text-white pb-1">
+                                                        Telp. {!! $item['data']['number'] !!}
+                                                    </p>
+                                                @endif
+                                                @if ($item['data']['name'] === 'WhatsApp Keuangan')
+                                                    <p class="text-sm text-white pb-1">
+                                                        WhatsApp. {!! $item['data']['number'] !!}
+                                                    </p>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>

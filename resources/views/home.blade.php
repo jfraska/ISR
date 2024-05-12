@@ -366,12 +366,14 @@
                 @foreach ($berita as $beritas)
                     <div
                         class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                        <a href="{{ route('posts.show', ["category" => $beritas->categories->slug, "post" => $beritas->slug]) }}" class="flex justify-center">
+                        <a href="{{ route('posts.show', ['category' => $beritas->categories->slug, 'post' => $beritas->slug]) }}"
+                            class="flex justify-center">
                             <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $beritas->getFirstMediaUrl() }}"
                                 alt="berita terkini" />
                         </a>
                         <div class="px-14">
-                            <a href="{{ route('posts.show', ["category" => $beritas->categories->slug, "post" => $beritas->slug]) }}">
+                            <a
+                                href="{{ route('posts.show', ['category' => $beritas->categories->slug, 'post' => $beritas->slug]) }}">
                                 @php
                                     $words = explode(' ', $beritas->title);
                                     $limitedTitle = implode(' ', array_slice($words, 0, 7));
@@ -420,12 +422,14 @@
             @foreach ($artikel as $artikels)
                 <div
                     class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#f5d05e] border-r-[#f5d05e] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                    <a href="{{ route('posts.show', ["category" => $artikels->categories->slug, "post" => $artikels->slug]) }}" class="flex justify-center">
+                    <a href="{{ route('posts.show', ['category' => $artikels->categories->slug, 'post' => $artikels->slug]) }}"
+                        class="flex justify-center">
                         <img class="m-3 h-[179px] w-[248px] rounded-xl" src="{{ $artikels->getFirstMediaUrl() }}"
                             alt="berita terkini" />
                     </a>
                     <div class="px-14">
-                        <a href="{{ route('posts.show', ["category" => $artikels->categories->slug, "post" => $artikels->slug]) }}">
+                        <a
+                            href="{{ route('posts.show', ['category' => $artikels->categories->slug, 'post' => $artikels->slug]) }}">
                             @php
                                 $words = explode(' ', $artikels->title);
                                 $limitedTitle = implode(' ', array_slice($words, 0, 7));
@@ -474,12 +478,14 @@
         @foreach ($miniBlog as $miniBlogs)
             <div
                 class="h-[581px] w-[369px] rounded-[30px] border-b-[14px] border-r-[14px] border-b-[#0D5568] border-r-[#0D5568] bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                <a href="{{ route('posts.show', ["category" => $miniBlogs->categories->slug, "post" => $miniBlogs->slug]) }}" class="flex justify-center">
+                <a href="{{ route('posts.show', ['category' => $miniBlogs->categories->slug, 'post' => $miniBlogs->slug]) }}"
+                    class="flex justify-center">
                     <img class="m-3 h-[179px] w-[248px] rounded-xl"
                         src="{{ $miniBlogs->getFirstMediaUrl() }}" alt="berita terkini" />
                 </a>
                 <div class="px-14">
-                    <a href="{{ route('posts.show', ["category" => $miniBlogs->categories->slug, "post" => $miniBlogs->slug]) }}">
+                    <a
+                        href="{{ route('posts.show', ['category' => $miniBlogs->categories->slug, 'post' => $miniBlogs->slug]) }}">
                         @php
                             $words = explode(' ', $miniBlogs->title);
                             $limitedTitle = implode(' ', array_slice($words, 0, 7));
@@ -520,41 +526,52 @@
 
 {{-- Start Kegiatan --}}
 <section>
+@php
+    $left = true;
+@endphp
 <div class="mx-auto flex w-full flex-col p-0">
-<div class="flex h-[400px] w-full justify-between">
-    <div class="w-full">
-        <img src="/images/kegiatan.png" alt=""
-            class="h-full w-full bg-cover object-cover object-center" />
-    </div>
-    <div class="flex w-full items-center justify-center bg-[#0D5568]">
-        <div class="flex-col px-2">
-            <p class="text-[20px] font-bold" style="color: #f5d05e">
-                Kegiatan 1
-            </p>
-            <p class="text-[15px]" style="color: #f5d05e">
-                Penjelasan kegiatan beberapa kata sampai satu
-                paragraf
-            </p>
+@foreach ($kegiatan->content as $item)
+    @if ($left === true)
+        <div class="flex h-[200px] md:h-[400px] w-full justify-between">
+            <div class="w-full">
+                <img src="{{ asset('storage/' . $item['data']['image']) }}" alt=""
+                    class="h-full w-full bg-cover object-cover object-center" />
+            </div>
+            <div class="flex w-full items-center justify-center bg-[#0D5568]">
+                <div class="flex-col px-2 md:w-3/4">
+                    <p class="text-[10px] md:text-[20px] font-bold" style="color: #f5d05e">
+                        Kegiatan 1
+                    </p>
+                    <p class="text-[10px] md:text-[15px] w-full max-h-[150px] md:max-h-[315px] text-ellipsis overflow-hidden"
+                        style="color: #f5d05e">
+                        {{ $item['data']['description'] }}
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="flex h-[400px] w-full justify-between">
-    <div class="flex w-full items-center justify-center bg-[#F5D05E]">
-        <div class="flex-col px-2">
-            <p class="text-[20px] font-bold" style="color: #0d5568">
-                Kegiatan 2
-            </p>
-            <p class="text-[15px]" style="color: #0d5568">
-                Penjelasan kegiatan beberapa kata sampai satu
-                paragraf
-            </p>
+        @php
+            $left = false;
+        @endphp
+    @elseif ($left === false)
+        <div class="flex h-[200px] md:h-[400px] w-full justify-between">
+            <div class="flex w-full items-center justify-center bg-[#F5D05E]">
+                <div class="flex-col px-2 md:w-3/4">
+                    <p class="text-[10px] md:text-[20px] font-bold" style="color: #0d5568">
+                        Kegiatan 2
+                    </p>
+                    <p class="text-[10px] md:text-[15px] w-full max-h-[150px] md:max-h-[315px] text-ellipsis overflow-hidden"
+                        style="color: #0d5568">
+                        {{ $item['data']['description'] }}
+                    </p>
+                </div>
+            </div>
+            <div class="w-full">
+                <img src="{{ asset('storage/' . $item['data']['image']) }}" alt=""
+                    class="h-full w-full bg-cover object-cover object-center" />
+            </div>
         </div>
-    </div>
-    <div class="w-full">
-        <img src="/images/kegiatan.png" alt=""
-            class="h-full w-full bg-cover object-cover object-center" />
-    </div>
-</div>
+    @endif
+@endforeach
 </div>
 </section>
 {{-- End Kegiatan --}}

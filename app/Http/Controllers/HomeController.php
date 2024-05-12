@@ -23,6 +23,7 @@ class HomeController extends Controller
         $profil = Organizational::where('slug', 'profile')->first();
         $misi = Organizational::where('slug', 'mission')->first();
         $kabinet = Organizational::where('slug', 'cabinet')->first();
+        $kegiatan = Organizational::where('slug', 'general')->first();
 
         return view('home', [
             // 'posts' => $posts,
@@ -32,7 +33,8 @@ class HomeController extends Controller
             'agenda' => $agenda,
             'profil' => $profil,
             'misi' => $misi,
-            'kabinet' => $kabinet
+            'kabinet' => $kabinet,
+            'kegiatan' => $kegiatan
         ]);
     }
 

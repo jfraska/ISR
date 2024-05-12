@@ -36,7 +36,7 @@
                             @if ($organizational->slug !== 'contact' && $organizational->slug !== 'general')
                                 <a wire:key="{{ $organizational->id }}"
                                     href="{{ route('abouts.show', $organizational->slug) }}"
-                                    class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $organizational->title }}</a>
+                                    class="text-sm flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $organizational->title }}</a>
                             @endif
                         @endforeach
                     </div>
@@ -244,10 +244,10 @@
                     data-accordion-target="#accordion-open-body-6" aria-expanded="false"
                     aria-controls="accordion-open-body-6">
                     <span class="flex items-center">
-                        <a data-menu id="isr-mobile" href="#"
+                        <a data-menu id="kompetisi-mobile" href="#"
                             class="flex w-full hover:text-[#F5D05E] items-center justify-between pt-4 px-4">
                             <div class="flex gap-2 items-center">
-                                <img src="/images/navbar/prestasi.svg" alt="isr" class="w-12 aspect-square">
+                                <img src="/images/navbar/kompetisi.svg" alt="isr" class="w-12 aspect-square">
                                 <div class="flex flex-col justify-center items-start">
                                     <p class="font-bold">Kompetisi</p>
                                     <p class="text-sm">Pendaftaran lomba dan kompetisi</p>
@@ -298,10 +298,10 @@
                     data-accordion-target="#accordion-open-body-1" aria-expanded="false"
                     aria-controls="accordion-open-body-1">
                     <span class="flex items-center">
-                        <a data-menu id="isr-mobile" href="#"
+                        <a data-menu id="download" href="#"
                             class="flex w-full hover:text-[#F5D05E] items-center justify-between pt-4 px-4">
                             <div class="flex gap-2 items-center">
-                                <img src="/images/navbar/prestasi.svg" alt="isr" class="w-12 aspect-square">
+                                <img src="/images/navbar/download.svg" alt="isr" class="w-12 aspect-square">
                                 <div class="flex flex-col justify-center items-start">
                                     <p class="font-bold">Download</p>
                                     <p class="text-sm">Asset ISR dan dokumen SOP</p>

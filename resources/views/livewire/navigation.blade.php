@@ -40,21 +40,42 @@
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <div
                     class="mt-4 flex flex-col items-center rounded-lg border border-gray-100 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
-                    <div>
-                        <a href="#" class="block px-0" aria-current="page">
-                            <img src="/images/instagram.svg" class="h-5" alt="ISR instagram" />
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#" class="block px-0" aria-current="page">
-                            <img src="/images/twitter.svg" class="h-5" alt="ISR Twitter" />
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#" class="block px-0" aria-current="page">
-                            <img src="/images/youtube.svg" class="h-5" alt="ISR Youtube" />
-                        </a>
-                    </div>
+                    @foreach ($this->organizationals as $organizational)
+                        @if ($organizational->slug === 'contact')
+                            @foreach ($organizational->content as $item)
+                                @if ($item['type'] === 'sosmed')
+                                    @if ($item['data']['sosmed'] === 'instagram')
+                                        <div>
+                                            <a href="{{ $item['data']['url'] }}" class="block px-0" aria-current="page">
+                                                <img src="/images/instagram.svg" class="h-5" alt="ISR instagram" />
+                                            </a>
+                                        </div>
+                                    @endif
+                                    @if ($item['data']['sosmed'] === 'twitter')
+                                        <div>
+                                            <a href="{{ $item['data']['url'] }}" class="block px-0" aria-current="page">
+                                                <img src="/images/x.svg" class="h-5" alt="ISR twitter" />
+                                            </a>
+                                        </div>
+                                    @endif
+                                    @if ($item['data']['sosmed'] === 'youtube')
+                                        <div>
+                                            <a href="{{ $item['data']['url'] }}" class="block px-0" aria-current="page">
+                                                <img src="/images/youtube.svg" class="h-5" alt="ISR youtube" />
+                                            </a>
+                                        </div>
+                                    @endif
+                                    @if ($item['data']['sosmed'] === 'tiktok')
+                                        <div>
+                                            <a href="{{ $item['data']['url'] }}" class="block px-0" aria-current="page">
+                                                <img src="/images/tiktok.svg" class="h-5" alt="ISR tiktok" />
+                                            </a>
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
                     <div>
                         <a href="#" class="ml-10 block" aria-current="page">
                             <img src="/images/search.svg" class="h-5" alt="Search" />
