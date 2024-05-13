@@ -76,11 +76,11 @@
                             @endforeach
                         @endif
                     @endforeach
-                    <div>
+                    {{-- <div>
                         <a href="#" class="ml-10 block" aria-current="page">
                             <img src="/images/search.svg" class="h-5" alt="Search" />
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 {{-- @auth
                     @include('layouts.partials.header-right-auth')

@@ -48,18 +48,17 @@
                             <a
                                 href="{{ route('downloads.show', ['category' => $category->slug, 'download' => $item->slug]) }}">
                                 <div class="flex w-full flex-row items-start justify-start gap-2 py-2">
-                                    <div class="w-1/3 rounded-md">
-                                        <img src="{{ $item->getFirstMediaUrl() }}" alt="{{ $item->title }}"
-                                            class="aspect-square w-full rounded" />
-                                    </div>
-                                    <div class="flex w-2/3 flex-col items-start gap-2">
-                                        <div class="text-xs font-semibold">
+                                    <div class="flex w-full flex-col items-start gap-2 border-b border-gray-200">
+                                        <div class="text-base font-semibold">
                                             {{ Illuminate\Support\Str::limit(strip_tags($item->title), 50) }}
                                         </div>
-                                        <p class="text-xs font-medium">
+                                        <p class="text-xs md:text-sm font-normal">
+                                            {{ $download->published_at->format('d F Y') }}</p>
+                                        </p>
+                                        {{-- <p class="text-sm font-medium">
                                             Read in {{ $item->getReadingTime() }}
                                             minutes
-                                        </p>
+                                        </p> --}}
                                     </div>
                                 </div>
                             </a>

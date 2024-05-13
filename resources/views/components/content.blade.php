@@ -55,7 +55,7 @@
         @endif
 
         @if ($item['type'] === 'image' && $contentType === 'post')
-            <img src="{{ $item['data']['url'] }}" alt="{{ $item['data']['alt'] }}" class="mb-4">
+            <img src="{{ asset('storage/' . $item['data']['url']) }}" alt="{{ $item['data']['alt'] }}" class="mb-4">
         @endif
 
         @if ($item['type'] === 'attachments')
