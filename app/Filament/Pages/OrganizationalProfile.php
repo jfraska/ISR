@@ -60,7 +60,7 @@ class OrganizationalProfile extends Page
     {
         return FilamentPageSidebar::make()
             ->setTitle('Organizational')
-            ->setDescription('profile ukm, visi dan misi, struktur organisasi, profil kabinet')
+            ->setDescription('profile ukm, visi dan misi, struktur organisasi, profil kabinet, sambutan ketua, sambutan pembimbing')
             ->setNavigationItems([
                 PageNavigationItem::make('Profile UKM')
                     ->translateLabel()
@@ -88,6 +88,20 @@ class OrganizationalProfile extends Page
                     ->url(CabinetProfile::getUrl())
                     ->isActiveWhen(function () {
                         return request()->routeIs(CabinetProfile::getRouteName());
+                    })
+                    ->visible(true),
+                PageNavigationItem::make('Sambutan Ketua')
+                    ->translateLabel()
+                    ->url(CabinetProfile::getUrl())
+                    ->isActiveWhen(function () {
+                        return request()->routeIs(SambutanKetua::getRouteName());
+                    })
+                    ->visible(true),
+                PageNavigationItem::make('Sambutan Pembimbing')
+                    ->translateLabel()
+                    ->url(CabinetProfile::getUrl())
+                    ->isActiveWhen(function () {
+                        return request()->routeIs(SambutanPembimbing::getRouteName());
                     })
                     ->visible(true),
             ]);
@@ -185,7 +199,7 @@ class OrganizationalProfile extends Page
                                                             return 'Heading';
                                                         }
 
-                                                        return $state['content'] ?? 'Untitled heading';
+                                                        return $state['level'] ?? 'Untitled heading';
                                                     })
                                                     ->icon('heroicon-o-bookmark')
                                                     ->columns(2),

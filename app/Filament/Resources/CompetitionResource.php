@@ -198,7 +198,7 @@ class CompetitionResource extends Resource
                 TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
                 TextColumn::make('user.name')->label('Author'),
-                TextColumn::make('link'),
+                TextColumn::make('link')->limit(10),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
                 TextColumn::make('statuses.name')
                     ->label('Status')

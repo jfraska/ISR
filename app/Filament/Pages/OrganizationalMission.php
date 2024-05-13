@@ -11,11 +11,9 @@ use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
@@ -28,7 +26,6 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
-use Illuminate\Support\Str;
 
 use function Filament\authorize;
 
@@ -57,7 +54,7 @@ class OrganizationalMission extends Page
     {
         return FilamentPageSidebar::make()
             ->setTitle('Organizational')
-            ->setDescription('profile ukm, visi dan misi, struktur organisasi, profil kabinet')
+            ->setDescription('profile ukm, visi dan misi, struktur organisasi, profil kabinet, sambutan ketua, sambutan pembimbing')
             ->setNavigationItems([
                 PageNavigationItem::make('Profile UKM')
                     ->translateLabel()
@@ -85,6 +82,20 @@ class OrganizationalMission extends Page
                     ->url(CabinetProfile::getUrl())
                     ->isActiveWhen(function () {
                         return request()->routeIs(CabinetProfile::getRouteName());
+                    })
+                    ->visible(true),
+                PageNavigationItem::make('Sambutan Ketua')
+                    ->translateLabel()
+                    ->url(CabinetProfile::getUrl())
+                    ->isActiveWhen(function () {
+                        return request()->routeIs(SambutanKetua::getRouteName());
+                    })
+                    ->visible(true),
+                PageNavigationItem::make('Sambutan Pembimbing')
+                    ->translateLabel()
+                    ->url(CabinetProfile::getUrl())
+                    ->isActiveWhen(function () {
+                        return request()->routeIs(SambutanPembimbing::getRouteName());
                     })
                     ->visible(true),
             ]);
@@ -152,7 +163,6 @@ class OrganizationalMission extends Page
                                                 Builder\Block::make('heading')
                                                     ->schema([
                                                         TextInput::make('content')
-                                                            ->autocapitalize('words')
                                                             ->required(),
                                                         Select::make('level')
                                                             ->options([
@@ -167,7 +177,7 @@ class OrganizationalMission extends Page
                                                             return 'Heading';
                                                         }
 
-                                                        return $state['content'] ?? 'Untitled heading';
+                                                        return $state['level'] ?? 'Untitled heading';
                                                     })
                                                     ->icon('heroicon-o-bookmark')
                                                     ->columns(2),

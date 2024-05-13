@@ -11,7 +11,7 @@ use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
@@ -127,8 +127,10 @@ class General extends Page
                                     ->optimize('webp')
                                     ->imageEditor()
                                     ->required(),
-                                TextInput::make('description')
-                                    ->required(),
+                                RichEditor::make('description')
+                                    ->disableToolbarButtons([
+                                        'attachFiles'
+                                    ])->required()
                             ])
                             ->icon('heroicon-o-flag'),
                     ])

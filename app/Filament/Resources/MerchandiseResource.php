@@ -139,7 +139,7 @@ class MerchandiseResource extends Resource
                 TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
-                TextColumn::make('link'),
+                TextColumn::make('link')->limit(10),
                 TextColumn::make('statuses.name')
                     ->label('Status')
                     ->badge()

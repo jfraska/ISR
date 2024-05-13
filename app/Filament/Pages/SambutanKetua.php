@@ -2,24 +2,20 @@
 
 namespace App\Filament\Pages;
 
-
 use App\Models\Organizational;
 use AymanAlhattami\FilamentPageWithSidebar\FilamentPageSidebar;
 use AymanAlhattami\FilamentPageWithSidebar\PageNavigationItem;
-use AymanAlhattami\FilamentPageWithSidebar\Traits\HasPageSidebar;
-use Filament\Forms\Components\Builder;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -31,17 +27,13 @@ use Livewire\Attributes\Locked;
 
 use function Filament\authorize;
 
-class CabinetProfile extends Page
+class SambutanKetua extends Page
 {
-    use HasPageSidebar;
-
-    use InteractsWithFormActions;
-
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament.pages.cabinet-profile';
+    protected static string $view = 'filament.pages.sambutan-ketua';
 
-    protected static ?string $title = 'Profil Kabinet';
+    protected static ?string $title = 'Sambutan Ketua';
 
     public ?array $data = [];
 
@@ -107,7 +99,7 @@ class CabinetProfile extends Page
     public function mount(): void
     {
         $this->record = Organizational::firstOrNew([
-            'slug' => 'cabinet',
+            'slug' => 'sambutan-ketua',
         ]);
 
         abort_unless(static::canView($this->record), 404);
@@ -151,27 +143,12 @@ class CabinetProfile extends Page
                     ->tabs([
                         Tabs\Tab::make('Content')
                             ->schema([
-                                Group::make()
-                                    ->schema([
-                                        TextInput::make('title')
-                                            ->required(),
-                                        TextInput::make('slug')
-                                            ->readOnly(),
-                                    ])->columns(1),
-                                SpatieMediaLibraryFileUpload::make('image')
-                                    ->label('Logo')
-                                    ->required()
-                                    ->image()
-                                    ->directory('logos/kabinet')
-                                    ->maxSize(2048)
-                                    ->optimize('webp')
-                                    ->imageEditor()
-                                    ->imageResizeMode('contain')
-                                    ->imageCropAspectRatio('1:1')
-                                    ->panelAspectRatio('1:1')
-                                    ->panelLayout('compact')
-                                    ->extraAttributes(['class' => 'w-32 aspect-square'])
-                                    ->acceptedFileTypes(['image/png', 'image/jpeg']),
+                                Split::make([
+                                    TextInput::make('title')
+                                        ->required(),
+                                    TextInput::make('slug')
+                                        ->readOnly(),
+                                ])->columnSpanFull(),
                                 Fieldset::make('Content')
                                     ->schema([
                                         Builder::make('content')
@@ -181,7 +158,6 @@ class CabinetProfile extends Page
                                                 Builder\Block::make('heading')
                                                     ->schema([
                                                         TextInput::make('content')
-                                                            ->autocapitalize('words')
                                                             ->required(),
                                                         Select::make('level')
                                                             ->options([
