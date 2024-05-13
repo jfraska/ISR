@@ -113,10 +113,7 @@ class RecruitmentResource extends Resource
                                     ->required()
                                     ->url()
                                     ->suffixIcon('heroicon-m-globe-alt'),
-                                RichEditor::make('content')
-                                    ->disableToolbarButtons([
-                                        'attachFiles'
-                                    ])->required(),
+                                RichEditor::make('content')->required(),
                             ]),
 
                         Section::make('Meta')
