@@ -5,15 +5,16 @@
 
 @section('content')
     <article class="col-span-4 flex h-full w-full flex-col items-center md:col-span-3">
-        <div class="h-[75vh] w-full bg-cover bg-center"
+        <div class="h-[75vh] w-full bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="
                 background-image: url('{{ $competition->getFirstMediaUrl() }}');
             ">
             >
         </div>
-        <div class="z-20 -mt-20 flex w-5/6 flex-col bg-white px-5">
+        <div class="z-20 -mt-20 flex w-5/6 flex-col rounded bg-white p-8">
+            <x-breadcrumb :post="$competition" menu="competitions" />
             <div class="flex flex-col items-center justify-center gap-5 p-5">
-                <h2 class="text-sm font-normal">{{ $competition->subCategories }}</h2>
+                <h2 class="text-sm font-normal">{{ $competition->subCategories->first()->name }}</h2>
                 <h1 class="max-w-lg text-wrap text-center text-3xl font-medium">
                     {{ $competition->title }}
                 </h1>

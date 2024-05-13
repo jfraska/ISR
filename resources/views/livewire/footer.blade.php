@@ -1,4 +1,4 @@
-<div class="">
+<div class="flex w-full">
     <div class="flex w-full flex-col">
         <div class="mx-auto w-4/5">
             <div

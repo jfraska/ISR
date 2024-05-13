@@ -191,15 +191,15 @@
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subpost->name }}</a>
             @endforeach
         </div>
-        <div data-menu data-menu-target="umum" class="hidden flex-col overflow-y-scroll w-80">
-            @foreach ($this->subCompetitions('umum') as $subCompetition)
+        <div data-menu data-menu-target="lomba-umum" class="hidden flex-col overflow-y-scroll w-80">
+            @foreach ($this->subCompetitions('lomba-umum') as $subCompetition)
                 <a wire:key="{{ $subCompetition->id }}"
                     href="{{ route('competitions.index', ['category' => $subCompetition->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subCompetition->name }}</a>
             @endforeach
         </div>
-        <div data-menu data-menu-target="dikti" class="hidden flex-col overflow-y-scroll w-80">
-            @foreach ($this->subCompetitions('dikti') as $subCompetition)
+        <div data-menu data-menu-target="ajang-talenta-dikti" class="hidden flex-col overflow-y-scroll w-80">
+            @foreach ($this->subCompetitions('ajang-talenta-dikti') as $subCompetition)
                 <a wire:key="{{ $subCompetition->id }}"
                     href="{{ route('competitions.index', ['category' => $subCompetition->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subCompetition->name }}</a>

@@ -8,7 +8,7 @@
             <img
                 src="/images/showMerchandise.png"
                 alt="merchandise"
-                class="h-ful w-full lg:h-[50%]"
+                class="h-ful w-full lg:h-[50%] bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             />
             <div class="flex items-center justify-end">
                 <h1

@@ -5,7 +5,8 @@
 
 @section('content')
     <article class="col-span-4 w-full md:col-span-3 h-full flex flex-col items-center">
-        <div class="w-full h-[75vh] bg-cover bg-center shadow-md" style="background-image: url('/images/artikel.png');">
+        <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
+            style="background-image: url('/images/artikel.png');">
         </div>
         <div class="flex flex-col px-5 bg-white -mt-20 z-20 w-11/12 md:w-5/6">
             <div class="flex flex-col items-center justify-center p-5 gap-5">
@@ -42,17 +43,26 @@
                 </div>
                 <div class="flex w-full lg:w-1/4 py-2">
                     <div class="flex flex-col w-full rounded-md border-[1.5px] px-3">
-                        <div class="text-xl font-medium pb-3">DOWNLOAD TERKINI</div>
+                        <div class="text-lg font-medium pb-3">DOWNLOAD LAINNYA</div>
                         @foreach ($downloads as $item)
-                            <div class="flex flex-row w-full py-2">
-                                <div class="w-1/3 rounded-md">
-                                    <img src="{{ $item->getFirstMediaUrl() }}" alt="Img">
+                            <a
+                                href="{{ route('downloads.show', ['category' => $category->slug, 'download' => $item->slug]) }}">
+                                <div class="flex w-full flex-row items-start justify-start gap-2 py-2">
+                                    <div class="w-1/3 rounded-md">
+                                        <img src="{{ $item->getFirstMediaUrl() }}" alt="{{ $item->title }}"
+                                            class="aspect-square w-full rounded" />
+                                    </div>
+                                    <div class="flex w-2/3 flex-col items-start gap-2">
+                                        <div class="text-xs font-semibold">
+                                            {{ Illuminate\Support\Str::limit(strip_tags($item->title), 50) }}
+                                        </div>
+                                        <p class="text-xs font-medium">
+                                            Read in {{ $item->getReadingTime() }}
+                                            minutes
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="flex flex-col items-start">
-                                    <div class="text-md font-medium">{{ $item->title }}</div>
-                                    Read in {{ $item->getReadingTime() }} minutes
-                                </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>
@@ -65,7 +75,7 @@
             @endforeach
         </div> --}}
 
-        <div class="flex flex-row justify-center lg:justify-start w-full lg:w-3/4">
+        <div class="flex flex-row justify-center lg:justify-start px-5 w-full lg:w-3/4">
             <livewire:post-comments :model="$download" />
         </div>
     </article>

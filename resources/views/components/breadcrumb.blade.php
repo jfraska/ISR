@@ -27,6 +27,7 @@
                 Home
             </a>
         </li>
+        @if ($menu === 'pojok-ilmiah')
         <li>
             <div class="flex items-center">
                 <svg
@@ -52,6 +53,7 @@
                 </a>
             </div>
         </li>
+        @endif
         <li>
             <div class="flex items-center">
                 <svg

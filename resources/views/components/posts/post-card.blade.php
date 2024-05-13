@@ -5,7 +5,7 @@
         <div class="relative h-full rounded-t-lg bg-cover bg-center"
             style="background-image: url('{{ $post->getFirstMediaUrl() }}')">
             <p class="absolute bottom-2 left-2 text-wrap text-sm font-semibold text-white shadow-lg md:text-base">
-                {{ $post->title }}
+                {{ Illuminate\Support\Str::limit(strip_tags($post->title), 50) }}
             </p>
         </div>
         <div class="flex items-center justify-center p-2 md:p-5">

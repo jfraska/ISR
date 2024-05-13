@@ -72,7 +72,7 @@
                             </svg>
                         </div>
                     </div>
-                    <x-content :items="$post->content" />
+                    <x-content :items="$post->content" contentType="post"  />
                     <div
                         class="article-actions-bar my-6 flex flex-row items-center justify-between border-b border-t border-gray-200 p-2 text-sm">
                         <div class="flex flex-row gap-x-2">
