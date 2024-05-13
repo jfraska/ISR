@@ -181,27 +181,27 @@
     <div class="w-fit h-full">
         <div data-menu data-menu-target="artikel" class="hidden flex-col overflow-y-scroll w-80">
             @foreach ($this->subPosts('artikel') as $subpost)
-                <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => $subpost->slug]) }}"
+                <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => $subpost->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subpost->name }}</a>
             @endforeach
         </div>
         <div data-menu data-menu-target="mini-blog" class="hidden flex-col overflow-y-scroll w-80">
             @foreach ($this->subPosts('mini-blog') as $subpost)
-                <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => $subpost->slug]) }}"
+                <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => $subpost->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subpost->name }}</a>
             @endforeach
         </div>
         <div data-menu data-menu-target="lomba-umum" class="hidden flex-col overflow-y-scroll w-80">
             @foreach ($this->subCompetitions('lomba-umum') as $subCompetition)
                 <a wire:key="{{ $subCompetition->id }}"
-                    href="{{ route('competitions.index', ['category' => $subCompetition->slug]) }}"
+                    href="{{ route('competitions.index', ['category' => 'lomba-umum', 'subCategory' => $subCompetition->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subCompetition->name }}</a>
             @endforeach
         </div>
         <div data-menu data-menu-target="ajang-talenta-dikti" class="hidden flex-col overflow-y-scroll w-80">
             @foreach ($this->subCompetitions('ajang-talenta-dikti') as $subCompetition)
                 <a wire:key="{{ $subCompetition->id }}"
-                    href="{{ route('competitions.index', ['category' => $subCompetition->slug]) }}"
+                    href="{{ route('competitions.index', ['category' => 'ajang-talenta-dikti', 'subCategory' => $subCompetition->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subCompetition->name }}</a>
             @endforeach
         </div>
