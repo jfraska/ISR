@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Models\Organizational;
 use AymanAlhattami\FilamentPageWithSidebar\FilamentPageSidebar;
 use AymanAlhattami\FilamentPageWithSidebar\PageNavigationItem;
+use AymanAlhattami\FilamentPageWithSidebar\Traits\HasPageSidebar;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Builder;
@@ -18,6 +19,7 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
 use Filament\Support\Exceptions\Halt;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -29,6 +31,10 @@ use function Filament\authorize;
 
 class SambutanKetua extends Page
 {
+    use HasPageSidebar;
+
+    use InteractsWithFormActions;
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.sambutan-ketua';
