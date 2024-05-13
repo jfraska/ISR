@@ -195,7 +195,7 @@ class CompetitionResource extends Resource
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
-                TextColumn::make('title')->limit(50)->searchable(),
+                TextColumn::make('title')->limit(40)->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
                 TextColumn::make('user.name')->label('Author'),
                 TextColumn::make('link')->limit(10),

@@ -89,14 +89,14 @@ class CabinetProfile extends Page
                     ->visible(true),
                 PageNavigationItem::make('Sambutan Ketua')
                     ->translateLabel()
-                    ->url(CabinetProfile::getUrl())
+                    ->url(SambutanKetua::getUrl())
                     ->isActiveWhen(function () {
                         return request()->routeIs(SambutanKetua::getRouteName());
                     })
                     ->visible(true),
                 PageNavigationItem::make('Sambutan Pembimbing')
                     ->translateLabel()
-                    ->url(CabinetProfile::getUrl())
+                    ->url(SambutanPembimbing::getUrl())
                     ->isActiveWhen(function () {
                         return request()->routeIs(SambutanPembimbing::getRouteName());
                     })
