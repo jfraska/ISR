@@ -78,10 +78,7 @@ class AchievementResource extends Resource
                                         ->required()
                                         ->unique(Achievement::class, 'slug', fn ($record) => $record),
                                 ]),
-                                RichEditor::make('content')
-                                    ->disableToolbarButtons([
-                                        'attachFiles'
-                                    ])->required()
+                                RichEditor::make('content')->required()
                             ]),
 
                         Section::make('Meta')
