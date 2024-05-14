@@ -1,7 +1,7 @@
 <div id="navbar-hamburger-mobile"
     class="hidden inset-x-0 top-16 w-full h-full text-lg text-white z-50 fixed bg-[#0D5568]">
     {{-- Menu --}}
-    <div class="flex flex-col overflow-y-scroll w-full h-full border-r border-white">
+    <div class="flex flex-col overflow-y-scroll w-full h-4/5 border-r border-white">
         {{-- Menu Tentang ISR Start --}}
         <div id="accordion-nested-parent" data-accordion="collapse" data-active-classes="bg-[#0D5568] text-white"
             data-inactive-classes="bg-[#0D5568] text-white">
