@@ -10,8 +10,20 @@
             </div>
             <div class="flex flex-col w-full lg:w-2/3">
                 <h1 class="font-bold text-[32px]">{{ $organizational->title }}</h1>
-                <img src="{{ $organizational->getFirstMediaUrl() }}" alt="" class="w-[350px] h-[350px] mx-auto py-5">
-                <x-content :items="$organizational->content"/>
+                @if ($organizational->slug === 'profile' || $organizational->slug === 'cabinet')
+                    <img src="{{ $organizational->getFirstMediaUrl() }}" alt=""
+                        class="w-[350px] h-[350px] mx-auto py-5">
+                @else
+                    @foreach ($organizational->content as $item)
+                        @if ($item['type'] === 'image')
+                            <div class="flex justify-center">
+                                <img src="{{ asset('storage/' . $item['data']['url']) }}" alt="{{ $item['data']['alt'] }}"
+                                    class="w-[350px] h-[350px] mb-4">
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+                <x-content :items="$organizational->content" contentType="organizational" />
             </div>
         </div>
         <div class="absolute bottom-0 left-0 hidden lg:block">

@@ -48,9 +48,16 @@
             {!! $modifiedContent !!}
         @endif
 
-        @if ($item['type'] === 'image' && $contentType === 'download')
+        {{-- @if ($item['type'] === 'image' && $contentType === 'organizational')
             <div class="flex justify-center">
                 <img src="{{ asset('storage/' . $item['data']['url']) }}" alt="{{ $item['data']['alt'] }}" class="mb-4">
+            </div>
+        @endif --}}
+
+        @if ($item['type'] === 'image' && $contentType === 'download')
+            <div class="flex justify-center">
+                <img src="{{ asset('storage/' . $item['data']['url']) }}" alt="{{ $item['data']['alt'] }}"
+                    class="mb-4">
             </div>
         @endif
 
