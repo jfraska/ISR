@@ -526,52 +526,7 @@
 
 {{-- Start Kegiatan --}}
 <section>
-@php
-    $left = true;
-@endphp
-<div class="mx-auto flex w-full flex-col p-0">
-@foreach ($kegiatan->content as $item)
-    @if ($left === true)
-        <div class="flex h-[200px] md:h-[400px] w-full justify-between">
-            <div class="w-full">
-                <img src="{{ asset('storage/' . $item['data']['image']) }}" alt=""
-                    class="h-full w-full bg-cover object-cover object-center" />
-            </div>
-            <div class="flex w-full items-center justify-center bg-[#0D5568]">
-                <div class="flex-col px-2 md:w-3/4">
-                    <p class="text-[10px] md:text-[20px] font-bold" style="color: #f5d05e">
-                        Kegiatan 1
-                    </p>
-                    <p class="text-[10px] md:text-[15px] w-full max-h-[150px] md:max-h-[315px] text-ellipsis overflow-hidden"
-                        style="color: #f5d05e">
-                        {{ $item['data']['description'] }}
-                    </p>
-                </div>
-            </div>
-        </div>
-        @php
-            $left = false;
-        @endphp
-    @elseif ($left === false)
-        <div class="flex h-[200px] md:h-[400px] w-full justify-between">
-            <div class="flex w-full items-center justify-center bg-[#F5D05E]">
-                <div class="flex-col px-2 md:w-3/4">
-                    <p class="text-[10px] md:text-[20px] font-bold" style="color: #0d5568">
-                        Kegiatan 2
-                    </p>
-                    <p class="text-[10px] md:text-[15px] w-full max-h-[150px] md:max-h-[315px] text-ellipsis overflow-hidden"
-                        style="color: #0d5568">
-                        {{ $item['data']['description'] }}
-                    </p>
-                </div>
-            </div>
-            <div class="w-full">
-                <img src="{{ asset('storage/' . $item['data']['image']) }}" alt=""
-                    class="h-full w-full bg-cover object-cover object-center" />
-            </div>
-        </div>
-    @endif
-@endforeach
+<x-kegiatan :items="$kegiatan->content" />
 </div>
 </section>
 {{-- End Kegiatan --}}
@@ -580,322 +535,317 @@
 <section class="bg-white flex w-full justify-center">
 <div class="py-4 w-full xl:w-10/12">
 <div class="relative px-4">
-    <h1 class="relative text-3xl font-bold text-[#0D5568]">
-        Agenda
-        <span
-            class="ml-5 after:absolute after:bottom-3 after:h-[3px] after:w-1/5 after:bg-[#F5D05E]"></span>
-    </h1>
+<h1 class="relative text-3xl font-bold text-[#0D5568]">
+    Agenda
+    <span class="ml-5 after:absolute after:bottom-3 after:h-[3px] after:w-1/5 after:bg-[#F5D05E]"></span>
+</h1>
 </div>
 <div class="flex flex-col lg:flex-row px-4 py-4">
-    <div class="border w-full lg:w-3/5 py-3 lg:py-0">
-        <div class="bg-gray-200 max-w-screen-lg">
-            <link rel="dns-prefetch" href="//unpkg.com" />
-            <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
-            <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
-            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+<div class="border w-full lg:w-3/5 py-3 lg:py-0">
+    <div class="bg-gray-200 max-w-screen-lg">
+        <link rel="dns-prefetch" href="//unpkg.com" />
+        <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
 
-            <style>
-                [x-cloak] {
-                    display: none;
-                }
-            </style>
-            <div class="antialiased sans-serif bg-white h-auto pb-5">
-                <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-                    <div class="container my-auto mx-auto px-4 py-2">
-                        <div class="flex items-center justify-between py-3">
-                            <div class="flex flex-row items-center px-3">
-                                <div class="px-1">
-                                    <div
-                                        x-text="MONTH_NAMES[month]"class="text-2xl font-bold text-[#0D5568]">
-                                    </div>
-                                </div>
-                                <div class="px-1">
-                                    <div x-text="year" class="text-2xl font-bold text-[#0D5568]"></div>
+        <style>
+            [x-cloak] {
+                display: none;
+            }
+        </style>
+        <div class="antialiased sans-serif bg-white h-auto pb-5">
+            <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
+                <div class="container my-auto mx-auto px-4 py-2">
+                    <div class="flex items-center justify-between py-3">
+                        <div class="flex flex-row items-center px-3">
+                            <div class="px-1">
+                                <div x-text="MONTH_NAMES[month]"class="text-2xl font-bold text-[#0D5568]">
                                 </div>
                             </div>
-                            <div class="pt-2 flex flex-row">
-                                <div class="rounded px-3">
-                                    <button type="button" @click="prevMonth()">
-                                        <svg class="h-6 w-6 text-[#0D5568] inline-flex leading-none"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M15 19l-7-7 7-7" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="rounded px-3">
-                                    <button type="button" @click="nextMonth()">
-                                        <svg class="h-6 w-6 text-[#0D5568] inline-flex leading-none"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </button>
-                                </div>
+                            <div class="px-1">
+                                <div x-text="year" class="text-2xl font-bold text-[#0D5568]"></div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-sm shadow overflow-hidden">
-                            <div class="-mx-1 -mb-1">
-                                <div class="flex flex-wrap">
-                                    <template x-for="(day, index) in DAYS" :key="index">
-                                        <div style="width: 14.26%; height: 50px"
-                                            class="px-2 py-2 text-center border-r border-b">
-                                            <div x-text="day"
-                                                class="text-black text-sm uppercase tracking-wide font-bold">
-                                            </div>
+                        <div class="pt-2 flex flex-row">
+                            <div class="rounded px-3">
+                                <button type="button" @click="prevMonth()">
+                                    <svg class="h-6 w-6 text-[#0D5568] inline-flex leading-none"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="rounded px-3">
+                                <button type="button" @click="nextMonth()">
+                                    <svg class="h-6 w-6 text-[#0D5568] inline-flex leading-none"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-sm shadow overflow-hidden">
+                        <div class="-mx-1 -mb-1">
+                            <div class="flex flex-wrap">
+                                <template x-for="(day, index) in DAYS" :key="index">
+                                    <div style="width: 14.26%; height: 50px"
+                                        class="px-2 py-2 text-center border-r border-b">
+                                        <div x-text="day"
+                                            class="text-black text-sm uppercase tracking-wide font-bold">
                                         </div>
-                                    </template>
-                                </div>
-                                <div class="flex flex-wrap border-t border-l">
-                                    <template x-for="blankday in blankdays">
-                                        <div style="width: 14.28%; height: 120px"
-                                            class="text-center border-r border-b px-4 pt-2"></div>
-                                    </template>
-                                    <template x-for="(date, dateIndex) in no_of_days"
-                                        :key="dateIndex">
-                                        <div style="width: 14.28%; height: 120px"
-                                            class="px-4 pt-2 border-r border-b relative">
-                                            <div x-text="date"
-                                                class="inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100"
-                                                :class="{
-                                                    'bg-blue-500 text-white': isToday(date) == true,
-                                                    'text-black hover:bg-blue-200': isToday(date) ==
-                                                        false
-                                                }">
-                                            </div>
-                                            <div style="height: 80px;" class="overflow-y-auto mt-1">
-                                                <template
-                                                    x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
-                                                    <div class="px-2 py-1 rounded-lg mt-1 overflow-hidden border"
-                                                        :class="{
-                                                            'border-blue-200 text-blue-800 bg-blue-100': event
-                                                                .event_theme === 'blue',
-                                                            'border-red-200 text-red-800 bg-red-100': event
-                                                                .event_theme === 'red',
-                                                            'border-yellow-200 text-yellow-800 bg-yellow-100': event
-                                                                .event_theme === 'yellow',
-                                                            'border-green-200 text-green-800 bg-green-100': event
-                                                                .event_theme === 'green',
-                                                            'border-purple-200 text-purple-800 bg-purple-100': event
-                                                                .event_theme === 'purple'
-                                                        }">
-                                                        <p x-text="event.event_title"
-                                                            class="text-sm truncate leading-tight"></p>
-                                                    </div>
-                                                </template>
-                                            </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="flex flex-wrap border-t border-l">
+                                <template x-for="blankday in blankdays">
+                                    <div style="width: 14.28%; height: 120px"
+                                        class="text-center border-r border-b px-4 pt-2"></div>
+                                </template>
+                                <template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
+                                    <div style="width: 14.28%; height: 120px"
+                                        class="px-4 pt-2 border-r border-b relative">
+                                        <div x-text="date"
+                                            class="inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100"
+                                            :class="{
+                                                'bg-blue-500 text-white': isToday(date) == true,
+                                                'text-black hover:bg-blue-200': isToday(date) ==
+                                                    false
+                                            }">
                                         </div>
-                                    </template>
-                                </div>
+                                        <div style="height: 80px;" class="overflow-y-auto mt-1">
+                                            <template
+                                                x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
+                                                <div class="px-2 py-1 rounded-lg mt-1 overflow-hidden border"
+                                                    :class="{
+                                                        'border-blue-200 text-blue-800 bg-blue-100': event
+                                                            .event_theme === 'blue',
+                                                        'border-red-200 text-red-800 bg-red-100': event
+                                                            .event_theme === 'red',
+                                                        'border-yellow-200 text-yellow-800 bg-yellow-100': event
+                                                            .event_theme === 'yellow',
+                                                        'border-green-200 text-green-800 bg-green-100': event
+                                                            .event_theme === 'green',
+                                                        'border-purple-200 text-purple-800 bg-purple-100': event
+                                                            .event_theme === 'purple'
+                                                    }">
+                                                    <p x-text="event.event_title"
+                                                        class="text-sm truncate leading-tight"></p>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <script>
-                const MONTH_NAMES = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
-                    'Oktober', 'November', 'Desember'
-                ];
-                const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        <script>
+            const MONTH_NAMES = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                'Oktober', 'November', 'Desember'
+            ];
+            const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-                function app() {
-                    return {
-                        month: '',
-                        year: '',
-                        no_of_days: [],
-                        blankdays: [],
-                        days: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-                        events: [], // Initialize events array
+            function app() {
+                return {
+                    month: '',
+                    year: '',
+                    no_of_days: [],
+                    blankdays: [],
+                    days: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+                    events: [], // Initialize events array
 
-                        initDate() {
-                            this.fetchEvents();
-                            let today = new Date();
-                            this.month = today.getMonth();
-                            this.year = today.getFullYear();
-                            this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString();
-                        },
+                    initDate() {
+                        this.fetchEvents();
+                        let today = new Date();
+                        this.month = today.getMonth();
+                        this.year = today.getFullYear();
+                        this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString();
+                    },
 
-                        async fetchEvents() {
-                            this.events = {!! json_encode(
-                                $agenda->map(function ($agenda) {
-                                    return [
-                                        'event_title' => $agenda->title,
-                                        'event_date' => $agenda->datetime,
-                                        'event_theme' => $agenda->bg_color,
-                                    ];
-                                }),
-                            ) !!};
-                        },
+                    async fetchEvents() {
+                        this.events = {!! json_encode(
+                            $agenda->map(function ($agenda) {
+                                return [
+                                    'event_title' => $agenda->title,
+                                    'event_date' => $agenda->datetime,
+                                    'event_theme' => $agenda->bg_color,
+                                ];
+                            }),
+                        ) !!};
+                    },
 
-                        isToday(date) {
-                            const today = new Date();
-                            const d = new Date(this.year, this.month, date);
-                            return today.toDateString() === d.toDateString();
-                        },
+                    isToday(date) {
+                        const today = new Date();
+                        const d = new Date(this.year, this.month, date);
+                        return today.toDateString() === d.toDateString();
+                    },
 
-                        getNoOfDays() {
-                            let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-                            let firstDayOfMonth = new Date(this.year, this.month, 1)
-                                .getDay(); // Hari pertama dalam bulan (0 untuk Minggu, 1 untuk Senin, dst.)
+                    getNoOfDays() {
+                        let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+                        let firstDayOfMonth = new Date(this.year, this.month, 1)
+                            .getDay(); // Hari pertama dalam bulan (0 untuk Minggu, 1 untuk Senin, dst.)
 
-                            let blankdaysArray = [];
-                            for (let i = 0; i < firstDayOfMonth; i++) {
-                                blankdaysArray.push(i);
-                            }
-
-                            let daysArray = [];
-                            for (let i = 1; i <= daysInMonth; i++) {
-                                daysArray.push(i);
-                            }
-
-                            this.blankdays = blankdaysArray;
-                            this.no_of_days = daysArray;
-                        },
-                        nextMonth() {
-                            this.month++;
-                            if (this.month > 11) {
-                                this.month = 0;
-                                this.year++;
-                            }
-                            this.getNoOfDays();
-                            this.fetchEvents(); // Memuat ulang data
-                        },
-
-                        // tambahkan event listener untuk tombol prev month
-                        prevMonth() {
-                            this.month--;
-                            if (this.month < 0) {
-                                this.month = 11;
-                                this.year--;
-                            }
-                            this.getNoOfDays();
-                            this.fetchEvents(); // Memuat ulang data
+                        let blankdaysArray = [];
+                        for (let i = 0; i < firstDayOfMonth; i++) {
+                            blankdaysArray.push(i);
                         }
 
+                        let daysArray = [];
+                        for (let i = 1; i <= daysInMonth; i++) {
+                            daysArray.push(i);
+                        }
+
+                        this.blankdays = blankdaysArray;
+                        this.no_of_days = daysArray;
+                    },
+                    nextMonth() {
+                        this.month++;
+                        if (this.month > 11) {
+                            this.month = 0;
+                            this.year++;
+                        }
+                        this.getNoOfDays();
+                        this.fetchEvents(); // Memuat ulang data
+                    },
+
+                    // tambahkan event listener untuk tombol prev month
+                    prevMonth() {
+                        this.month--;
+                        if (this.month < 0) {
+                            this.month = 11;
+                            this.year--;
+                        }
+                        this.getNoOfDays();
+                        this.fetchEvents(); // Memuat ulang data
                     }
+
                 }
-            </script>
-        </div>
+            }
+        </script>
     </div>
-    <div class="w-full lg:w-2/5 px-0 lg:px-4 py-3 lg:py-0">
-        <div class="w-full container border bg-white mx-auto px-8 lg:py-4">
-            <p class="text-[20px] font-bold py-0" style="color: #0D5568">
-                List Agenda
-            </p>
-            <div class="py-5">
-                <hr style="border-color: #F5D05E; border-width: 1px;">
-            </div>
-            <div class="w-auto mx-auto">
-                <!-- List Agenda -->
+</div>
+<div class="w-full lg:w-2/5 px-0 lg:px-4 py-3 lg:py-0">
+    <div class="w-full container border bg-white mx-auto px-8 lg:py-4">
+        <p class="text-[20px] font-bold py-0" style="color: #0D5568">
+            List Agenda
+        </p>
+        <div class="py-5">
+            <hr style="border-color: #F5D05E; border-width: 1px;">
+        </div>
+        <div class="w-auto mx-auto">
+            <!-- List Agenda -->
+            @php
+                $lastMonth = null;
+                $lastDay = null;
+            @endphp
+
+            @foreach ($agenda->take(5) as $key => $item)
                 @php
-                    $lastMonth = null;
-                    $lastDay = null;
+                    $currentDate = \Carbon\Carbon::parse($item->datetime);
+                    $formattedMonth = $currentDate->format('F');
+                    $formattedDay = $currentDate->format('d');
+                    $uniqueIdc = 'content_' . $key;
+                    $uniqueIdt = 'title_' . $key;
+                    $uniqueIdcLg = 'contentLg_' . $key;
+                    $uniqueIdtLg = 'titleLg_' . $key;
                 @endphp
 
-                @foreach ($agenda->take(5) as $key => $item)
-                    @php
-                        $currentDate = \Carbon\Carbon::parse($item->datetime);
-                        $formattedMonth = $currentDate->format('F');
-                        $formattedDay = $currentDate->format('d');
-                        $uniqueIdc = 'content_' . $key;
-                        $uniqueIdt = 'title_' . $key;
-                        $uniqueIdcLg = 'contentLg_' . $key;
-                        $uniqueIdtLg = 'titleLg_' . $key;
-                    @endphp
-
-                    @if ($lastDay != $formattedDay)
-                        <div class="flex flex-row">
-                            <div class="text-2sm mb-2 px-1 font-semibold text-gray-600">
-                                {{ $formattedDay }}
-                            </div>
-                            <div class="text-2sm mb-2 px-1 font-semibold text-gray-600">
-                                {{ $formattedMonth }}
-                            </div>
+                @if ($lastDay != $formattedDay)
+                    <div class="flex flex-row">
+                        <div class="text-2sm mb-2 px-1 font-semibold text-gray-600">
+                            {{ $formattedDay }}
                         </div>
-                    @endif
+                        <div class="text-2sm mb-2 px-1 font-semibold text-gray-600">
+                            {{ $formattedMonth }}
+                        </div>
+                    </div>
+                @endif
 
-                    <div class="hidden lg:block">
-                        <div class="mb-2 flex rounded-lg border bg-gray-100">
-                            <div class="md:2-1/4 mx-auto flex w-1/5 items-center justify-between px-4">
-                                <div class="text-md pr-2 font-bold md:text-lg">
-                                    {{ $item->published_at->format('H:i') }}
-                                </div>
-                                <hr class="hidden md:block"
-                                    style="
+                <div class="hidden lg:block">
+                    <div class="mb-2 flex rounded-lg border bg-gray-100">
+                        <div class="md:2-1/4 mx-auto flex w-1/5 items-center justify-between px-4">
+                            <div class="text-md pr-2 font-bold md:text-lg">
+                                {{ $item->published_at->format('H:i') }}
+                            </div>
+                            <hr class="hidden md:block"
+                                style="
                                      border-left: 2px solid
                                          {{ $item->bg_color }};
                                      height: 75%;
                                  " />
-                            </div>
-                            <button
-                                onclick="toggleTruncateLg('{{ $uniqueIdcLg }}', '{{ $uniqueIdtLg }}')"
-                                class="w-4/5 px-4 py-2 md:w-3/4">
-                                <div class="text-md mb-2 truncate text-start font-bold"
-                                    id="{{ $uniqueIdtLg }}">
-                                    <p>{!! $item->title !!}</p>
-                                </div>
-                                <div class="truncate text-start text-gray-700" id="{{ $uniqueIdcLg }}">
-                                    {!! $item->content !!}
-                                </div>
-                            </button>
                         </div>
+                        <button onclick="toggleTruncateLg('{{ $uniqueIdcLg }}', '{{ $uniqueIdtLg }}')"
+                            class="w-4/5 px-4 py-2 md:w-3/4">
+                            <div class="text-md mb-2 truncate text-start font-bold"
+                                id="{{ $uniqueIdtLg }}">
+                                <p>{!! $item->title !!}</p>
+                            </div>
+                            <div class="truncate text-start text-gray-700" id="{{ $uniqueIdcLg }}">
+                                {!! $item->content !!}
+                            </div>
+                        </button>
                     </div>
+                </div>
 
-                    <div class="block lg:hidden">
-                        <div class="mb-2 flex rounded-lg border bg-gray-100"
-                            style="
+                <div class="block lg:hidden">
+                    <div class="mb-2 flex rounded-lg border bg-gray-100"
+                        style="
                              border-color: {{ $item->bg_color }};
                          ">
-                            <div class="md:2-1/4 mx-auto flex w-1/5 items-center justify-between px-4">
-                                <div class="text-md pr-2 font-bold">
-                                    {{ $item->published_at->format('H:i') }}
-                                </div>
-                                <hr class="hidden md:block"
-                                    style="
+                        <div class="md:2-1/4 mx-auto flex w-1/5 items-center justify-between px-4">
+                            <div class="text-md pr-2 font-bold">
+                                {{ $item->published_at->format('H:i') }}
+                            </div>
+                            <hr class="hidden md:block"
+                                style="
                                      border-left: 2px solid
                                          {{ $item->bg_color }};
                                      height: 75%;
                                  " />
-                            </div>
-                            <button
-                                onclick="toggleTruncate('{{ $uniqueIdc }}', '{{ $uniqueIdt }}')"
-                                class="w-4/5 px-4 py-2 md:w-3/4">
-                                <div class="text-md mb-2 truncate text-start font-bold"
-                                    id="{{ $uniqueIdt }}">
-                                    <p>{!! $item->title !!}</p>
-                                </div>
-                                <div class="truncate text-start text-gray-700" id="{{ $uniqueIdc }}">
-                                    {!! $item->content !!}
-                                </div>
-                            </button>
                         </div>
+                        <button onclick="toggleTruncate('{{ $uniqueIdc }}', '{{ $uniqueIdt }}')"
+                            class="w-4/5 px-4 py-2 md:w-3/4">
+                            <div class="text-md mb-2 truncate text-start font-bold"
+                                id="{{ $uniqueIdt }}">
+                                <p>{!! $item->title !!}</p>
+                            </div>
+                            <div class="truncate text-start text-gray-700" id="{{ $uniqueIdc }}">
+                                {!! $item->content !!}
+                            </div>
+                        </button>
                     </div>
+                </div>
 
-                    @php
-                        $lastMonth = $formattedMonth;
-                        $lastDay = $formattedDay;
-                    @endphp
-                @endforeach
-            </div>
+                @php
+                    $lastMonth = $formattedMonth;
+                    $lastDay = $formattedDay;
+                @endphp
+            @endforeach
         </div>
     </div>
+</div>
 
-    <script>
-        function toggleTruncate(contentId, titleId) {
-            var contentDiv = document.getElementById(contentId);
-            var titleDiv = document.getElementById(titleId);
-            contentDiv.classList.toggle('truncate');
-            titleDiv.classList.toggle('truncate');
-        }
+<script>
+    function toggleTruncate(contentId, titleId) {
+        var contentDiv = document.getElementById(contentId);
+        var titleDiv = document.getElementById(titleId);
+        contentDiv.classList.toggle('truncate');
+        titleDiv.classList.toggle('truncate');
+    }
 
-        function toggleTruncateLg(contentId, titleId) {
-            var contentDiv = document.getElementById(contentId);
-            var titleDiv = document.getElementById(titleId);
-            contentDiv.classList.toggle('truncate');
-            titleDiv.classList.toggle('truncate');
-        }
-    </script>
+    function toggleTruncateLg(contentId, titleId) {
+        var contentDiv = document.getElementById(contentId);
+        var titleDiv = document.getElementById(titleId);
+        contentDiv.classList.toggle('truncate');
+        titleDiv.classList.toggle('truncate');
+    }
+</script>
 </div>
 </div>
 </section>
