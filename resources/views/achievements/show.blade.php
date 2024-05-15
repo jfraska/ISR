@@ -10,7 +10,7 @@
                 background-image: url('{{ $achievement->getFirstMediaUrl() }}');
             ">
         </div>
-        <div class="z-20 -mt-20 flex w-5/6 flex-col bg-white p-8">
+        <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
             {{-- <x-breadcrumb :post="$achievement" menu="achievements" /> --}}
             <div class="flex flex-col items-center justify-center gap-5 p-5">
                 <h2 class="text-sm font-normal">{{ $achievement->subCategories }}</h2>
