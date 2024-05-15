@@ -22,22 +22,20 @@
         </div>
         <div id="filter-selector" class="flex items-center space-x-4 font-light">
             <button
-                class="{{ $sort === "desc" ? "border-b border-gray-700 text-gray-900" : "text-gray-500" }} py-4 text-gray-500"
-                wire:click="setSort('desc')"
-            >
+                class="{{ $sort === 'desc' ? 'border-b border-gray-700 text-gray-900' : 'text-gray-500' }} py-4 text-gray-500"
+                wire:click="setSort('desc')">
                 Latest
             </button>
             <button
-                class="{{ $sort === "asc" ? "border-b border-gray-700 text-gray-900" : "text-gray-500" }} py-4 text-gray-900"
-                wire:click="setSort('asc')"
-            >
+                class="{{ $sort === 'asc' ? 'border-b border-gray-700 text-gray-900' : 'text-gray-500' }} py-4 text-gray-900"
+                wire:click="setSort('asc')">
                 Oldest
             </button>
         </div>
     </div>
     <div class="py-4">
         @foreach ($this->competitions as $competition)
-            <x-competition-item wire:key="{{ $competition->id }}" :competition="$competition" />
+            <x-competitions.competition-item wire:key="{{ $competition->id }}" :competition="$competition" />
         @endforeach
     </div>
 

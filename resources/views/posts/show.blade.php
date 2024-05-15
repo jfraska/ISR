@@ -8,7 +8,7 @@
         <div class="h-[75vh] w-full bg-black bg-opacity-20 bg-cover bg-center bg-blend-multiply shadow-md"
             style="background-image: url('{{ $post->getFirstMediaUrl() }}')"></div>
         <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
-            <x-breadcrumb :post="$post" menu="pojok-ilmiah" />
+            <x-breadcrumb menu="pojok-ilmiah" :category="$post->categories" :post="$post" />
             <div class="mb-16 mt-5 flex flex-col items-center justify-start gap-5">
                 @if ($post->categories->name === 'artikel' || $post->categories->name === 'mini-blog')
                     @if ($post->subCategories->first())
@@ -72,7 +72,7 @@
                             </svg>
                         </div>
                     </div>
-                    <x-content :items="$post->content" contentType="post"  />
+                    <x-content :items="$post->content" contentType="post" />
                     <div
                         class="article-actions-bar my-6 flex flex-row items-center justify-between border-b border-t border-gray-200 p-2 text-sm">
                         <div class="flex flex-row gap-x-2">

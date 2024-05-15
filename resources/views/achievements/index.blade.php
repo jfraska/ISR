@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Prestasi ISR')
+@section('title', 'Prestasi')
 
 @section('content')
     <article class="min-h-[2000px]">
@@ -8,7 +8,7 @@
             style="background-image: url('/images/thumbnail-achievement.png');">
         </div>
         <div class="p-8 rounded bg-white -mt-20 mx-auto z-20 w-5/6">
-            <x-breadcrumb :category="$category" menu="achievements" />
+            <x-breadcrumb menu="prestasi" :category="$category" />
             <h1 class="text-uppercase text-4xl font-bold mt-5">Prestasi ISR</h1>
 
             <div class="grid w-full grid-cols-4 gap-10">

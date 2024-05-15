@@ -31,13 +31,13 @@ Route::get('/pojok-ilmiah/{category:slug}/{post:slug}', [PostController::class, 
     ->name('posts.show')
     ->withoutScopedBindings();
 
-Route::get('/competitions/{category:slug}', [CompetitionController::class, 'index'])->name('competitions.index');
-Route::get('/competitions/{category:slug}/{competition:slug}', [CompetitionController::class, 'show'])
+Route::get('/kompetisi/{category:slug}', [CompetitionController::class, 'index'])->name('competitions.index');
+Route::get('/kompetisi/{category:slug}/{competition:slug}', [CompetitionController::class, 'show'])
     ->name('competitions.show')
     ->withoutScopedBindings();
 
-Route::get('/achievements', [AchievementController::class, 'index'])->name('achievements.index');
-Route::get('/achievements/{achievement:slug}', [AchievementController::class, 'show'])->name('achievements.show')->withoutScopedBindings();
+Route::get('/prestasi', [AchievementController::class, 'index'])->name('achievements.index');
+Route::get('/prestasi/{achievement:slug}', [AchievementController::class, 'show'])->name('achievements.show')->withoutScopedBindings();
 
 Route::get('/department/{department:slug}', [DepartmentController::class, 'show'])->name('departments.show');
 Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 'show'])->name('abouts.show');

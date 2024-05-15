@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Posts')
+@section('title', $category->name)
 
 @section('content')
-    <article class="min-h-[2000px]">
+    <article class="min-h-screen">
         <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="background-image: url('/images/thumbnail-detail.png');">
         </div>
         <div class="p-8 rounded bg-white -mt-20 mx-auto z-20 w-5/6">
-            <x-breadcrumb :category="$category" menu="pojok-ilmiah" />
+            <x-breadcrumb menu="pojok-ilmiah" :category="$category" />
             <h1 class="text-uppercase text-4xl font-bold mt-5">{{ $category->name }} Terkini</h1>
 
             <div class="grid w-full grid-cols-4 gap-10">
@@ -35,7 +35,8 @@
                                                 style="background-image: url('/images/sub-category/isr-journey.png');">
                                                 <div
                                                     class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon"
+                                                        class="flex md:hidden lg:flex">
                                                     <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         ISR JOURNEY</p>
                                                 </div>
@@ -49,7 +50,8 @@
                                                 style="background-image: url('/images/sub-category/opini-refleksi.png');">
                                                 <div
                                                     class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon"
+                                                        class="flex md:hidden lg:flex">
                                                     <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         OPINI & REFLEKSI</p>
                                                 </div>
@@ -63,7 +65,8 @@
                                                 style="background-image: url('/images/sub-category/tips-trick.png');">
                                                 <div
                                                     class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon"
+                                                        class="flex md:hidden lg:flex">
                                                     <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         TIPS & TRICK</p>
                                                 </div>
@@ -77,7 +80,8 @@
                                                 style="background-image: url('/images/sub-category/prestasi-isr.png');">
                                                 <div
                                                     class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon"
+                                                        class="flex md:hidden lg:flex">
                                                     <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         PRESTASI ISR</p>
                                                 </div>
@@ -94,7 +98,8 @@
                                                 style="background-image: url('/images/sub-category/fact-research.png');">
                                                 <div
                                                     class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon"
+                                                        class="flex md:hidden lg:flex">
                                                     <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         FACT IN RESEARCH</p>
                                                 </div>
@@ -108,7 +113,8 @@
                                                 style="background-image: url('/images/sub-category/isr-edu.png');">
                                                 <div
                                                     class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
-                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon" class="flex md:hidden lg:flex">
+                                                    <img src="/images/sub-category/category-icon.svg" alt="category icon"
+                                                        class="flex md:hidden lg:flex">
                                                     <p class="text-center md:text-xs lg:text-sm font-bold text-[#FFDF4E]">
                                                         ISR EDU</p>
                                                 </div>

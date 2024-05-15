@@ -11,7 +11,7 @@
             ">
         </div>
         <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
-            {{-- <x-breadcrumb :post="$achievement" menu="achievements" /> --}}
+            <x-breadcrumb menu="prestasi" :category="$achievement->categories" :post="$achievement" />
             <div class="flex flex-col items-center justify-center gap-5 p-5">
                 <h2 class="text-sm font-normal">{{ $achievement->subCategories }}</h2>
                 <h1 class="max-w-lg text-wrap text-center text-3xl font-medium">

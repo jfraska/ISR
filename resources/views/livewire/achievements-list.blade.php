@@ -29,7 +29,7 @@
     </div>
     <div class="py-4">
         @foreach ($this->achievements as $achievement)
-            <x-achievement-item wire:key="{{ $achievement->id }}" :achievement="$achievement" />
+            <x-achievements.achievement-item wire:key="{{ $achievement->id }}" :achievement="$achievement" />
         @endforeach
     </div>
 

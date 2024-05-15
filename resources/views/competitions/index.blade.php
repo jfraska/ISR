@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Kompetisi ISR')
+@section('title', 'Kompetisi')
 
 @section('content')
-    <article class="min-h-[2000px]">
+    <article class="min-h-screen">
         <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="background-image: url('/images/thumbnail-competition.png');">
         </div>
         <div class="p-8 rounded bg-white -mt-20 mx-auto z-20 w-5/6">
-            <x-breadcrumb :category="$category" menu="" />
+            <x-breadcrumb menu="kompetisi" :category="$category" />
             <h1 class="text-uppercase text-4xl font-bold mt-5">{{ $category->name }} terkini</h1>
 
             <div class="grid w-full grid-cols-4 gap-10">
