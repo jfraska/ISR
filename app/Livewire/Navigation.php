@@ -53,9 +53,11 @@ class Navigation extends Component
     }
 
     #[Computed()]
-    public function subCompetitions()
+    public function subCompetitions($slug)
     {
-        return Competition::with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
+        return Competition::whereHas('categories', function ($query) use ($slug) {
+            $query->where('slug', $slug);
+        })->with('subCategories')->published()->get()->pluck('subCategories')->flatten()->unique('id');
     }
 
     #[Computed()]

@@ -5,7 +5,7 @@
 @section('content')
     <article class="min-h-[2000px]">
         <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
-            style="background-image: url('/images/thumbnail-competition.png');">>
+            style="background-image: url('/images/thumbnail-competition.png');">
         </div>
         <div class="p-8 rounded bg-white -mt-20 mx-auto z-20 w-5/6">
             <x-breadcrumb :category="$category" menu="" />
