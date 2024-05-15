@@ -9,7 +9,6 @@
             style="
                 background-image: url('{{ $recruitment->getFirstMediaUrl() }}');
             ">
-            >
         </div>
         <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
             <x-breadcrumb :post="$recruitment" :category="$category" menu="recruitment" />
