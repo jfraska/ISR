@@ -24,6 +24,8 @@ class EditAchievement extends EditRecord
 
     protected function afterSave(): void
     {
-        $this->record->status === "published" ?  $this->record->updateStatus('reviewing') : null;
+        $this->record->status === "published" ?  $this->record->statuses()->update([
+            'name' => 'reviewing',
+        ]) : null;
     }
 }
