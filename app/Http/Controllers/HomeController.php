@@ -13,10 +13,10 @@ class HomeController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, Category $category, Organizational $organizational)
+    public function __invoke()
     {
-        $berita = Post::withCategory('berita')->published()->latest()->take(3)->get();
         $artikel = Post::withCategory('artikel')->published()->latest()->take(3)->get();
+        $berita = Post::withCategory('berita')->published()->latest()->take(3)->get();
         $miniBlog = Post::withCategory('mini-blog')->published()->latest()->take(3)->get();
         $agenda = Agenda::published()->orderBy('datetime')->get();
 
@@ -26,7 +26,6 @@ class HomeController extends Controller
         $kegiatan = Organizational::where('slug', 'general')->first();
 
         return view('home', [
-            // 'posts' => $posts,
             'berita' => $berita,
             'artikel' => $artikel,
             'miniBlog' => $miniBlog,
@@ -36,10 +35,5 @@ class HomeController extends Controller
             'kabinet' => $kabinet,
             'kegiatan' => $kegiatan
         ]);
-    }
-
-    public function findBySlug($query, $slug)
-    {
-        return $query->where('slug', $slug);
     }
 }

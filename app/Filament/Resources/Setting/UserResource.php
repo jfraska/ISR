@@ -43,7 +43,7 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('roles')
-                    ->relationship('roles', 'name')
+                    ->relationship(name: 'roles', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query) => $query->where('name', '!=', 'Super Admin'))
                     ->required(),
             ]);
     }
