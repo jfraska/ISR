@@ -88,7 +88,7 @@
                 </div>
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
-            </>
+        </button>
     </div>
 
     {{-- Sub Menu --}}
