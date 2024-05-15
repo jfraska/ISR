@@ -1,4 +1,4 @@
-<div id="competitions" class="px-3 lg:px-7">
+<div>
     <div class="flex items-center justify-between border-b border-gray-100">
         <div class="text-gray-600">
             @if ($search)
