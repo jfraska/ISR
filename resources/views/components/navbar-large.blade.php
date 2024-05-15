@@ -35,8 +35,8 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </button>
-        <a data-menu id="rekrutmen" href="{{ route('recruitments.index') }}"
-            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <button data-menu id="rekrutmen"
+            class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/rekrutmen.svg" alt="rekrutmen" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
-        </a>
+        </button>
         <a data-menu id="prestasi" href="{{ route('achievements.index') }}"
             class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
@@ -57,8 +57,8 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <a data-menu id="kompetisi" href="{{ route('competitions.index') }}"
-            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <button data-menu id="kompetisi"
+            class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/kompetisi.svg" alt="kompetisi" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
-        </a>
+        </button>
         <a data-menu id="market" href="{{ route('merchandise.index') }}"
             class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
@@ -78,8 +78,8 @@
                 </div>
             </div>
         </a>
-        <a data-menu id="download" href="{{ route('downloads.index') }}"
-            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <button data-menu id="download"
+            class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/download.svg" alt="download" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
