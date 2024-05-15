@@ -22,7 +22,7 @@
                     {{ $recruitment->title }} </a>
             </h2>
             <p class="mt-2 text-sm font-light text-gray-700">
-                {{ Illuminate\Support\Str::limit(strip_tags($recruitment->excerpt()), 200) }}
+                {{ Illuminate\Support\Str::limit(strip_tags($recruitment->excerpt()), 450) }}
             </p>
             <div class="article-actions-bar mt-6 flex items-center justify-between">
                 {{-- <div class="flex gap-x-2 justify-end">

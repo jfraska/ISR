@@ -132,10 +132,9 @@
             <h1 class="font-bold mb-2">Rekrutmen</h1>
             @foreach ($this->recruitments as $recruitment)
                 <div id="{{ $recruitment->slug }}" data-menu data-submenu="{{ $recruitment->slug }}"
-                    wire:key="{{ $recruitment->id }}" class="flex felx-row justify-between pr-2">
+                    wire:key="{{ $recruitment->id }}" class="flex pr-2">
                     <a href="{{ route('recruitments.index', $recruitment->slug) }}"
                         class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $recruitment->name }}</a>
-                    <img src="/images/navbar/arrow.svg" alt="arrow" class="aspect-square w-5">
                 </div>
             @endforeach
         </div>

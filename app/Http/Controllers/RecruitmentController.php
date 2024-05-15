@@ -23,6 +23,7 @@ class RecruitmentController extends Controller
         return view(
             'recruitments.show',
             [
+                'category' => $category,
                 'recruitment' => $recruitment
             ]
         );
