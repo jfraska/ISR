@@ -10,14 +10,8 @@ class AchievementController extends Controller
 {
     public function index(Category $category)
     {
-        $achievements = Achievement::published()->latest()->take(3)->get();
-
         return view(
-            'achievements.index',
-            [
-                'category' => $category,
-                'achievements' => $achievements
-            ]
+            'achievements.index'
         );
     }
 

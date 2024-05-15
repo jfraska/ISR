@@ -1,7 +1,7 @@
 <div>
     <div class="flex items-center justify-between border-b border-gray-100">
         <div class="text-gray-600">
-            @if ($search)
+            @if ($search || $this->activeYear)
                 <button class="gray-500 mr-3 text-xs" wire:click="clearFilters()">
                     X
                 </button>
@@ -13,6 +13,13 @@
                     <strong>{{ $search }}</strong>
                 </span>
             @endif
+
+            @if ($this->activeYear)
+                <x-badge wire:navigate href="{{ route('achievements.index', ['year' => $this->activeYear]) }}">
+                    {{ $this->activeYear }}
+                </x-badge>
+            @endif
+
         </div>
         <div id="filter-selector" class="flex items-center space-x-4 font-light">
             <button

@@ -37,15 +37,27 @@ class AchievementsList extends Component
     public function clearFilters()
     {
         $this->search = '';
+        $this->year = '';
         $this->resetPage();
     }
 
     #[Computed()]
     public function achievements()
     {
-        return Achievement::published()->year($this->year)->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
+        return Achievement::published()->when($this->activeYear, function ($query) {
+            $query->year($this->year);
+        })->search($this->search)->orderBy('published_at', $this->sort)->paginate(2);
     }
 
+    #[Computed()]
+    public function activeYear()
+    {
+        if ($this->year === null || $this->year === '') {
+            return null;
+        }
+
+        return $this->year;
+    }
     public function render()
     {
         return view('livewire.achievements-list');

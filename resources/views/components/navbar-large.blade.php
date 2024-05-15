@@ -24,8 +24,8 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <a data-menu id="departemen" href="#"
-            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <button data-menu id="departemen"
+            class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/departemen.svg" alt="departemen" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -34,8 +34,8 @@
                 </div>
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
-        </a>
-        <a data-menu id="rekrutmen" href="#"
+        </button>
+        <a data-menu id="rekrutmen" href="{{ route('recruitments.index') }}"
             class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/rekrutmen.svg" alt="rekrutmen" class="w-12 aspect-square">
@@ -46,7 +46,7 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <a data-menu id="prestasi" href="#"
+        <a data-menu id="prestasi" href="{{ route('achievements.index') }}"
             class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/prestasi.svg" alt="prestasi" class="w-12 aspect-square">
@@ -57,7 +57,8 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <a href="#" data-menu id="kompetisi" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a data-menu id="kompetisi" href="{{ route('competitions.index') }}"
+            class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/kompetisi.svg" alt="kompetisi" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">
@@ -77,7 +78,7 @@
                 </div>
             </div>
         </a>
-        <a data-menu id="download" href="#" {{-- <a data-menu id="download" href="{{ route('downloads.index') }}" --}}
+        <a data-menu id="download" href="{{ route('downloads.index') }}"
             class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/download.svg" alt="download" class="w-12 aspect-square">
@@ -87,7 +88,7 @@
                 </div>
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
-        </a>
+            </>
     </div>
 
     {{-- Sub Menu --}}
@@ -143,7 +144,8 @@
             <h1 class="font-bold mb-2">Prestasi</h1>
             @foreach ($this->achievements as $year => $achievementsOfYear)
                 <a href="{{ route('achievements.index', ['year' => $year]) }}"
-                    class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">Tahun {{ $year }}</a>
+                    class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">Tahun
+                    {{ $year }}</a>
             @endforeach
         </div>
         <div data-menu data-menu-target="kompetisi" id="submenu-kompetisi"
@@ -180,13 +182,15 @@
     <div class="w-fit h-full">
         <div data-menu data-menu-target="artikel" class="hidden flex-col overflow-y-scroll w-80">
             @foreach ($this->subPosts('artikel') as $subpost)
-                <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => $subpost->slug]) }}"
+                <a wire:key="{{ $subpost->id }}"
+                    href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => $subpost->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subpost->name }}</a>
             @endforeach
         </div>
         <div data-menu data-menu-target="mini-blog" class="hidden flex-col overflow-y-scroll w-80">
             @foreach ($this->subPosts('mini-blog') as $subpost)
-                <a wire:key="{{ $subpost->id }}" href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => $subpost->slug]) }}"
+                <a wire:key="{{ $subpost->id }}"
+                    href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => $subpost->slug]) }}"
                     class="text-base flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $subpost->name }}</a>
             @endforeach
         </div>
