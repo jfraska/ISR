@@ -4,7 +4,7 @@
     <div class="article-body mt-5 grid grid-cols-12 items-start gap-3">
         <div class="article-thumbnail col-span-4 flex items-center">
             <a href="{{ route('achievements.show', ['achievement' => $achievement->slug]) }}">
-                <img class="ml-5 w-full h-28 rounded-xl" src={{ $achievement->getFirstMediaUrl() }}
+                <img class="mx-auto w-full h-[220px] rounded-xl" src={{ $achievement->getFirstMediaUrl() }}
                     alt="{{ $achievement->title }}" />
             </a>
         </div>
@@ -20,7 +20,7 @@
                     {{ $achievement->title }} </a>
             </h2>
             @php
-                $strippedExcerpt = Illuminate\Support\Str::limit(strip_tags($achievement->content), 200);
+                $strippedExcerpt = Illuminate\Support\Str::limit(strip_tags($achievement->content), 450);
             @endphp
 
             <p class="mt-2 text-sm font-light text-gray-700">

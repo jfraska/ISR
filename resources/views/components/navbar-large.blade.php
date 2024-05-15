@@ -57,7 +57,7 @@
             </div>
             <img src="/images/navbar/arrow.svg" alt="arrow" class="w-6 aspect-square">
         </a>
-        <a data-menu id="kompetisi" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
+        <a href="#" data-menu id="kompetisi" class="flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/kompetisi.svg" alt="kompetisi" class="w-12 aspect-square">
                 <div class="flex flex-col justify-center">

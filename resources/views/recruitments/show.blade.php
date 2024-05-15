@@ -9,9 +9,8 @@
             style="
                 background-image: url('{{ $recruitment->getFirstMediaUrl() }}');
             ">
-            >
         </div>
-        <div class="z-20 -mt-20 flex w-5/6 flex-col bg-white p-8">
+        <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
             <x-breadcrumb :post="$recruitment" :category="$category" menu="recruitment" />
             <div class="flex flex-col items-center justify-center gap-5 p-5">
                 <h2 class="text-sm font-normal">{{ $recruitment->categories->first()->name }}</h2>
