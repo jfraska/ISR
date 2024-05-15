@@ -11,7 +11,7 @@
             ">
             >
         </div>
-        <div class="z-20 -mt-20 flex w-5/6 flex-col rounded bg-white p-8">
+        <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
             <x-breadcrumb :post="$competition" menu="competitions" />
             <div class="flex flex-col items-center justify-center gap-5 p-5">
                 <h2 class="text-sm font-normal">{{ $competition->subCategories->first()->name }}</h2>

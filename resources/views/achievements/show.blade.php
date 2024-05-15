@@ -5,7 +5,7 @@
 
 @section('content')
     <article class="col-span-4 flex h-full w-full flex-col items-center md:col-span-3">
-        <div class="h-[75vh] w-full bg-cover bg-center"
+        <div class="h-[75vh] w-full bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="
                 background-image: url('{{ $achievement->getFirstMediaUrl() }}');
             ">

@@ -4,7 +4,7 @@
     <div class="article-body mt-5 grid grid-cols-12 items-start gap-3">
         <div class="article-thumbnail col-span-4 flex items-center">
             <a href="{{ route('competitions.show', ['category' => $competition->category, 'competition' => $competition->slug]) }}">
-                <img class="ml-5 w-full h-28 rounded-xl" src={{ $competition->getFirstMediaUrl() }}
+                <img class="mx-auto w-full h-[220px] rounded-xl" src={{ $competition->getFirstMediaUrl() }}
                     alt="{{ $competition->title }}" />
             </a>
         </div>
