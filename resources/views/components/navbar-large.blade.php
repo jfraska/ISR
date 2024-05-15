@@ -28,7 +28,7 @@
             class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/departemen.svg" alt="departemen" class="w-12 aspect-square">
-                <div class="flex flex-col justify-center items-start">
+                <div class="flex flex-col justify-center items-start text-left">
                     <h1 class="font-bold">Departemen</h1>
                     <h2 class="text-sm">Ragam departemen di ISR</h2>
                 </div>
@@ -39,7 +39,7 @@
             class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/rekrutmen.svg" alt="rekrutmen" class="w-12 aspect-square">
-                <div class="flex flex-col justify-center items-start">
+                <div class="flex flex-col justify-center items-start text-left">
                     <h1 class="font-bold">Rekrutmen</h1>
                     <h2 class="text-sm">Ragam seleksi keanggotaan ISR</h2>
                 </div>
@@ -61,7 +61,7 @@
             class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/kompetisi.svg" alt="kompetisi" class="w-12 aspect-square">
-                <div class="flex flex-col justify-center items-start">
+                <div class="flex flex-col justify-center items-start text-left">
                     <p class="font-bold">Kompetisi</p>
                     <p class="text-sm">Pendaftaran lomba dan kompetisi</p>
                 </div>
@@ -82,7 +82,7 @@
             class="cursor-pointer flex w-full hover:text-[#F5D05E] items-center justify-between p-4">
             <div class="flex gap-2 items-center">
                 <img src="/images/navbar/download.svg" alt="download" class="w-12 aspect-square">
-                <div class="flex flex-col justify-center items-start">
+                <div class="flex flex-col justify-center items-start text-left">
                     <p class="font-bold">Download</p>
                     <p class="text-sm">Asset ISR dan dokumen SOP</p>
                 </div>

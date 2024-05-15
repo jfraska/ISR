@@ -3,7 +3,7 @@
 @section('title', 'Prestasi')
 
 @section('content')
-    <article class="min-h-[2000px]">
+    <article class="min-h-screen">
         <div class="w-full h-[75vh] bg-cover bg-center bg-black bg-blend-multiply bg-opacity-20 shadow-md"
             style="background-image: url('/images/thumbnail-achievement.png');">
         </div>
