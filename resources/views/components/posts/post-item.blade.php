@@ -56,6 +56,4 @@
             </div>
         </div>
     </div>
-
-    <div class="w-full h-px bg-gray-200 mt-1"></div>
 </article>
