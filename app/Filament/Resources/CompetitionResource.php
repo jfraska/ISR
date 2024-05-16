@@ -196,7 +196,7 @@ class CompetitionResource extends Resource
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
                 TextColumn::make('user.name')->label('Author'),
                 TextColumn::make('link')->limit(10),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Competition $record) => $record->user_id !== auth()->id() || !auth()->user()->can('publish')),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Competition $record): bool => ($record->user_id !== auth()->id() || !auth()->user()->can('publish'))),
                 TextColumn::make('statuses.name')
                     ->label('Status')
                     ->badge()

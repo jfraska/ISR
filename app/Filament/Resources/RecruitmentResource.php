@@ -158,7 +158,7 @@ class RecruitmentResource extends Resource
                 TextColumn::make('categories.name')->label('Category')->searchable(),
                 TextColumn::make('user.name')->label('Author'),
                 TextColumn::make('link')->limit(10),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Recruitment $record) => $record->user_id !== auth()->id() || !auth()->user()->can('publish')),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Recruitment $record): bool => ($record->user_id !== auth()->id() || !auth()->user()->can('publish'))),
                 TextColumn::make('statuses.name')
                     ->label('Status')
                     ->badge()
