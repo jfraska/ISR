@@ -15,7 +15,7 @@
                 <div class="col-span-4 md:col-span-3">
                     <livewire:post-list :category="$category">
                 </div>
-                <div id="side-bar" class="md:border-t-none top-0 col-span-4 h-screen space-y-10 md:col-span-1 md:px-0">
+                <div id="side-bar" class="md:border-t-none top-0 col-span-4 h-fit space-y-10 md:col-span-1 md:px-0">
                     <div class="flex flex-col gap-5 py-5 w-full h-auto rounded border border-gray-200 px-3">
                         <x-search-box />
 
