@@ -299,8 +299,7 @@ class PostResource extends Resource
                 Tables\Filters\TrashedFilter::make()
             ])
             ->toggleColumnsTriggerAction(
-                fn (Tables\Actions\Action $action) => $action
-                    ->button()->hiddenLabel(),
+                fn (Tables\Actions\Action $action) => $action->hiddenLabel(),
             )
             ->actions([
                 Tables\Actions\RestoreAction::make(),
