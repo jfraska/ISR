@@ -217,7 +217,7 @@ class DownloadResource extends Resource
                 TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('categories.name')->searchable()->label('Category'),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Download $record) => $record->user_id !== auth()->id() || !auth()->user()->can('post:all')),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Download $record) => $record->user_id !== auth()->id() || !auth()->user()->can('publish')),
                 TextColumn::make('statuses.name')
                     ->label('Status')
                     ->badge()

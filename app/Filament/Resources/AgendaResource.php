@@ -132,7 +132,7 @@ class AgendaResource extends Resource
                 TextColumn::make('user.name')->label('Author'),
                 ColorColumn::make('bg_color')->label('Theme'),
                 TextColumn::make('datetime'),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Agenda $record) => $record->user_id !== auth()->id() || !auth()->user()->can('post:all')),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Agenda $record) => $record->user_id !== auth()->id() || !auth()->user()->can('publish')),
                 TextColumn::make('status')
                     ->state(
                         fn (Agenda $record) => $record->status

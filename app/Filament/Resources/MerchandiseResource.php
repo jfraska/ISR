@@ -138,7 +138,7 @@ class MerchandiseResource extends Resource
                 SpatieMediaLibraryImageColumn::make('thumbnail')->square(),
                 TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Merchandise $record) => $record->user_id !== auth()->id() || !auth()->user()->can('post:all')),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Merchandise $record) => $record->user_id !== auth()->id() || !auth()->user()->can('publish')),
                 TextColumn::make('link')->limit(10),
                 TextColumn::make('statuses.name')
                     ->label('Status')
