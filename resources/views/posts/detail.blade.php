@@ -11,7 +11,7 @@
             <x-breadcrumb menu="pojok-ilmiah" :category="$category" />
             <h1 class="text-uppercase text-4xl font-bold mt-5">{{ $category->name }} Terkini</h1>
 
-            <div class="grid w-full grid-cols-4 gap-10">
+            <div class="grid w-full grid-cols-4 gap-10 mt-5">
                 <div class="col-span-4 md:col-span-3">
                     <livewire:post-list :category="$category">
                 </div>
