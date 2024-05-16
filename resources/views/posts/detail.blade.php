@@ -19,7 +19,7 @@
                     <div class="flex flex-col gap-5 py-5 w-full h-auto rounded border border-gray-200 px-3">
                         <x-search-box />
 
-                        <x-tags-box />
+                        @include('components.tags-box')
                     </div>
 
                     {{-- Category Dropdown Start --}}
