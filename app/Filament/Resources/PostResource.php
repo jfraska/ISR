@@ -266,7 +266,7 @@ class PostResource extends Resource
                 TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn ($state): bool => $state !== null),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Post $record): bool => ($record->user_id !== auth()->id() || !auth()->user()->can('publish'))),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Post $record): bool => !auth()->user()->can('publish') || $record->user_id !== Auth::id()),
                 TextColumn::make('views')
                     ->state(
                         fn (Post $record) => $record->getPageViews()
