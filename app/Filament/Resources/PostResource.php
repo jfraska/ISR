@@ -300,8 +300,7 @@ class PostResource extends Resource
             ])
             ->toggleColumnsTriggerAction(
                 fn (Tables\Actions\Action $action) => $action
-                    ->button()
-                    ->label('Toggle columns'),
+                    ->button(),
             )
             ->actions([
                 Tables\Actions\RestoreAction::make(),
