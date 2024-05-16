@@ -266,11 +266,15 @@ class PostResource extends Resource
                 TextColumn::make('title')->limit(50)->searchable(),
                 TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn ($state): bool => $state !== null),
                 TextColumn::make('user.name')->label('Author'),
-                ToggleColumn::make('is_published')->label('Publish')->onColor('success'),
+                ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Post $record) => $record->user_id === auth()->id() || auth()->user()->can('post:all')),
                 TextColumn::make('views')
                     ->state(
                         fn (Post $record) => $record->getPageViews()
-                    ),
+                    )->toggleable(),
+                TextColumn::make('likes')
+                    ->state(
+                        fn (Post $record) => $record->likes()->count()
+                    )->toggleable(),
                 SpatieTagsColumn::make('tags'),
                 TextColumn::make('statuses.name')
                     ->label('Status')
@@ -294,6 +298,11 @@ class PostResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
                 Tables\Filters\TrashedFilter::make()
             ])
+            ->toggleColumnsTriggerAction(
+                fn (Action $action) => $action
+                    ->button()
+                    ->label('Toggle columns'),
+            )
             ->actions([
                 Tables\Actions\RestoreAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
