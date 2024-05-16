@@ -23,12 +23,12 @@
                     </div>
 
                     {{-- Category Dropdown Start --}}
-                    <div class="flex flex-col gap-5 w-full p-5 border border-gray-200 rounded">
+                    <div class="flex flex-col gap-2 w-full p-5 border border-gray-200 rounded">
                         <h1 class="text-base md:text-sm lg:text-base font-bold">CATEGORY</h1>
                         @if ($category->slug === 'artikel')
                             <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'isr-journey']) }}"
                                 class="block p-1">
-                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
+                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded"
                                     style="background-image: url('/images/sub-category/isr-journey.png');">
                                     <div
                                         class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
@@ -41,7 +41,7 @@
                             </a>
                             <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'opini-refleksi']) }}"
                                 class="block p-1">
-                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
+                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded"
                                     style="background-image: url('/images/sub-category/opini-refleksi.png');">
                                     <div
                                         class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
@@ -54,7 +54,7 @@
                             </a>
                             <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'tips-trick']) }}"
                                 class="block p-1">
-                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
+                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded"
                                     style="background-image: url('/images/sub-category/tips-trick.png');">
                                     <div
                                         class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
@@ -67,7 +67,7 @@
                             </a>
                             <a href="{{ route('posts.detail', ['category' => 'artikel', 'subCategory' => 'prestasi-isr']) }}"
                                 class="block p-1">
-                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
+                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded"
                                     style="background-image: url('/images/sub-category/prestasi-isr.png');">
                                     <div
                                         class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
@@ -83,7 +83,7 @@
                         @if ($category->slug === 'mini-blog')
                             <a href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'fact-in-research']) }}"
                                 class="block p-1">
-                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
+                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded"
                                     style="background-image: url('/images/sub-category/fact-research.png');">
                                     <div
                                         class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
@@ -97,7 +97,7 @@
 
                             <a href="{{ route('posts.detail', ['category' => 'mini-blog', 'subCategory' => 'isr-edu']) }}"
                                 class="block p-1">
-                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded-sm"
+                                <div class="p-5 flex flex-col items-center w-full h-full bg-cover bg-center rounded"
                                     style="background-image: url('/images/sub-category/isr-edu.png');">
                                     <div
                                         class="w-full h-10 border border-[#FFDF4E] flex items-center justify-center gap-4 rounded-xl px-2 overflow-hidden">
