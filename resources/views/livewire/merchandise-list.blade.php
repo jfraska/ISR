@@ -8,7 +8,8 @@
                 </a>
                 <div class="p-2 md:p-5">
                     <a href="#">
-                        <h5 class="mb-2 text-lg md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5
+                            class="mb-2 text-md md:text-lg font-semibold tracking-tight text-gray-900 dark:text-white min-h-[55px] line-clamp-2">
                             {{ $merchandise->title }}
                         </h5>
                     </a>
@@ -48,8 +49,8 @@
                             5
                         </p>
                     </div>
-                    <div class="flex flex-col md:flex-row md:justify-between">
-                        <p class="mb-3 text-xm md:text-lg font-semibold text-[#0D5568] dark:text-gray-400">
+                    <div class="flex flex-col items-center md:flex-row md:justify-between">
+                        <p class="items-center mb-3 text-xm md:text-lg font-semibold text-[#0D5568] dark:text-gray-400">
                             Rp.
                             {{ number_format($merchandise->price, 0, ',', '.') }}
                         </p>
