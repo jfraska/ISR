@@ -264,7 +264,7 @@ class PostResource extends Resource
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
                 TextColumn::make('title')->limit(30)->searchable(),
-                TextColumn::make('subCategories.name')->searchable()->label('Sub Category'),
+                TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn (Post $record): bool => $record->categories->slug !== "berita"),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Post $record): bool => !(auth()->user()->can('publish') || $record->user_id === Auth::id())),
                 TextColumn::make('views')
