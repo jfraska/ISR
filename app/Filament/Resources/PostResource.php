@@ -224,9 +224,9 @@ class PostResource extends Resource
                                 'md' => 2,
                             ])
                             ->schema([
-                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id())->disabledOn('edit'),
                                 Split::make([
-                                    Toggle::make('is_published')->label('Published')->onColor('success'),
+                                    Toggle::make('is_published')->label('Published')->onColor('success')->accepted(),
                                     Toggle::make('is_featured')->label('Featured'),
                                 ]),
                                 SpatieMediaLibraryFileUpload::make('image')
@@ -263,18 +263,18 @@ class PostResource extends Resource
             ->defaultGroup('statuses.name')
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumbnail')->width(80),
-                TextColumn::make('title')->limit(50)->searchable(),
-                TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn ($state): bool => $state !== null),
+                TextColumn::make('title')->limit(30)->searchable(),
+                TextColumn::make('subCategories.name')->searchable()->label('Sub Category')->visible(fn (Post $record): bool => $record->subCategories->first()),
                 TextColumn::make('user.name')->label('Author'),
                 ToggleColumn::make('is_published')->label('Publish')->onColor('success')->disabled(fn (Post $record): bool => !(auth()->user()->can('publish') || $record->user_id === Auth::id())),
                 TextColumn::make('views')
                     ->state(
                         fn (Post $record) => $record->getPageViews()
-                    )->toggleable(),
+                    )->toggleable(false),
                 TextColumn::make('likes')
                     ->state(
                         fn (Post $record) => $record->likes()->count()
-                    )->toggleable(),
+                    )->toggleable(false),
                 SpatieTagsColumn::make('tags'),
                 TextColumn::make('statuses.name')
                     ->label('Status')
@@ -293,7 +293,7 @@ class PostResource extends Resource
                     })->alignment(Alignment::Center),
             ])
             ->filters([
-                Tables\Filters\Filter::make('is_featured')
+                Tables\Filters\Filter::make('featured')
                     ->label('Featured')
                     ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
                 Tables\Filters\TrashedFilter::make()

@@ -123,7 +123,7 @@ class General extends Page
                             ->schema([
                                 FileUpload::make('image')
                                     ->image()
-                                    ->maxSize(1024)
+                                    ->maxSize(5120)
                                     ->optimize('webp')
                                     ->imageEditor()
                                     ->required(),
@@ -137,6 +137,8 @@ class General extends Page
                     ->addActionLabel('Add a new content')
                     ->columnSpanFull()
                     ->blockNumbers(false)
+                    ->deletable(false)
+                    ->addable(false)
                     ->reorderable(false)
             ])
             ->model($this->record)

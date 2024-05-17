@@ -87,8 +87,8 @@ class AchievementResource extends Resource
                                 'md' => 2,
                             ])
                             ->schema([
-                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
-                                Toggle::make('is_published')->label('Published')->onColor('success'),
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id())->disabledOn('edit'),
+                                Toggle::make('is_published')->label('Published')->onColor('success')->accepted(),
                                 SpatieMediaLibraryFileUpload::make('image')
                                     ->label('Thumbnail')
                                     ->required()

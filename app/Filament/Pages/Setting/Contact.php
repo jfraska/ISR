@@ -144,13 +144,21 @@ class Contact extends Page
                             ->columns(2),
                         Builder\Block::make('contact')
                             ->schema([
-                                TextInput::make('name')
-                                    ->required(),
                                 TextInput::make('number')
                                     ->required()
                                     ->tel()
                                     ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                                     ->suffixIcon('heroicon-m-phone'),
+                                Select::make('name')
+                                    ->options([
+                                        'Telepon ISR' => 'Telepon ISR',
+                                        'WhatsApp ISR' => 'WhatsApp ISR',
+                                        'Telepon Media Partner' => 'Telepon Media Partner',
+                                        'WhatsApp Media Partner' => 'WhatsApp Media Partner',
+                                        'Telepon Keuangan' => 'Telepon Keuangan',
+                                        'WhatsApp Keuangan' => 'WhatsApp Keuangan',
+                                    ])
+                                    ->required(),
                             ])
                             ->label(function (?array $state): string {
                                 if ($state === null) {
@@ -165,7 +173,9 @@ class Contact extends Page
                     ->addActionLabel('Add a new contact')
                     ->columnSpanFull()
                     ->blockNumbers(false)
-                    ->reorderable(false)
+                    ->deletable(false)
+                    ->addable(false)
+                    // ->reorderable(false)
                     ->collapsed(),
             ])
             ->model($this->record)
