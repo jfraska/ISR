@@ -8,7 +8,7 @@
             style="background-image: url('/images/thumbnail-detail.png');">
         </div>
         <div class="p-8 rounded bg-white -mt-20 mx-auto z-20 w-5/6">
-            <x-breadcrumb :category="$category" menu="" />
+            <x-breadcrumb menu="rekruitmen" :category="$category" />
             <h1 class="text-uppercase text-4xl font-bold mt-5">{{ $category->name }} ISR</h1>
 
             <div class="grid w-full grid-cols-4 gap-10">

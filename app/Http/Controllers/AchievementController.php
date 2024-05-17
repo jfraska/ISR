@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class AchievementController extends Controller
 {
-    public function index(Category $category)
+    public function index()
     {
         return view(
             'achievements.index'

@@ -42,8 +42,8 @@ Route::get('/prestasi/{achievement:slug}', [AchievementController::class, 'show'
 Route::get('/department/{department:slug}', [DepartmentController::class, 'show'])->name('departments.show');
 Route::get('/abouts/{organizational:slug}', [OrganizationalController::class, 'show'])->name('abouts.show');
 
-Route::get('/recruitment/{category:slug}', [RecruitmentController::class, 'index'])->name('recruitments.index');
-Route::get('/recruitment/{category:slug}/{recruitment:slug}', [RecruitmentController::class, 'show'])->name('recruitments.show')->withoutScopedBindings();
+Route::get('/rekruitmen/{category:slug}', [RecruitmentController::class, 'index'])->name('recruitments.index');
+Route::get('/rekruitmen/{category:slug}/{recruitment:slug}', [RecruitmentController::class, 'show'])->name('recruitments.show')->withoutScopedBindings();
 
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise.index');
 Route::get('/merchandise/{merchandise:slug}', [MerchandiseController::class, 'show'])->name('merchandise.show');
