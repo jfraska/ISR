@@ -13,7 +13,7 @@
                 Home
             </a>
         </li>
-        @if ($menu === 'pojok-ilmiah')
+        @if ($menu === 'pojok-ilmiah' || $menu === 'prestasi')
             <li>
                 <div class="flex items-center">
                     <svg class="mx-1 h-3 w-3 text-gray-400 rtl:rotate-180" aria-hidden="true"

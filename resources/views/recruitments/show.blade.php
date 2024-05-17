@@ -11,7 +11,7 @@
             ">
         </div>
         <div class="z-20 -mt-20 w-5/6 rounded bg-white p-8">
-            <x-breadcrumb menu="rekruitmen" :category="$recruitment->categories" :post="$recruitment" />
+            <x-breadcrumb menu="rekruitmen" :category="$recruitment->categories->first()" :post="$recruitment" />
             <div class="flex flex-col items-center justify-center gap-5 p-5">
                 <h2 class="text-sm font-normal">{{ $recruitment->categories->first()->name }}</h2>
                 <h1 class="max-w-lg text-wrap text-center text-3xl font-medium">
