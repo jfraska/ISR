@@ -101,7 +101,7 @@ class MerchandiseResource extends Resource
                                 'md' => 2,
                             ])
                             ->schema([
-                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()),
+                                Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id())->disabledOn('edit'),
                                 Toggle::make('is_published')->label('Published')->onColor('success'),
                                 SpatieMediaLibraryFileUpload::make('image')
                                     ->label('Thumbnail')
