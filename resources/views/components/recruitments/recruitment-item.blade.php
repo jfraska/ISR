@@ -5,7 +5,7 @@
         <div class="article-thumbnail col-span-4 flex items-center">
             <a
                 href="{{ route('recruitments.show', ['category' => $recruitment->categories->first()->slug, 'recruitment' => $recruitment->slug]) }}">
-                <img class="mx-auto w-full h-[220px] rounded-xl" src={{ $recruitment->getFirstMediaUrl() }}
+                <img class="mx-auto w-full h-[100px] md:h-[220px] rounded-xl" src={{ $recruitment->getFirstMediaUrl() }}
                     alt="{{ $recruitment->title }}" />
             </a>
         </div>
@@ -16,13 +16,19 @@
                     . {{ $recruitment->published_at->diffForHumans() }}
                 </span>
             </div>
-            <h2 class="text-md font-bold text-gray-900">
+            <h2 class="text-sm md:text-base font-bold text-gray-900">
                 <a
                     href="{{ route('recruitments.show', ['category' => $recruitment->categories->first()->slug, 'recruitment' => $recruitment->slug]) }}">
                     {{ $recruitment->title }} </a>
             </h2>
-            <p class="mt-2 text-sm font-light text-gray-700">
-                {{ Illuminate\Support\Str::limit(strip_tags($recruitment->excerpt()), 450) }}
+            <p class="block md:hidden mt-2 text-xs font-light text-gray-700">
+                {{ Illuminate\Support\Str::limit(strip_tags($recruitment->excerpt()), 50) }}
+            </p>
+            <p class="hidden md:block lg:hidden mt-2 text-sm font-light text-gray-700">
+                {{ Illuminate\Support\Str::limit(strip_tags($recruitment->excerpt()), 300) }}
+            </p>
+            <p class="hidden lg:block mt-2 text-sm font-light text-gray-700">
+                {{ Illuminate\Support\Str::limit(strip_tags($recruitment->excerpt()), 400) }}
             </p>
             <div class="article-actions-bar mt-6 flex items-center justify-between">
                 {{-- <div class="flex gap-x-2 justify-end">
