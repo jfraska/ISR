@@ -73,7 +73,6 @@
 
                     {!! $content !!}
 
-
                     {{-- <x-content :items="$department->content" contentType="download" /> --}}
                 </div>
             </div>
