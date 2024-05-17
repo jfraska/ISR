@@ -175,7 +175,7 @@ class Contact extends Page
                     ->blockNumbers(false)
                     ->deletable(false)
                     ->addable(false)
-                    // ->reorderable(false)
+                    ->reorderable(false)
                     ->collapsed(),
             ])
             ->model($this->record)
