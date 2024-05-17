@@ -4,7 +4,7 @@
             <div
                 class="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
                 <a href="#">
-                    <img class="rounded-t-lg h-[260px] object-cover border-b border-b-slate-300"
+                    <img class="rounded-t-lg w-full h-[200px] md:h-[260px] object-cover border-b border-b-slate-300"
                         src="{{ $merchandise->getFirstMediaUrl() }}" alt="image" />
                 </a>
                 <div class="p-2 md:p-5">
