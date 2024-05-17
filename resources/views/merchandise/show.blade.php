@@ -82,7 +82,7 @@
                                     {{ $merchandise->title }}
                                 </h5>
                             </a>
-                            <p class="my-2 md:my-5 text-2xl font-semibold text-[#0D5568] md:text-4xl">
+                            <p class="my-2 md:my-5 text-xl font-semibold text-[#0D5568] md:text-3xl">
                                 Rp. {{ $merchandise->price }}
                             </p>
                             <div class="container mt-3 bg-gray-50 px-3">
