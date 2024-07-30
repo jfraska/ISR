@@ -11,7 +11,7 @@
     @foreach ($uniqueCategories as $category)
         <a wire:key="{{ $category->id }}" href="{{ route('downloads.index', $category->slug) }}">
             <div class="min-h-[35px] px-2 py-4 container" style="border-bottom: 1px solid #f5d05e;">
-                <p class="text-[15px] font-light" style="color: white;">
+                <p class="text-base text-white hover:text-[#F5D05E]">
                     {{ $category->name }}
                 </p>
             </div>

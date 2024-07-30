@@ -3,12 +3,12 @@
         @foreach ($this->merchandises as $merchandise)
             <div
                 class="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-                <a href="#">
+                <a href="{{ route('merchandise.show', $merchandise->slug) }}">
                     <img class="rounded-t-lg w-full h-[200px] md:h-[260px] object-cover border-b border-b-slate-300"
                         src="{{ $merchandise->getFirstMediaUrl() }}" alt="image" />
                 </a>
                 <div class="p-2 md:p-5">
-                    <a href="#">
+                    <a href="{{ route('merchandise.show', $merchandise->slug) }}">
                         <h5
                             class="mb-2 text-md md:text-lg font-semibold tracking-tight text-gray-900 dark:text-white min-h-[55px] line-clamp-2">
                             {{ $merchandise->title }}

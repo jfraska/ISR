@@ -2,10 +2,15 @@
     <div class="flex w-full flex-col">
         <div class="mx-auto w-4/5">
             <div
-                class="flex w-full flex-col items-center justify-between gap-10 text-center md:flex-row md:border-b md:border-white md:text-left">
-                <div class="flex w-3/5 flex-row justify-center md:w-full">
-                    <div class="">
-                        <img src="/images/isr-footer.png" alt="isr footer" class="" />
+                class="flex w-full flex-col items-start justify-between gap-10 text-center md:flex-row md:border-b md:border-white md:text-left pt-10">
+                <div class="flex w-full flex-col">
+                    <div class="flex flex-col items-center md:items-start">
+                        <div class="flex flex-grow flex-col gap-2">
+                            <h1 class="text-base font-bold text-white">
+                                Video Profil
+                            </h1>
+                            <div class="pb-5"> <iframe class="w-72 h-40" src="https://www.youtube.com/embed/LhuXAA1O7Ig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </div>
+                        </div>
                     </div>
                 </div>
                 <div class="flex w-full flex-col">

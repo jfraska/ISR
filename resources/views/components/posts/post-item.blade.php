@@ -1,13 +1,13 @@
 @props(['post'])
 
 <article class="border-gray-100 pb-10 [&:not(:last-child)]:border-b">
-    <div class="article-body mt-5 grid grid-cols-12 items-start gap-3">
-        <div class="col-span-4">
+    <div class="article-body mt-5 grid grid-cols-1 md:grid-cols-12 items-start gap-3">
+        <div class="col-span-1 md:col-span-4">
             <a href="{{ route('posts.show', ['category' => $post->categories->slug, 'post' => $post->slug]) }}">
                 <img class="h-40 w-full rounded" src="{{ $post->getFirstMediaUrl() }}" alt="{{ $post->title }}" />
             </a>
         </div>
-        <div class="col-span-8 pl-3">
+        <div class="col-span-1 md:col-span-8 pl-3">
             <div class="article-meta flex items-center py-1 text-sm">
                 <span class="mr-1 text-xs">{{ $post->user->name }}</span>
                 <span class="text-xs text-gray-500">

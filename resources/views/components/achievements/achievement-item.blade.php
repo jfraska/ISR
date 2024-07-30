@@ -1,14 +1,14 @@
 @props(['achievement'])
 
 <article class="border-gray-100 pb-10 [&:not(:last-child)]:border-b">
-    <div class="article-body mt-5 grid grid-cols-12 items-start gap-3">
-        <div class="article-thumbnail col-span-4 flex items-center">
+    <div class="article-body mt-5 grid grid-cols-1 md:grid-cols-12 items-start gap-3">
+        <div class="article-thumbnail col-span-1 md:col-span-4 flex items-center">
             <a href="{{ route('achievements.show', ['achievement' => $achievement->slug]) }}">
-                <img class="mx-auto w-full h-[220px] rounded-xl" src={{ $achievement->getFirstMediaUrl() }}
+                <img class="h-40 w-full rounded" src={{ $achievement->getFirstMediaUrl() }}
                     alt="{{ $achievement->title }}" />
             </a>
         </div>
-        <div class="col-span-8 pl-3">
+        <div class="col-span-1 md:col-span-8 pl-3">
             <div class="article-meta flex items-center py-1 text-sm">
                 <span class="mr-1 text-xs">{{ $achievement->user->name }}</span>
                 <span class="text-xs text-gray-500">

@@ -151,7 +151,7 @@
                         @foreach ($this->departments as $department)
                             <a wire:key="{{ $department->id }}"
                                 href="{{ route('departments.show', $department->slug) }}"
-                                class="text-sm flex w-full hover:text-[#F5D05E] px-5 py-1">{{ $department->title }}
+                                class="text-sm flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $department->title }}
                             </a>
                         @endforeach
                     </div>
@@ -191,7 +191,7 @@
                             <div id="{{ $recruitment->slug }}" data-menu data-submenu="{{ $recruitment->slug }}"
                                 wire:key="{{ $recruitment->id }}" class="flex flex-row pr-2">
                                 <a href="{{ route('recruitments.index', $recruitment->slug) }}"
-                                    class="text-white hover:text-[#F5D05E] text-xs block px-5 py-1">{{ $recruitment->name }}</a>
+                                    class="text-sm flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $recruitment->name }}</a>
                             </div>
                         @endforeach
                     </div>
@@ -229,7 +229,7 @@
                     <div class="flex-col gap-4 w-full px-6">
                         @foreach ($this->achievements as $year => $achievementsOfYear)
                             <a href="{{ route('achievements.index', ['year' => $year]) }}"
-                                class="text-white hover:text-[#F5D05E] text-xs block px-5 py-1">Tahun
+                                class="text-sm flex w-full hover:text-[#F5D05E] items-center justify-between p-3">Tahun
                                 {{ $year }}</a>
                         @endforeach
                     </div>
@@ -269,7 +269,7 @@
                             <div class="flex felx-row justify-between pr-2">
                                 <a wire:key="{{ $competition->id }}" data-submenu="{{ $competition->slug }}"
                                     href="{{ route('competitions.index', $competition->slug) }}"
-                                    class="text-white hover:text-[#F5D05E] text-xs block px-5 py-1">{{ $competition->name }}</a>
+                                    class="text-sm flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $competition->name }}</a>
                                 <img src="/images/navbar/arrow.svg" alt="arrow">
                             </div>
                         @endforeach
@@ -322,7 +322,7 @@
                         @foreach ($this->downloads as $download)
                             <a wire:key="{{ $download->id }}"
                                 href="{{ route('downloads.index', ['category' => $download->slug]) }}"
-                                class="text-white hover:text-[#F5D05E] text-xs block px-4 py-3">{{ $download->name }}</a>
+                                class="text-sm flex w-full hover:text-[#F5D05E] items-center justify-between p-3">{{ $download->name }}</a>
                         @endforeach
                     </div>
                 </div>

@@ -41,30 +41,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex w-full lg:w-1/4 py-2">
-                    <div class="flex flex-col w-full rounded-md border-[1.5px] px-3">
-                        <div class="text-lg font-medium pb-3">DOWNLOAD LAINNYA</div>
-                        @foreach ($downloads as $item)
-                            <a
-                                href="{{ route('downloads.show', ['category' => $category->slug, 'download' => $item->slug]) }}">
-                                <div class="flex w-full flex-row items-start justify-start gap-2 py-2">
-                                    <div class="flex w-full flex-col items-start gap-2 border-b border-gray-200">
-                                        <div class="text-base font-semibold">
-                                            {{ Illuminate\Support\Str::limit(strip_tags($item->title), 50) }}
-                                        </div>
-                                        <p class="text-xs md:text-sm font-normal">
-                                            {{ $download->published_at->format('d F Y') }}</p>
-                                        </p>
-                                        {{-- <p class="text-sm font-medium">
-                                            Read in {{ $item->getReadingTime() }}
-                                            minutes
-                                        </p> --}}
-                                    </div>
-                                </div>
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -73,9 +49,5 @@
                 <x-posts.tag-badge :tag="$tag" />
             @endforeach
         </div> --}}
-
-        <div class="flex flex-row justify-center lg:justify-start px-5 w-full lg:w-3/4">
-            <livewire:post-comments :model="$download" />
-        </div>
     </article>
 @endsection

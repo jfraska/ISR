@@ -4,13 +4,13 @@
     @foreach ($items as $item)
         @if ($item['type'] === 'heading')
             @if ($item['data']['level'] === 'h1')
-                <h1 class="mb-2 py-5 text-2xl font-bold">
+                <h1 class="mb-2 py-5 text-xl font-bold">
                     {!! $item['data']['content'] !!}
                 </h1>
             @endif
 
             @if ($item['data']['level'] === 'h2')
-                <h2 class="mb-2 py-3 text-xl font-bold">
+                <h2 class="mb-2 py-3 text-lg font-bold">
                     {!! $item['data']['content'] !!}
                 </h2>
             @endif
@@ -28,19 +28,19 @@
                 // Tambahkan kelas jika tag <p> ditemukan
                 $modifiedContent = preg_replace(
                     '/<p>/',
-                    '<p class="text-md font-regular text-justify mb-5">',
+                    '<p class="text-sm md:text-base font-regular text-justify mb-5">',
                     $content,
                 );
                 // Tambahkan kelas jika tag <ol> ditemukan
                 $modifiedContent = preg_replace(
                     '/<ol>/',
-                    '<ol class="text-md font-regular text-justify mb-5">',
+                    '<ol class="text-sm md:text-base font-regular text-justify mb-5">',
                     $modifiedContent,
                 );
                 // Tambahkan kelas jika tag <li> ditemukan
                 $modifiedContent = preg_replace(
                     '/<li>/',
-                    '<li class="list-decimal text-md font-regular text-justify ml-5 mb-2">',
+                    '<li class="list-decimal text-sm md:text-base font-regular text-justify ml-5 mb-2">',
                     $modifiedContent,
                 );
             @endphp

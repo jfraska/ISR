@@ -9,7 +9,7 @@
         {{-- Start Hero Page --}}
         <section class="relative aspect-video w-full">
             <video autoplay muted loop class="h-full w-full object-cover">
-                <source src="/images/upn-profile.mp4" type="video/mp4" />
+                <source src="/images/isr-profile.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
         </section>
@@ -79,9 +79,9 @@
                     </div>
                     <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
                 </div>
-                {{-- <img src="{{ $kabinet->getFirstMediaUrl() }}" alt="isr-profile" --}}
-                <img src="/images/upn.png" alt="isr-profile"
-                    class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
+                <img src="{{ $kabinet->getFirstMediaUrl() }}" alt="kabinet-profile"
+                {{-- <img src="/images/upn.png" alt="kabinet-profile" --}}
+                    class="aspect-square w-full sm:w-[50%] md:w-[60%] lg:w-[658px] rounded-lg" />
                 <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
                     <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
                         {{ $kabinet->title }}
@@ -141,8 +141,9 @@
             <div class="absolute inset-x-0 top-0 z-0 hidden h-[170px] w-full bg-[#0D5568] md:block"></div>
             <div class="mx-auto flex w-full flex-row gap-5 overflow-x-auto md:w-4/5 md:flex-col">
                 <div class="z-10 flex flex-row h-[300px] gap-5 md:h-[180px]">
-                    <div class="flex w-full items-start gap-2 border-2 border-[#0D5568] bg-white p-2">
-                        <img src="/images/oprec.svg" alt="oprec" class="aspect-square w-9" />
+                    <div class="w-full border-2 border-[#0D5568] bg-white p-2">
+                        <div class="relative flex flex-row items-start p-3">
+                        <img src="/images/oprec.svg" alt="oprec" class="mr-4 aspect-square w-9" />
                         <div class="mr-[50px]">
                             <h1 class="text-sm font-bold text-[#0D5568]">
                                 Open Recruitmen ISR
@@ -157,21 +158,22 @@
                             </p>
                             <div
                                 class="mt-3 flex h-[35px] w-[135px] items-center justify-between border border-white bg-[#0D5568] p-3">
-                                <a href="" class="text-[12px]" style="color: white">
+                                <a href="{{ route('recruitments.index', 'open-recruitment') }}" class="text-[12px]" style="color: white">
                                     SELENGKAPNYA
                                 </a>
                                 <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
                             </div>
                         </div>
+                        </div>
                     </div>
                     <div class="w-full border-2 border-[#0D5568] bg-white p-2">
                         <div class="relative flex flex-row items-start p-3">
-                            <img src="/images/volunteer.svg" alt="oprec" class="mr-4 h-[35px] w-[35px]" />
+                            <img src="/images/volunteer.svg" alt="oprec" class="mr-4 aspect-square w-9" />
                             <div class="mr-[50px]">
-                                <h1 class="text-[14px] font-bold" style="color: #0d5568">
+                                <h1 class="text-sm font-bold text-[#0D5568]">
                                     Pendaftaran Volunteer
                                 </h1>
-                                <p class="mb-0 text-[11px]">
+                                <p class="mb-0 text-xs">
                                     Kalian ingin berkontribusi untuk memajukan
                                     bangsa, tapi bingung mulai dari mana? Atau
                                     ingin mengisi waktumu dengan hal-hal yang
@@ -179,7 +181,7 @@
                                 </p>
                                 <div
                                     class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
-                                    <a href="" class="text-[12px]" style="color: white">
+                                    <a href="{{ route('recruitments.index', 'volunteer') }}" class="text-[12px]" style="color: white">
                                         SELENGKAPNYA
                                     </a>
                                     <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
@@ -192,12 +194,12 @@
                 <div class="flex h-[300px] gap-5 md:h-[180px]">
                     <div class="w-full border-2 border-[#0D5568] bg-white p-2">
                         <div class="relative flex flex-row items-start p-3">
-                            <img src="/images/lomba.svg" alt="oprec" class="mr-4 h-[35px] w-[35px]" />
+                            <img src="/images/lomba.svg" alt="oprec" class="mr-4 aspect-square w-9" />
                             <div class="mr-[50px] flex-grow">
-                                <h1 class="text-[14px] font-bold" style="color: #0d5568">
+                                <h1 class="text-sm font-bold text-[#0D5568]">
                                     Pendaftaran Lomba Umum
                                 </h1>
-                                <p class="mb-0 text-[11px]">
+                                <p class="mb-0 text-xs">
                                     Kalian ingin berkontribusi untuk memajukan
                                     bangsa, tapi bingung mulai dari mana? Atau
                                     ingin mengisi waktumu dengan hal-hal yang
@@ -205,7 +207,7 @@
                                 </p>
                                 <div
                                     class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
-                                    <a href="" class="text-[12px]" style="color: white">
+                                    <a href="{{ route('competitions.index', 'lomba-umum') }}" class="text-[12px]" style="color: white">
                                         SELENGKAPNYA
                                     </a>
                                     <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
@@ -215,12 +217,12 @@
                     </div>
                     <div class="w-full border-2 border-[#0D5568] bg-white p-2">
                         <div class="relative flex flex-row items-start p-3">
-                            <img src="/images/talenta.svg" alt="oprec" class="mr-4 h-[35px] w-[35px]" />
+                            <img src="/images/talenta.svg" alt="oprec" class="mr-4 aspect-square w-9" />
                             <div class="mr-[50px] flex-grow">
-                                <h1 class="text-[14px] font-bold" style="color: #0d5568">
+                                <h1 class="text-sm font-bold text-[#0D5568]">
                                     Pendaftaran Ajang Talenta Dikti
                                 </h1>
-                                <p class="mb-0 text-[11px]">
+                                <p class="mb-0 text-xs">
                                     Kalian ingin berkontribusi untuk memajukan
                                     bangsa, tapi bingung mulai dari mana? Atau
                                     ingin mengisi waktumu dengan hal-hal yang
@@ -228,7 +230,7 @@
                                 </p>
                                 <div
                                     class="relative mt-3 flex h-[35px] w-[135px] flex-row items-center justify-between border border-white bg-[#0D5568] p-3">
-                                    <a href="" class="text-[12px]" style="color: white">
+                                    <a href="{{ route('competitions.index', 'ajang-talenta-dikti') }}" class="text-[12px]" style="color: white">
                                         SELENGKAPNYA
                                     </a>
                                     <img src="/images/arrow.svg" alt="arrow" class="h-[10px] w-[10px]" />
@@ -243,18 +245,20 @@
 
         {{-- Start Profil ISR --}}
         <section class="bg-white">
-            <div
+             <div
                 class="relative flex flex-col-reverse items-center justify-end gap-10 px-4 py-8 md:px-8 md:py-12 lg:gap-15 lg:flex-row">
                 <div class="absolute left-4 top-10 hidden items-center justify-center xl:block">
                     <div class="z-20 h-14 w-40 bg-[#F5D05E]" style="transform: translateX(10%)">
                     </div>
-                    <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
+                    <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);">
+                    </div>
                 </div>
                 <div class="w-full sm:w-[50%] md:w-[70%] lg:w-[397px] xl:pl-80 rounded-lg">
                     <h1 class="relative text-2xl md:text-3xl lg:text-4xl font-bold">
                         {{ $profil->title }}
                         <span
-                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]">
+                        </span>
                     </h1>
                     <div class="mt-3 md:mt-5 lg:mt-5 text-sm md:text-base">
                         @foreach ($profil->content as $item)
@@ -288,8 +292,8 @@
                 <img src="/images/side-decor-bottom-left.png" alt="decor" class="aspect-square w-[20vw]" />
             </div>
         </div>
-    </section>
-    {{-- End Profil ISR --}}
+        </section>
+        {{-- End Profil ISR --}}
 
     {{-- Start Visi ISR --}}
     <section class="">
@@ -300,13 +304,14 @@
                 </div>
                 <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
             </div>
-            <img src="/images/upn.png" alt="isr-profile"
+            <div class="flex-col md:flex-row gap-10 py-10">
+                <img src="/images/upn.png" alt="isr-profile"
                 class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
             <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
-                <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
+                <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold pt-10">
                     {{ $misi->title }}
                     <span
-                        class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                        class="ml-5 after:absolute after:bottom-2 after:h-[3px] sm:after:w-1/6 md:after:w-1/3 after:bg-[#0D5568]"></span>
                 </h1>
                 <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
                     @foreach ($misi->content as $item)
@@ -349,6 +354,7 @@
                     <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
                 </div>
             </div>
+            </div>
             <div class="absolute bottom-0 right-0 hidden xl:block">
                 <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
             </div>
@@ -388,8 +394,8 @@
                                     @if ($item['type'] === 'paragraph')
                                         @php
                                             $content = strip_tags($item['data']['content']);
-                                            if (mb_strlen($content) > 400) {
-                                                $content = mb_substr($content, 0, 400) . '...';
+                                            if (mb_strlen($content) > 350) {
+                                                $content = mb_substr($content, 0, 350) . '...';
                                             }
                                         @endphp
                                         <p class="mb-3 text-[13px] font-normal text-gray-700 dark:text-gray-400">
@@ -444,8 +450,8 @@
                                 @if ($item['type'] === 'paragraph')
                                     @php
                                         $content = strip_tags($item['data']['content']);
-                                        if (mb_strlen($content) > 400) {
-                                            $content = mb_substr($content, 0, 400) . '...';
+                                        if (mb_strlen($content) > 350) {
+                                            $content = mb_substr($content, 0, 350) . '...';
                                         }
                                     @endphp
                                     <p class="mb-3 text-[13px] font-normal text-gray-700 dark:text-gray-400">
@@ -500,8 +506,8 @@
                             @if ($item['type'] === 'paragraph')
                                 @php
                                     $content = strip_tags($item['data']['content']);
-                                    if (mb_strlen($content) > 400) {
-                                        $content = mb_substr($content, 0, 400) . '...';
+                                    if (mb_strlen($content) > 350) {
+                                        $content = mb_substr($content, 0, 350) . '...';
                                     }
                                 @endphp
                                 <p class="mb-3 text-[13px] font-normal text-gray-700 dark:text-gray-400">
@@ -526,8 +532,8 @@
 
 {{-- Start Kegiatan --}}
 <section>
-<x-kegiatan :items="$kegiatan->content" />
-</div>
+{{-- <x-kegiatan :items="$kegiatan->content" />
+</div> --}}
 </section>
 {{-- End Kegiatan --}}
 

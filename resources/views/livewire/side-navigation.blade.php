@@ -6,7 +6,7 @@
         @if ($organizational->slug !== 'contact' && $organizational->slug !== 'general')
             <a wire:key="{{ $organizational->id }}" href="{{ route('abouts.show', $organizational->slug) }}">
                 <div class="container min-h-[35px] px-2 py-4" style="border-bottom: 1px solid #f5d05e">
-                    <p class="text-[15px] font-light text-white">
+                    <p class="text-base text-white hover:text-[#F5D05E]">
                         {{ $organizational->title }}
                     </p>
                 </div>
