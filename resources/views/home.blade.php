@@ -27,7 +27,7 @@
                     <h1 class="relative text-2xl md:text-3xl lg:text-4xl font-bold">
                         Arti Lambang Widyantara Abisatya
                         <span
-                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/4 after:bg-[#0D5568]"></span>
                     </h1>
                     <div class="flex flex-col mt-3 md:mt-5 lg:mt-5">
                         <div class="flex flex-row items-center pb-3">
@@ -86,7 +86,7 @@
                     <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
                         {{ $kabinet->title }}
                         <span
-                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/3 after:bg-[#0D5568]"></span>
+                            class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/4 after:bg-[#0D5568]"></span>
                     </h1>
                     <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
                         @foreach ($kabinet->content as $item)
@@ -304,14 +304,13 @@
                 </div>
                 <div class="z-10 h-14 w-40 bg-[#0D5568]" style="transform: translateY(-125%);"></div>
             </div>
-            <div class="flex-col md:flex-row gap-10 py-10">
-                <img src="/images/upn.png" alt="isr-profile"
+            <img src="/images/upn.png" alt="isr-profile"
                 class="aspect-square w-full sm:w-[50%] md:w-[70%] lg:w-[658px] rounded-lg" />
             <div class="w-full sm:w-[50%] md:w-[70%] xl:pr-80">
-                <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold pt-10">
+                <h1 class="relative w-full text-2xl md:text-3xl lg:text-4xl font-bold">
                     {{ $misi->title }}
                     <span
-                        class="ml-5 after:absolute after:bottom-2 after:h-[3px] sm:after:w-1/6 md:after:w-1/3 after:bg-[#0D5568]"></span>
+                        class="ml-5 after:absolute after:bottom-2 after:h-[3px] after:w-1/6 after:bg-[#0D5568]"></span>
                 </h1>
                 <p class="mt-3 md:mt-5 lg:mt-8 text-sm md:text-base">
                     @foreach ($misi->content as $item)
@@ -353,7 +352,6 @@
                     </a>
                     <img src="/images/arrow.svg" alt="arrow" class="h-[15px] w-[15px]" />
                 </div>
-            </div>
             </div>
             <div class="absolute bottom-0 right-0 hidden xl:block">
                 <img src="/images/side-decor-bottom-right.png" alt="decor" class="aspect-square w-[20vw]" />
