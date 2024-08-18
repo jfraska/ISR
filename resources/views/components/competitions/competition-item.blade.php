@@ -1,30 +1,50 @@
-@props(['competition'])
+@props([
+    "competition",
+])
 
 <article class="border-gray-100 pb-10 [&:not(:last-child)]:border-b">
-    <div class="article-body mt-5 grid grid-cols-1 md:grid-cols-12 items-start gap-3">
-        <div class="article-thumbnail col-span-1 md:col-span-4 flex items-center">
-            <a href="{{ route('competitions.show', ['category' => $competition->category, 'competition' => $competition->slug]) }}">
-                <img class="h-40 w-full rounded" src={{ $competition->getFirstMediaUrl() }}
-                    alt="{{ $competition->title }}" />
+    <div
+        class="article-body mt-5 grid grid-cols-1 items-start gap-3 md:grid-cols-12"
+    >
+        <div
+            class="article-thumbnail col-span-1 flex items-center md:col-span-4"
+        >
+            <a
+                href="{{ route("competitions.show", ["category" => $competition->category, "competition" => $competition->slug]) }}"
+            >
+                <img
+                    class="h-40 w-full rounded"
+                    src="BlIS7qUalKyYEQ0dMKc67NptuWYBVUYC3yswg7B"
+                    alt="{{ $competition->title }}"
+                />
             </a>
         </div>
-        <div class="col-span-1 md:col-span-8 pl-3">
+        <div class="col-span-1 pl-3 md:col-span-8">
             <div class="article-meta flex items-center py-1 text-sm">
-                <span class="mr-1 text-xs">{{ $competition->user->name }}</span>
+                <span class="mr-1 text-xs">
+                    {{ $competition->user->name }}
+                </span>
                 <span class="text-xs text-gray-500">
                     . {{ $competition->published_at->diffForHumans() }}
                 </span>
             </div>
-            <h2 class="text-md font-bold text-gray-900">
-                <a href="{{ route('competitions.show', ['category' => $competition->category, 'competition' => $competition->slug]) }}">
-                    {{ $competition->title }} </a>
+            <h2 class="text-sm font-bold text-gray-900 md:text-base">
+                <a
+                    href="{{ route("competitions.show", ["category" => $competition->category, "competition" => $competition->slug]) }}"
+                >
+                    {{ $competition->title }}
+                </a>
             </h2>
-            @php
-                $strippedExcerpt = Illuminate\Support\Str::limit(strip_tags($competition->content), 200);
-            @endphp
-
-            <p class="mt-2 text-sm font-light text-gray-700">
-                {{ $strippedExcerpt }}
+            <p class="mt-2 block text-xs font-light text-gray-700 md:hidden">
+                {{ Illuminate\Support\Str::limit(strip_tags($competition->excerpt()), 50) }}
+            </p>
+            <p
+                class="mt-2 hidden text-sm font-light text-gray-700 md:block lg:hidden"
+            >
+                {{ Illuminate\Support\Str::limit(strip_tags($competition->excerpt()), 300) }}
+            </p>
+            <p class="mt-2 hidden text-sm font-light text-gray-700 lg:block">
+                {{ Illuminate\Support\Str::limit(strip_tags($competition->excerpt()), 400) }}
             </p>
         </div>
     </div>
