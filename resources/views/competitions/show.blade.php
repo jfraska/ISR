@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div
-                        class="article-content prose w-full py-5 text-justify text-base text-gray-800"
+                        class="article-content prose font-regular w-full py-5 text-justify text-sm text-gray-800 md:text-base"
                     >
                         {!! $competition->content !!}
                         <button

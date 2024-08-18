@@ -24,11 +24,11 @@
                     {{ $achievement->subCategories }}
                 </h2>
                 <h1
-                    class="max-w-lg text-wrap text-center text-2xl font-medium md:text-3xl"
+                    class="max-w-2xl text-wrap text-center text-2xl font-medium md:text-3xl"
                 >
                     {{ $achievement->title }}
                 </h1>
-                <p class="text-sm font-normal">
+                <p class="text-xs md:text-sm">
                     {!! \Carbon\Carbon::parse($achievement->published_at)->format("d F Y, H:i") !!}
                 </p>
             </div>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div
-                        class="article-content prose w-full py-5 text-justify text-base text-gray-800"
+                        class="article-content prose font-regular w-full py-5 text-justify text-sm text-gray-800 md:text-base"
                     >
                         {!! $achievement->content !!}
                     </div>
