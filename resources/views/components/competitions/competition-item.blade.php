@@ -36,15 +36,15 @@
                 </a>
             </h2>
             <p class="mt-2 block text-xs font-light text-gray-700 md:hidden">
-                {{ Illuminate\Support\Str::limit(strip_tags($competition->excerpt()), 50) }}
+                {{ Illuminate\Support\Str::limit(strip_tags($competition->content), 50) }}
             </p>
             <p
                 class="mt-2 hidden text-sm font-light text-gray-700 md:block lg:hidden"
             >
-                {{ Illuminate\Support\Str::limit(strip_tags($competition->excerpt()), 300) }}
+                {{ Illuminate\Support\Str::limit(strip_tags($competition->content), 300) }}
             </p>
             <p class="mt-2 hidden text-sm font-light text-gray-700 lg:block">
-                {{ Illuminate\Support\Str::limit(strip_tags($competition->excerpt()), 400) }}
+                {{ Illuminate\Support\Str::limit(strip_tags($competition->content), 400) }}
             </p>
         </div>
     </div>
